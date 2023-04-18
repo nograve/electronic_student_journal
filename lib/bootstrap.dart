@@ -1,5 +1,5 @@
 // Copyright (c) 2022, Adryan Eka Vandra
-// https://github.com/adryanev/flutter-template-architecture-template
+// https://github.com/adryanev/flutter-electronic_student_journal-architecture-electronic_student_journal
 //
 // Use of this source code is governed by an MIT-style
 // license that can be found in the LICENSE file or at
@@ -9,8 +9,8 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:electronic_student_journal/injector.dart';
 import 'package:flutter/widgets.dart';
-import 'package:template/injector.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override

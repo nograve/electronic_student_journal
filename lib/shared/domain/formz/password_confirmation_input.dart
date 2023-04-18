@@ -1,5 +1,5 @@
+import 'package:electronic_student_journal/l10n/l10n.dart';
 import 'package:formz/formz.dart';
-import 'package:template/l10n/l10n.dart';
 
 enum PasswordConfirmationValidationError { mismatch }
 

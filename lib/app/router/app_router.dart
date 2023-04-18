@@ -1,6 +1,6 @@
+import 'package:electronic_student_journal/features/counter/counter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
-import 'package:template/features/counter/counter.dart';
 
 class AppRouter {
   static const home = 'counter';
