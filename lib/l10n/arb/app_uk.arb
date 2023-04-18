@@ -1,0 +1,10 @@
+{
+  "@@locale": "uk",
+  "counterAppBarTitle": "Лічильник",
+  "@counterAppBarTitle": {
+    "description": "Текст показаний на AppBar в сторінці Лічильника"
+  },
+  "invalidEmail": "Невірна адреса пошти",
+  "invalidPassword": "Пароль повинен мати довжину не менше 8 символів і містити принаймні одну літеру та цифру",
+  "confirmPasswordMismatch": "Підтвердження паролю не збігається"
+}
