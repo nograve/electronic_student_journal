@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -46,7 +45,7 @@ class App extends StatelessWidget {
                 colorScheme: ColorScheme.fromSwatch(
                   accentColor: const Color(0xFF13B9FF),
                 ),
-                fontFamily: GoogleFonts.poppins().fontFamily,
+                // fontFamily: GoogleFonts.poppins().fontFamily,
                 // textTheme:
                 //     Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
               ),
