@@ -1,5 +1,5 @@
 import 'package:electronic_student_journal/app/app.dart';
-import 'package:electronic_student_journal/features/counter/counter.dart';
+import 'package:electronic_student_journal/features/auth/presentation/views/auth_view.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,9 +12,9 @@ void main() {
 
   setUp(() => GoogleFonts.config.allowRuntimeFetching = false);
   group('App', () {
-    testWidgets('renders CounterPage', (tester) async {
+    testWidgets('renders AuthView', (tester) async {
       await tester.pumpWidget(const App());
-      expect(find.byType(CounterPage), findsOneWidget);
+      expect(find.byType(AuthView), findsOneWidget);
     });
   });
 }
