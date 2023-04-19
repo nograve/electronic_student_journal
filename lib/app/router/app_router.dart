@@ -1,10 +1,10 @@
-import 'package:electronic_student_journal/features/counter/counter.dart';
+import 'package:electronic_student_journal/features/auth/presentation/views/auth_view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
-  static const home = 'counter';
-  static const counter = 'counter';
+  static const home = 'auth';
+  static const auth = 'auth';
 }
 
 final appRouter = GoRouter(
@@ -13,7 +13,7 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/',
       name: AppRouter.home,
-      builder: (context, state) => const CounterPage(),
+      builder: (context, state) => const AuthView(),
     )
   ],
 );
