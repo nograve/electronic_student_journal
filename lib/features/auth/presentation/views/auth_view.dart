@@ -41,11 +41,23 @@ class _AuthViewState extends State<AuthView> {
                     children: [
                       Padding(
                         padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 16.h),
-                        child: TextFormField(),
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.person),
+                            labelText: 'Email',
+                            hintText: 'Enter your email',
+                          ),
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.w),
-                        child: TextFormField(),
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.lock),
+                            labelText: 'Password',
+                            hintText: 'Enter your password',
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -65,13 +77,6 @@ class _AuthViewState extends State<AuthView> {
                   child: const Text('Log in'),
                 ),
               ],
-            ),
-          ),
-          const Flexible(
-            child: TextButton(
-              // TODO(nograve): Navigate to register view
-              onPressed: null,
-              child: Text("Don't have an account?"),
             ),
           ),
         ],
