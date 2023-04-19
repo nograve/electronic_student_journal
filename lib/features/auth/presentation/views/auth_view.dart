@@ -17,38 +17,62 @@ class _AuthViewState extends State<AuthView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Container(
-            width: 250.h,
-            height: 250.h,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/logo.png'),
+          Flexible(
+            child: Container(
+              width: 250.h,
+              height: 250.h,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/logo.png'),
+                ),
               ),
             ),
           ),
-          Form(
-            key: _formkey,
+          Flexible(
+            flex: 2,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                TextFormField(),
-                TextFormField(),
+                Form(
+                  key: _formkey,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 16.h),
+                        child: TextFormField(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
+                        child: TextFormField(),
+                      ),
+                    ],
+                  ),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: Size(
+                      100.w,
+                      50.h,
+                    ),
+                  ),
+                  onPressed: () {
+                    if (_formkey.currentState!.validate()) {
+                      // TODO(nograve): Navigate to next(home) view
+                    }
+                  },
+                  child: const Text('Log in'),
+                ),
               ],
             ),
           ),
-          ElevatedButton(
-            onPressed: () {
-              if (_formkey.currentState!.validate()) {
-                // TODO(nograve): Navigate to next(home) view
-              }
-            },
-            child: const Text('Log in'),
-          ),
-          const TextButton(
-            // TODO(nograve): Navigate to register view
-            onPressed: null,
-            child: Text("Don't have an account?"),
+          const Flexible(
+            child: TextButton(
+              // TODO(nograve): Navigate to register view
+              onPressed: null,
+              child: Text("Don't have an account?"),
+            ),
           ),
         ],
       ),
