@@ -1,12 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'student.dart';
+part of 'teacher_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Student _$$_StudentFromJson(Map<String, dynamic> json) => _$_Student(
+_$_TeacherModel _$$_TeacherModelFromJson(Map<String, dynamic> json) =>
+    _$_TeacherModel(
+      id: json['id'] as String,
       email: json['email'] as String,
       role: json['role'] as String,
       name: json['name'] as String,
@@ -15,8 +17,9 @@ _$_Student _$$_StudentFromJson(Map<String, dynamic> json) => _$_Student(
       registeredAt: DateTime.parse(json['registeredAt'] as String),
     );
 
-Map<String, dynamic> _$$_StudentToJson(_$_Student instance) =>
+Map<String, dynamic> _$$_TeacherModelToJson(_$_TeacherModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'email': instance.email,
       'role': instance.role,
       'name': instance.name,

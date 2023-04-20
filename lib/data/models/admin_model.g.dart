@@ -1,19 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'admin.dart';
+part of 'admin_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Admin _$$_AdminFromJson(Map<String, dynamic> json) => _$_Admin(
+_$_AdminModel _$$_AdminModelFromJson(Map<String, dynamic> json) =>
+    _$_AdminModel(
+      id: json['id'] as String,
       email: json['email'] as String,
       role: json['role'] as String,
       lastAccessed: DateTime.parse(json['lastAccessed'] as String),
       registeredAt: DateTime.parse(json['registeredAt'] as String),
     );
 
-Map<String, dynamic> _$$_AdminToJson(_$_Admin instance) => <String, dynamic>{
+Map<String, dynamic> _$$_AdminModelToJson(_$_AdminModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
       'email': instance.email,
       'role': instance.role,
       'lastAccessed': instance.lastAccessed.toIso8601String(),

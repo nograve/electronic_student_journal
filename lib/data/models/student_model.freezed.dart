@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'student.dart';
+part of 'student_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,13 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Student _$StudentFromJson(Map<String, dynamic> json) {
-  return _Student.fromJson(json);
+StudentModel _$StudentModelFromJson(Map<String, dynamic> json) {
+  return _StudentModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Student {
+mixin _$StudentModel {
+  String get id => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get role => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -29,16 +30,19 @@ mixin _$Student {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $StudentCopyWith<Student> get copyWith => throw _privateConstructorUsedError;
+  $StudentModelCopyWith<StudentModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $StudentCopyWith<$Res> {
-  factory $StudentCopyWith(Student value, $Res Function(Student) then) =
-      _$StudentCopyWithImpl<$Res, Student>;
+abstract class $StudentModelCopyWith<$Res> {
+  factory $StudentModelCopyWith(
+          StudentModel value, $Res Function(StudentModel) then) =
+      _$StudentModelCopyWithImpl<$Res, StudentModel>;
   @useResult
   $Res call(
-      {String email,
+      {String id,
+      String email,
       String role,
       String name,
       String surname,
@@ -47,9 +51,9 @@ abstract class $StudentCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$StudentCopyWithImpl<$Res, $Val extends Student>
-    implements $StudentCopyWith<$Res> {
-  _$StudentCopyWithImpl(this._value, this._then);
+class _$StudentModelCopyWithImpl<$Res, $Val extends StudentModel>
+    implements $StudentModelCopyWith<$Res> {
+  _$StudentModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -59,6 +63,7 @@ class _$StudentCopyWithImpl<$Res, $Val extends Student>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? email = null,
     Object? role = null,
     Object? name = null,
@@ -67,6 +72,10 @@ class _$StudentCopyWithImpl<$Res, $Val extends Student>
     Object? registeredAt = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -96,14 +105,16 @@ class _$StudentCopyWithImpl<$Res, $Val extends Student>
 }
 
 /// @nodoc
-abstract class _$$_StudentCopyWith<$Res> implements $StudentCopyWith<$Res> {
-  factory _$$_StudentCopyWith(
-          _$_Student value, $Res Function(_$_Student) then) =
-      __$$_StudentCopyWithImpl<$Res>;
+abstract class _$$_StudentModelCopyWith<$Res>
+    implements $StudentModelCopyWith<$Res> {
+  factory _$$_StudentModelCopyWith(
+          _$_StudentModel value, $Res Function(_$_StudentModel) then) =
+      __$$_StudentModelCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {String email,
+      {String id,
+      String email,
       String role,
       String name,
       String surname,
@@ -112,15 +123,17 @@ abstract class _$$_StudentCopyWith<$Res> implements $StudentCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_StudentCopyWithImpl<$Res>
-    extends _$StudentCopyWithImpl<$Res, _$_Student>
-    implements _$$_StudentCopyWith<$Res> {
-  __$$_StudentCopyWithImpl(_$_Student _value, $Res Function(_$_Student) _then)
+class __$$_StudentModelCopyWithImpl<$Res>
+    extends _$StudentModelCopyWithImpl<$Res, _$_StudentModel>
+    implements _$$_StudentModelCopyWith<$Res> {
+  __$$_StudentModelCopyWithImpl(
+      _$_StudentModel _value, $Res Function(_$_StudentModel) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? email = null,
     Object? role = null,
     Object? name = null,
@@ -128,7 +141,11 @@ class __$$_StudentCopyWithImpl<$Res>
     Object? lastAccessed = null,
     Object? registeredAt = null,
   }) {
-    return _then(_$_Student(
+    return _then(_$_StudentModel(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -159,19 +176,21 @@ class __$$_StudentCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Student extends _Student with DiagnosticableTreeMixin {
-  const _$_Student(
-      {required this.email,
+class _$_StudentModel implements _StudentModel {
+  const _$_StudentModel(
+      {required this.id,
+      required this.email,
       required this.role,
       required this.name,
       required this.surname,
       required this.lastAccessed,
-      required this.registeredAt})
-      : super._();
+      required this.registeredAt});
 
-  factory _$_Student.fromJson(Map<String, dynamic> json) =>
-      _$$_StudentFromJson(json);
+  factory _$_StudentModel.fromJson(Map<String, dynamic> json) =>
+      _$$_StudentModelFromJson(json);
 
+  @override
+  final String id;
   @override
   final String email;
   @override
@@ -185,70 +204,35 @@ class _$_Student extends _Student with DiagnosticableTreeMixin {
   @override
   final DateTime registeredAt;
 
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Student(email: $email, role: $role, name: $name, surname: $surname, lastAccessed: $lastAccessed, registeredAt: $registeredAt)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Student'))
-      ..add(DiagnosticsProperty('email', email))
-      ..add(DiagnosticsProperty('role', role))
-      ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('surname', surname))
-      ..add(DiagnosticsProperty('lastAccessed', lastAccessed))
-      ..add(DiagnosticsProperty('registeredAt', registeredAt));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Student &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.role, role) || other.role == role) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.surname, surname) || other.surname == surname) &&
-            (identical(other.lastAccessed, lastAccessed) ||
-                other.lastAccessed == lastAccessed) &&
-            (identical(other.registeredAt, registeredAt) ||
-                other.registeredAt == registeredAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, email, role, name, surname, lastAccessed, registeredAt);
-
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_StudentCopyWith<_$_Student> get copyWith =>
-      __$$_StudentCopyWithImpl<_$_Student>(this, _$identity);
+  _$$_StudentModelCopyWith<_$_StudentModel> get copyWith =>
+      __$$_StudentModelCopyWithImpl<_$_StudentModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_StudentToJson(
+    return _$$_StudentModelToJson(
       this,
     );
   }
 }
 
-abstract class _Student extends Student {
-  const factory _Student(
-      {required final String email,
+abstract class _StudentModel implements StudentModel {
+  const factory _StudentModel(
+      {required final String id,
+      required final String email,
       required final String role,
       required final String name,
       required final String surname,
       required final DateTime lastAccessed,
-      required final DateTime registeredAt}) = _$_Student;
-  const _Student._() : super._();
+      required final DateTime registeredAt}) = _$_StudentModel;
 
-  factory _Student.fromJson(Map<String, dynamic> json) = _$_Student.fromJson;
+  factory _StudentModel.fromJson(Map<String, dynamic> json) =
+      _$_StudentModel.fromJson;
 
+  @override
+  String get id;
   @override
   String get email;
   @override
@@ -263,6 +247,6 @@ abstract class _Student extends Student {
   DateTime get registeredAt;
   @override
   @JsonKey(ignore: true)
-  _$$_StudentCopyWith<_$_Student> get copyWith =>
+  _$$_StudentModelCopyWith<_$_StudentModel> get copyWith =>
       throw _privateConstructorUsedError;
 }

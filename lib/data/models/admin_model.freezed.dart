@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'admin.dart';
+part of 'admin_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,13 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Admin _$AdminFromJson(Map<String, dynamic> json) {
-  return _Admin.fromJson(json);
+AdminModel _$AdminModelFromJson(Map<String, dynamic> json) {
+  return _AdminModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Admin {
+mixin _$AdminModel {
+  String get id => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get role => throw _privateConstructorUsedError;
   DateTime get lastAccessed => throw _privateConstructorUsedError;
@@ -27,25 +28,28 @@ mixin _$Admin {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AdminCopyWith<Admin> get copyWith => throw _privateConstructorUsedError;
+  $AdminModelCopyWith<AdminModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AdminCopyWith<$Res> {
-  factory $AdminCopyWith(Admin value, $Res Function(Admin) then) =
-      _$AdminCopyWithImpl<$Res, Admin>;
+abstract class $AdminModelCopyWith<$Res> {
+  factory $AdminModelCopyWith(
+          AdminModel value, $Res Function(AdminModel) then) =
+      _$AdminModelCopyWithImpl<$Res, AdminModel>;
   @useResult
   $Res call(
-      {String email,
+      {String id,
+      String email,
       String role,
       DateTime lastAccessed,
       DateTime registeredAt});
 }
 
 /// @nodoc
-class _$AdminCopyWithImpl<$Res, $Val extends Admin>
-    implements $AdminCopyWith<$Res> {
-  _$AdminCopyWithImpl(this._value, this._then);
+class _$AdminModelCopyWithImpl<$Res, $Val extends AdminModel>
+    implements $AdminModelCopyWith<$Res> {
+  _$AdminModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -55,12 +59,17 @@ class _$AdminCopyWithImpl<$Res, $Val extends Admin>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? email = null,
     Object? role = null,
     Object? lastAccessed = null,
     Object? registeredAt = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -82,33 +91,43 @@ class _$AdminCopyWithImpl<$Res, $Val extends Admin>
 }
 
 /// @nodoc
-abstract class _$$_AdminCopyWith<$Res> implements $AdminCopyWith<$Res> {
-  factory _$$_AdminCopyWith(_$_Admin value, $Res Function(_$_Admin) then) =
-      __$$_AdminCopyWithImpl<$Res>;
+abstract class _$$_AdminModelCopyWith<$Res>
+    implements $AdminModelCopyWith<$Res> {
+  factory _$$_AdminModelCopyWith(
+          _$_AdminModel value, $Res Function(_$_AdminModel) then) =
+      __$$_AdminModelCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {String email,
+      {String id,
+      String email,
       String role,
       DateTime lastAccessed,
       DateTime registeredAt});
 }
 
 /// @nodoc
-class __$$_AdminCopyWithImpl<$Res> extends _$AdminCopyWithImpl<$Res, _$_Admin>
-    implements _$$_AdminCopyWith<$Res> {
-  __$$_AdminCopyWithImpl(_$_Admin _value, $Res Function(_$_Admin) _then)
+class __$$_AdminModelCopyWithImpl<$Res>
+    extends _$AdminModelCopyWithImpl<$Res, _$_AdminModel>
+    implements _$$_AdminModelCopyWith<$Res> {
+  __$$_AdminModelCopyWithImpl(
+      _$_AdminModel _value, $Res Function(_$_AdminModel) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? email = null,
     Object? role = null,
     Object? lastAccessed = null,
     Object? registeredAt = null,
   }) {
-    return _then(_$_Admin(
+    return _then(_$_AdminModel(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -131,17 +150,19 @@ class __$$_AdminCopyWithImpl<$Res> extends _$AdminCopyWithImpl<$Res, _$_Admin>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Admin extends _Admin with DiagnosticableTreeMixin {
-  const _$_Admin(
-      {required this.email,
+class _$_AdminModel implements _AdminModel {
+  const _$_AdminModel(
+      {required this.id,
+      required this.email,
       required this.role,
       required this.lastAccessed,
-      required this.registeredAt})
-      : super._();
+      required this.registeredAt});
 
-  factory _$_Admin.fromJson(Map<String, dynamic> json) =>
-      _$$_AdminFromJson(json);
+  factory _$_AdminModel.fromJson(Map<String, dynamic> json) =>
+      _$$_AdminModelFromJson(json);
 
+  @override
+  final String id;
   @override
   final String email;
   @override
@@ -151,64 +172,33 @@ class _$_Admin extends _Admin with DiagnosticableTreeMixin {
   @override
   final DateTime registeredAt;
 
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Admin(email: $email, role: $role, lastAccessed: $lastAccessed, registeredAt: $registeredAt)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Admin'))
-      ..add(DiagnosticsProperty('email', email))
-      ..add(DiagnosticsProperty('role', role))
-      ..add(DiagnosticsProperty('lastAccessed', lastAccessed))
-      ..add(DiagnosticsProperty('registeredAt', registeredAt));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Admin &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.role, role) || other.role == role) &&
-            (identical(other.lastAccessed, lastAccessed) ||
-                other.lastAccessed == lastAccessed) &&
-            (identical(other.registeredAt, registeredAt) ||
-                other.registeredAt == registeredAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, email, role, lastAccessed, registeredAt);
-
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AdminCopyWith<_$_Admin> get copyWith =>
-      __$$_AdminCopyWithImpl<_$_Admin>(this, _$identity);
+  _$$_AdminModelCopyWith<_$_AdminModel> get copyWith =>
+      __$$_AdminModelCopyWithImpl<_$_AdminModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AdminToJson(
+    return _$$_AdminModelToJson(
       this,
     );
   }
 }
 
-abstract class _Admin extends Admin {
-  const factory _Admin(
-      {required final String email,
+abstract class _AdminModel implements AdminModel {
+  const factory _AdminModel(
+      {required final String id,
+      required final String email,
       required final String role,
       required final DateTime lastAccessed,
-      required final DateTime registeredAt}) = _$_Admin;
-  const _Admin._() : super._();
+      required final DateTime registeredAt}) = _$_AdminModel;
 
-  factory _Admin.fromJson(Map<String, dynamic> json) = _$_Admin.fromJson;
+  factory _AdminModel.fromJson(Map<String, dynamic> json) =
+      _$_AdminModel.fromJson;
 
+  @override
+  String get id;
   @override
   String get email;
   @override
@@ -219,6 +209,6 @@ abstract class _Admin extends Admin {
   DateTime get registeredAt;
   @override
   @JsonKey(ignore: true)
-  _$$_AdminCopyWith<_$_Admin> get copyWith =>
+  _$$_AdminModelCopyWith<_$_AdminModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
