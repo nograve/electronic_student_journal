@@ -23,10 +23,10 @@ mixin _$UserModel {
   String get uid => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get role => throw _privateConstructorUsedError;
-  DateTime get registeredAt => throw _privateConstructorUsedError;
-  DateTime get lastAccessed => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get surname => throw _privateConstructorUsedError;
+  DateTime? get registeredAt => throw _privateConstructorUsedError;
+  DateTime? get lastAccessed => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get surname => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,10 +43,10 @@ abstract class $UserModelCopyWith<$Res> {
       {String uid,
       String email,
       String role,
-      DateTime registeredAt,
-      DateTime lastAccessed,
-      String name,
-      String surname});
+      DateTime? registeredAt,
+      DateTime? lastAccessed,
+      String? name,
+      String? surname});
 }
 
 /// @nodoc
@@ -65,10 +65,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? uid = null,
     Object? email = null,
     Object? role = null,
-    Object? registeredAt = null,
-    Object? lastAccessed = null,
-    Object? name = null,
-    Object? surname = null,
+    Object? registeredAt = freezed,
+    Object? lastAccessed = freezed,
+    Object? name = freezed,
+    Object? surname = freezed,
   }) {
     return _then(_value.copyWith(
       uid: null == uid
@@ -83,22 +83,22 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as String,
-      registeredAt: null == registeredAt
+      registeredAt: freezed == registeredAt
           ? _value.registeredAt
           : registeredAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      lastAccessed: null == lastAccessed
+              as DateTime?,
+      lastAccessed: freezed == lastAccessed
           ? _value.lastAccessed
           : lastAccessed // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      name: null == name
+              as DateTime?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      surname: null == surname
+              as String?,
+      surname: freezed == surname
           ? _value.surname
           : surname // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -114,10 +114,10 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       {String uid,
       String email,
       String role,
-      DateTime registeredAt,
-      DateTime lastAccessed,
-      String name,
-      String surname});
+      DateTime? registeredAt,
+      DateTime? lastAccessed,
+      String? name,
+      String? surname});
 }
 
 /// @nodoc
@@ -134,10 +134,10 @@ class __$$_UserModelCopyWithImpl<$Res>
     Object? uid = null,
     Object? email = null,
     Object? role = null,
-    Object? registeredAt = null,
-    Object? lastAccessed = null,
-    Object? name = null,
-    Object? surname = null,
+    Object? registeredAt = freezed,
+    Object? lastAccessed = freezed,
+    Object? name = freezed,
+    Object? surname = freezed,
   }) {
     return _then(_$_UserModel(
       uid: null == uid
@@ -152,22 +152,22 @@ class __$$_UserModelCopyWithImpl<$Res>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as String,
-      registeredAt: null == registeredAt
+      registeredAt: freezed == registeredAt
           ? _value.registeredAt
           : registeredAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      lastAccessed: null == lastAccessed
+              as DateTime?,
+      lastAccessed: freezed == lastAccessed
           ? _value.lastAccessed
           : lastAccessed // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      name: null == name
+              as DateTime?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      surname: null == surname
+              as String?,
+      surname: freezed == surname
           ? _value.surname
           : surname // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -194,13 +194,13 @@ class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
   @override
   final String role;
   @override
-  final DateTime registeredAt;
+  final DateTime? registeredAt;
   @override
-  final DateTime lastAccessed;
+  final DateTime? lastAccessed;
   @override
-  final String name;
+  final String? name;
   @override
-  final String surname;
+  final String? surname;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -261,10 +261,10 @@ abstract class _UserModel implements UserModel {
       {required final String uid,
       required final String email,
       required final String role,
-      required final DateTime registeredAt,
-      required final DateTime lastAccessed,
-      required final String name,
-      required final String surname}) = _$_UserModel;
+      required final DateTime? registeredAt,
+      required final DateTime? lastAccessed,
+      required final String? name,
+      required final String? surname}) = _$_UserModel;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$_UserModel.fromJson;
@@ -276,13 +276,13 @@ abstract class _UserModel implements UserModel {
   @override
   String get role;
   @override
-  DateTime get registeredAt;
+  DateTime? get registeredAt;
   @override
-  DateTime get lastAccessed;
+  DateTime? get lastAccessed;
   @override
-  String get name;
+  String? get name;
   @override
-  String get surname;
+  String? get surname;
   @override
   @JsonKey(ignore: true)
   _$$_UserModelCopyWith<_$_UserModel> get copyWith =>

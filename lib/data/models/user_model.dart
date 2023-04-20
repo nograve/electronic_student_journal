@@ -1,6 +1,5 @@
 import 'package:electronic_student_journal/domain/entities/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
 
 part 'user_model.freezed.dart';
 part 'user_model.g.dart';
@@ -13,10 +12,10 @@ class UserModel with _$UserModel {
     required String uid,
     required String email,
     required String role,
-    required DateTime registeredAt,
-    required DateTime lastAccessed,
-    required String name,
-    required String surname,
+    required DateTime? registeredAt,
+    required DateTime? lastAccessed,
+    required String? name,
+    required String? surname,
   }) = _UserModel;
 
   ///
