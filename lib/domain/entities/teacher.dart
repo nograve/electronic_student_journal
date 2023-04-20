@@ -2,38 +2,17 @@ import 'package:electronic_student_journal/domain/entities/person.dart';
 import 'package:equatable/equatable.dart';
 
 ///
-class Teacher extends Equatable implements Person {
+class Teacher extends Person with EquatableMixin {
   ///
-  const Teacher({
-    required this.name,
-    required this.surname,
-    required this.id,
-    required this.email,
-    required this.role,
-    required this.lastAccessed,
-    required this.registeredAt,
+  Teacher({
+    required super.name,
+    required super.surname,
+    required super.id,
+    required super.email,
+    required super.role,
+    required super.lastAccessed,
+    required super.registeredAt,
   });
-
-  @override
-  final String name;
-
-  @override
-  final String surname;
-
-  @override
-  final String id;
-
-  @override
-  final String email;
-
-  @override
-  final String role;
-
-  @override
-  final DateTime lastAccessed;
-
-  @override
-  final DateTime registeredAt;
 
   @override
   List<Object?> get props => [
