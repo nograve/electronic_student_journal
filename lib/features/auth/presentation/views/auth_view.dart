@@ -1,4 +1,5 @@
 import 'package:electronic_student_journal/core/presentation/mixins/failure_message_handler.dart';
+import 'package:electronic_student_journal/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,12 +10,12 @@ class AuthView extends StatefulWidget with FailureMessageHandler {
   State<AuthView> createState() => _AuthViewState();
 }
 
-// TODO(nograve): Add i10n
 class _AuthViewState extends State<AuthView> {
   final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -25,6 +26,7 @@ class _AuthViewState extends State<AuthView> {
               height: 250.h,
               decoration: const BoxDecoration(
                 image: DecorationImage(
+                  // TODO(nograve): Make image trasnparent
                   image: AssetImage('assets/images/logo.png'),
                 ),
               ),
@@ -42,20 +44,20 @@ class _AuthViewState extends State<AuthView> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 16.h),
                         child: TextFormField(
-                          decoration: const InputDecoration(
-                            prefixIcon: Icon(Icons.person),
-                            labelText: 'Email',
-                            hintText: 'Enter your email',
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(Icons.person),
+                            labelText: l10n.emailLabelText,
+                            hintText: l10n.emailHintText,
                           ),
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.w),
                         child: TextFormField(
-                          decoration: const InputDecoration(
-                            prefixIcon: Icon(Icons.lock),
-                            labelText: 'Password',
-                            hintText: 'Enter your password',
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(Icons.lock),
+                            labelText: l10n.passwordLabelText,
+                            hintText: l10n.passwordHintText,
                           ),
                         ),
                       ),
@@ -74,7 +76,7 @@ class _AuthViewState extends State<AuthView> {
                       // TODO(nograve): Navigate to next(home) view
                     }
                   },
-                  child: const Text('Log in'),
+                  child: Text(l10n.logInButtonText),
                 ),
               ],
             ),
