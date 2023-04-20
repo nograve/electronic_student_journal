@@ -21,6 +21,7 @@ Teacher _$TeacherFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Teacher {
   String get email => throw _privateConstructorUsedError;
+  String get role => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get surname => throw _privateConstructorUsedError;
   DateTime get lastAccessed => throw _privateConstructorUsedError;
@@ -38,6 +39,7 @@ abstract class $TeacherCopyWith<$Res> {
   @useResult
   $Res call(
       {String email,
+      String role,
       String name,
       String surname,
       DateTime lastAccessed,
@@ -58,6 +60,7 @@ class _$TeacherCopyWithImpl<$Res, $Val extends Teacher>
   @override
   $Res call({
     Object? email = null,
+    Object? role = null,
     Object? name = null,
     Object? surname = null,
     Object? lastAccessed = null,
@@ -67,6 +70,10 @@ class _$TeacherCopyWithImpl<$Res, $Val extends Teacher>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -97,6 +104,7 @@ abstract class _$$_TeacherCopyWith<$Res> implements $TeacherCopyWith<$Res> {
   @useResult
   $Res call(
       {String email,
+      String role,
       String name,
       String surname,
       DateTime lastAccessed,
@@ -114,6 +122,7 @@ class __$$_TeacherCopyWithImpl<$Res>
   @override
   $Res call({
     Object? email = null,
+    Object? role = null,
     Object? name = null,
     Object? surname = null,
     Object? lastAccessed = null,
@@ -123,6 +132,10 @@ class __$$_TeacherCopyWithImpl<$Res>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -149,6 +162,7 @@ class __$$_TeacherCopyWithImpl<$Res>
 class _$_Teacher extends _Teacher with DiagnosticableTreeMixin {
   const _$_Teacher(
       {required this.email,
+      required this.role,
       required this.name,
       required this.surname,
       required this.lastAccessed,
@@ -161,6 +175,8 @@ class _$_Teacher extends _Teacher with DiagnosticableTreeMixin {
   @override
   final String email;
   @override
+  final String role;
+  @override
   final String name;
   @override
   final String surname;
@@ -171,7 +187,7 @@ class _$_Teacher extends _Teacher with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Teacher(email: $email, name: $name, surname: $surname, lastAccessed: $lastAccessed, registeredAt: $registeredAt)';
+    return 'Teacher(email: $email, role: $role, name: $name, surname: $surname, lastAccessed: $lastAccessed, registeredAt: $registeredAt)';
   }
 
   @override
@@ -180,6 +196,7 @@ class _$_Teacher extends _Teacher with DiagnosticableTreeMixin {
     properties
       ..add(DiagnosticsProperty('type', 'Teacher'))
       ..add(DiagnosticsProperty('email', email))
+      ..add(DiagnosticsProperty('role', role))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('surname', surname))
       ..add(DiagnosticsProperty('lastAccessed', lastAccessed))
@@ -192,6 +209,7 @@ class _$_Teacher extends _Teacher with DiagnosticableTreeMixin {
         (other.runtimeType == runtimeType &&
             other is _$_Teacher &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.role, role) || other.role == role) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.surname, surname) || other.surname == surname) &&
             (identical(other.lastAccessed, lastAccessed) ||
@@ -203,7 +221,7 @@ class _$_Teacher extends _Teacher with DiagnosticableTreeMixin {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, email, name, surname, lastAccessed, registeredAt);
+      runtimeType, email, role, name, surname, lastAccessed, registeredAt);
 
   @JsonKey(ignore: true)
   @override
@@ -222,6 +240,7 @@ class _$_Teacher extends _Teacher with DiagnosticableTreeMixin {
 abstract class _Teacher extends Teacher {
   const factory _Teacher(
       {required final String email,
+      required final String role,
       required final String name,
       required final String surname,
       required final DateTime lastAccessed,
@@ -232,6 +251,8 @@ abstract class _Teacher extends Teacher {
 
   @override
   String get email;
+  @override
+  String get role;
   @override
   String get name;
   @override

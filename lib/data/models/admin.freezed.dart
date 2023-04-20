@@ -21,6 +21,7 @@ Admin _$AdminFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Admin {
   String get email => throw _privateConstructorUsedError;
+  String get role => throw _privateConstructorUsedError;
   DateTime get lastAccessed => throw _privateConstructorUsedError;
   DateTime get registeredAt => throw _privateConstructorUsedError;
 
@@ -34,7 +35,11 @@ abstract class $AdminCopyWith<$Res> {
   factory $AdminCopyWith(Admin value, $Res Function(Admin) then) =
       _$AdminCopyWithImpl<$Res, Admin>;
   @useResult
-  $Res call({String email, DateTime lastAccessed, DateTime registeredAt});
+  $Res call(
+      {String email,
+      String role,
+      DateTime lastAccessed,
+      DateTime registeredAt});
 }
 
 /// @nodoc
@@ -51,6 +56,7 @@ class _$AdminCopyWithImpl<$Res, $Val extends Admin>
   @override
   $Res call({
     Object? email = null,
+    Object? role = null,
     Object? lastAccessed = null,
     Object? registeredAt = null,
   }) {
@@ -58,6 +64,10 @@ class _$AdminCopyWithImpl<$Res, $Val extends Admin>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
               as String,
       lastAccessed: null == lastAccessed
           ? _value.lastAccessed
@@ -77,7 +87,11 @@ abstract class _$$_AdminCopyWith<$Res> implements $AdminCopyWith<$Res> {
       __$$_AdminCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String email, DateTime lastAccessed, DateTime registeredAt});
+  $Res call(
+      {String email,
+      String role,
+      DateTime lastAccessed,
+      DateTime registeredAt});
 }
 
 /// @nodoc
@@ -90,6 +104,7 @@ class __$$_AdminCopyWithImpl<$Res> extends _$AdminCopyWithImpl<$Res, _$_Admin>
   @override
   $Res call({
     Object? email = null,
+    Object? role = null,
     Object? lastAccessed = null,
     Object? registeredAt = null,
   }) {
@@ -97,6 +112,10 @@ class __$$_AdminCopyWithImpl<$Res> extends _$AdminCopyWithImpl<$Res, _$_Admin>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
               as String,
       lastAccessed: null == lastAccessed
           ? _value.lastAccessed
@@ -115,6 +134,7 @@ class __$$_AdminCopyWithImpl<$Res> extends _$AdminCopyWithImpl<$Res, _$_Admin>
 class _$_Admin extends _Admin with DiagnosticableTreeMixin {
   const _$_Admin(
       {required this.email,
+      required this.role,
       required this.lastAccessed,
       required this.registeredAt})
       : super._();
@@ -125,13 +145,15 @@ class _$_Admin extends _Admin with DiagnosticableTreeMixin {
   @override
   final String email;
   @override
+  final String role;
+  @override
   final DateTime lastAccessed;
   @override
   final DateTime registeredAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Admin(email: $email, lastAccessed: $lastAccessed, registeredAt: $registeredAt)';
+    return 'Admin(email: $email, role: $role, lastAccessed: $lastAccessed, registeredAt: $registeredAt)';
   }
 
   @override
@@ -140,6 +162,7 @@ class _$_Admin extends _Admin with DiagnosticableTreeMixin {
     properties
       ..add(DiagnosticsProperty('type', 'Admin'))
       ..add(DiagnosticsProperty('email', email))
+      ..add(DiagnosticsProperty('role', role))
       ..add(DiagnosticsProperty('lastAccessed', lastAccessed))
       ..add(DiagnosticsProperty('registeredAt', registeredAt));
   }
@@ -150,6 +173,7 @@ class _$_Admin extends _Admin with DiagnosticableTreeMixin {
         (other.runtimeType == runtimeType &&
             other is _$_Admin &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.role, role) || other.role == role) &&
             (identical(other.lastAccessed, lastAccessed) ||
                 other.lastAccessed == lastAccessed) &&
             (identical(other.registeredAt, registeredAt) ||
@@ -159,7 +183,7 @@ class _$_Admin extends _Admin with DiagnosticableTreeMixin {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, email, lastAccessed, registeredAt);
+      Object.hash(runtimeType, email, role, lastAccessed, registeredAt);
 
   @JsonKey(ignore: true)
   @override
@@ -178,6 +202,7 @@ class _$_Admin extends _Admin with DiagnosticableTreeMixin {
 abstract class _Admin extends Admin {
   const factory _Admin(
       {required final String email,
+      required final String role,
       required final DateTime lastAccessed,
       required final DateTime registeredAt}) = _$_Admin;
   const _Admin._() : super._();
@@ -186,6 +211,8 @@ abstract class _Admin extends Admin {
 
   @override
   String get email;
+  @override
+  String get role;
   @override
   DateTime get lastAccessed;
   @override

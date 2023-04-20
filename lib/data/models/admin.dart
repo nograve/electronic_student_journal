@@ -15,6 +15,7 @@ class Admin with User, _$Admin {
   // ignore: sort_unnamed_constructors_first
   const factory Admin({
     required String email,
+    required String role,
     required DateTime lastAccessed,
     required DateTime registeredAt,
   }) = _Admin;

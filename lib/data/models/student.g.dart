@@ -8,6 +8,7 @@ part of 'student.dart';
 
 _$_Student _$$_StudentFromJson(Map<String, dynamic> json) => _$_Student(
       email: json['email'] as String,
+      role: json['role'] as String,
       name: json['name'] as String,
       surname: json['surname'] as String,
       lastAccessed: DateTime.parse(json['lastAccessed'] as String),
@@ -17,6 +18,7 @@ _$_Student _$$_StudentFromJson(Map<String, dynamic> json) => _$_Student(
 Map<String, dynamic> _$$_StudentToJson(_$_Student instance) =>
     <String, dynamic>{
       'email': instance.email,
+      'role': instance.role,
       'name': instance.name,
       'surname': instance.surname,
       'lastAccessed': instance.lastAccessed.toIso8601String(),

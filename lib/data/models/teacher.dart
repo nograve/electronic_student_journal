@@ -16,6 +16,7 @@ class Teacher with User, Person, _$Teacher {
   // ignore: sort_unnamed_constructors_first
   const factory Teacher({
     required String email,
+    required String role,
     required String name,
     required String surname,
     required DateTime lastAccessed,
