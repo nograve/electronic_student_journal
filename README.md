@@ -1,6 +1,6 @@
-# electronic_student_journal_simple
+# electronic_student_journal
 
-A new Flutter project.
+Electronic student journal written with Flutter.
 
 ## Getting Started
 
