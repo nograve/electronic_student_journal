@@ -2,14 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:electronic_student_journal/data/datasources/firebase_remote_data_source.dart';
 import 'package:electronic_student_journal/data/models/user_model.dart';
-import 'package:electronic_student_journal/domain/entities/user_entity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 ///
 class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
   final _firebaseAuth = FirebaseAuth.instance;
   final _firebaseFirestore = FirebaseFirestore.instance;
-  UserModel? _currentUser;
+  // UserModel? _currentUser;
 
   @override
   Future<Either<Exception, UserModel>> signIn(
@@ -41,6 +40,6 @@ class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
   @override
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
-    _currentUser = null;
+    // _currentUser = null;
   }
 }

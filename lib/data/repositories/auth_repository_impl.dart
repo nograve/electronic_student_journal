@@ -5,10 +5,12 @@ import 'package:electronic_student_journal/domain/repositories/auth_repository.d
 
 ///
 class AuthRepositoryImpl implements AuthRepository {
+  ///
   AuthRepositoryImpl(this._firebaseRemoteDataSource);
 
   final FirebaseRemoteDataSource _firebaseRemoteDataSource;
 
+  @override
   Future<Either<Exception, UserEntity>> signIn(
     String email,
     String password,
