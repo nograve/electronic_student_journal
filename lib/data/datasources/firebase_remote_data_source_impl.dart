@@ -12,7 +12,7 @@ class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
   UserModel? _currentUser;
 
   @override
-  Future<Either<Exception, UserEntity>> signIn(
+  Future<Either<Exception, UserModel>> signIn(
     String email,
     String password,
   ) async {
@@ -28,8 +28,7 @@ class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
           .get();
       // TODO(nograve): Add empty data exception here
       if (doc.data() != null) {
-        _currentUser = UserModel.fromJson(doc.data()!);
-        return Right(_currentUser!.toEntity());
+        return Right(UserModel.fromJson(doc.data()!));
       }
       return Left(Exception());
     } on FirebaseAuthException catch (e) {
