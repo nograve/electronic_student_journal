@@ -1,3 +1,5 @@
+// TODO(nograve): Move user roles to constants file
+
 ///
 class UserRole {
   ///

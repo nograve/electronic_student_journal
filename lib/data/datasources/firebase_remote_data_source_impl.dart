@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:electronic_student_journal/data/datasources/firebase_remote_data_source.dart';
+import 'package:electronic_student_journal/data/failure.dart';
 import 'package:electronic_student_journal/data/models/user_model.dart';
+import 'package:electronic_student_journal/domain/usecases/log_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 ///
@@ -11,29 +13,25 @@ class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
   // UserModel? _currentUser;
 
   @override
-  Future<Either<Exception, UserModel>> signIn(
-    String email,
-    String password,
-  ) async {
+  Future<Either<Failure, UserModel>> signIn(LogInParams logInParams) async {
     try {
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
+        email: logInParams.email,
+        password: logInParams.password,
       );
       // TODO(nograve): Add users collection name to constants
       final doc = await _firebaseFirestore
           .collection('users')
           .doc(userCredential.user!.uid)
           .get();
-      // TODO(nograve): Add empty data exception here
       if (doc.data() != null) {
         return Right(UserModel.fromJson(doc.data()!));
       }
-      return Left(Exception());
+      return const Left(EmptyDataFailure('No data'));
     } on FirebaseAuthException catch (e) {
-      return Left(e);
+      return Left(ServerFailure(e.message ?? 'Server failure.'));
     } on Exception catch (e) {
-      return Left(e);
+      return Left(SomeFailure(e.toString()));
     }
   }
 

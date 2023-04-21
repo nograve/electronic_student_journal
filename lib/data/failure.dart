@@ -25,7 +25,13 @@ class ConnectionFailure extends Failure {
 }
 
 ///
-class DatabaseFailure extends Failure {
+class EmptyDataFailure extends Failure {
   ///
-  const DatabaseFailure(super.message);
+  const EmptyDataFailure(super.message);
+}
+
+///
+class SomeFailure extends Failure {
+  ///
+  const SomeFailure(super.message);
 }
