@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
 ///
-class User extends Equatable {
+class UserEntity extends Equatable {
   ///
-  const User({
+  const UserEntity({
     required this.uid,
     required this.email,
     required this.role,

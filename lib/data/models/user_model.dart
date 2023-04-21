@@ -1,4 +1,4 @@
-import 'package:electronic_student_journal/domain/entities/user.dart';
+import 'package:electronic_student_journal/domain/entities/user_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_model.freezed.dart';
@@ -19,11 +19,11 @@ class UserModel with _$UserModel {
   }) = _UserModel;
 
   ///
-  factory UserModel.fromJson(Map<String, Object?> json) =>
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
 
   ///
-  User toEntity() => User(
+  UserEntity toEntity() => UserEntity(
         uid: uid,
         email: email,
         role: role,
