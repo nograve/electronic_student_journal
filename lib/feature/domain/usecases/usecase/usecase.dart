@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:electronic_student_journal/data/failure.dart';
+import 'package:electronic_student_journal/core/error/failure.dart';
 
 ///
 // ignore: one_member_abstracts

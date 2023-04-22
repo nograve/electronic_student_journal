@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:electronic_student_journal/data/datasources/firebase_remote_data_source.dart';
-import 'package:electronic_student_journal/data/failure.dart';
-import 'package:electronic_student_journal/domain/entities/user_entity.dart';
-import 'package:electronic_student_journal/domain/repositories/auth_repository.dart';
-import 'package:electronic_student_journal/domain/usecases/log_in.dart';
+import 'package:electronic_student_journal/core/error/failure.dart';
+import 'package:electronic_student_journal/feature/data/datasources/firebase_remote_data_source.dart';
+import 'package:electronic_student_journal/feature/domain/entities/user_entity.dart';
+import 'package:electronic_student_journal/feature/domain/repositories/auth_repository.dart';
+import 'package:electronic_student_journal/feature/domain/usecases/log_in.dart';
 
 ///
 class AuthRepositoryImpl implements AuthRepository {
