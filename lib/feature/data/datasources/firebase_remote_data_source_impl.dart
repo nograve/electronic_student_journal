@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:electronic_student_journal/core/error/failure.dart';
 import 'package:electronic_student_journal/feature/data/datasources/firebase_remote_data_source.dart';
 import 'package:electronic_student_journal/feature/data/models/user_model.dart';
-import 'package:electronic_student_journal/feature/domain/usecases/log_in.dart';
+import 'package:electronic_student_journal/feature/domain/usecases/sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 ///
@@ -13,11 +13,11 @@ class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
   // UserModel? _currentUser;
 
   @override
-  Future<Either<Failure, UserModel>> signIn(LogInParams logInParams) async {
+  Future<Either<Failure, UserModel>> signIn(SignInParams signInParams) async {
     try {
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
-        email: logInParams.email,
-        password: logInParams.password,
+        email: signInParams.email,
+        password: signInParams.password,
       );
       // TODO(nograve): Add users collection name to constants
       final doc = await _firebaseFirestore
@@ -36,8 +36,9 @@ class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
   }
 
   @override
-  Future<void> signOut() async {
+  Future<Either<Failure, bool>> signOut() async {
     await _firebaseAuth.signOut();
+    return const Right(true);
     // _currentUser = null;
   }
 }

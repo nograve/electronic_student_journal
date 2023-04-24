@@ -3,7 +3,7 @@ import 'package:electronic_student_journal/core/error/failure.dart';
 import 'package:electronic_student_journal/feature/data/datasources/firebase_remote_data_source.dart';
 import 'package:electronic_student_journal/feature/domain/entities/user_entity.dart';
 import 'package:electronic_student_journal/feature/domain/repositories/auth_repository.dart';
-import 'package:electronic_student_journal/feature/domain/usecases/log_in.dart';
+import 'package:electronic_student_journal/feature/domain/usecases/sign_in.dart';
 
 ///
 class AuthRepositoryImpl implements AuthRepository {
@@ -13,16 +13,17 @@ class AuthRepositoryImpl implements AuthRepository {
   final FirebaseRemoteDataSource _firebaseRemoteDataSource;
 
   @override
-  Future<Either<Failure, UserEntity>> signIn(LogInParams logInParams) async {
-    final response = await _firebaseRemoteDataSource.signIn(logInParams);
+  Future<Either<Failure, UserEntity>> signIn(SignInParams signInParams) async {
+    final response = await _firebaseRemoteDataSource.signIn(signInParams);
     return response.fold(
       Left.new,
-      (signInResponse) => Right(signInResponse.toEntity()),
+      (userModel) => Right(userModel.toEntity()),
     );
   }
 
   @override
-  Future<void> signOut() async {
-    await _firebaseRemoteDataSource.signOut();
+  Future<Either<Failure, bool>> signOut() async {
+    final response = await _firebaseRemoteDataSource.signOut();
+    return response.fold(Left.new, Right.new);
   }
 }
