@@ -89,10 +89,11 @@ class _AuthViewState extends State<AuthView> {
                   onPressed: () {
                     if (_formkey.currentState!.validate()) {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (context) => const HomeView(),
-                          ));
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (context) => const HomeView(),
+                        ),
+                      );
                     }
                   },
                   child: Text(l10n.logInButtonText),
