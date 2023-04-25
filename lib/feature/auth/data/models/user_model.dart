@@ -1,4 +1,4 @@
-import 'package:electronic_student_journal/feature/domain/entities/user_entity.dart';
+import 'package:electronic_student_journal/feature/auth/domain/entities/user_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_model.freezed.dart';

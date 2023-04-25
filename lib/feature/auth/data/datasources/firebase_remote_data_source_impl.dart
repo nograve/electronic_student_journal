@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:electronic_student_journal/core/error/failure.dart';
-import 'package:electronic_student_journal/feature/data/datasources/firebase_remote_data_source.dart';
-import 'package:electronic_student_journal/feature/data/models/user_model.dart';
-import 'package:electronic_student_journal/feature/domain/usecases/sign_in.dart';
+import 'package:electronic_student_journal/feature/auth/data/datasources/firebase_remote_data_source.dart';
+import 'package:electronic_student_journal/feature/auth/data/models/user_model.dart';
+import 'package:electronic_student_journal/feature/auth/domain/usecases/sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 ///

@@ -1,4 +1,6 @@
+import 'package:electronic_student_journal/feature/home/presentation/views/home_view.dart';
 import 'package:electronic_student_journal/gen/assets.gen.dart';
+import 'package:electronic_student_journal/utils/helper/auth_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,6 +41,7 @@ class _AuthViewState extends State<AuthView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                // TODO(nograve): Put sign in button in form
                 Form(
                   key: _formkey,
                   child: Column(
@@ -46,6 +49,11 @@ class _AuthViewState extends State<AuthView> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 16.h),
                         child: TextFormField(
+                          validator: (email) => email != null
+                              ? (!AuthHelper.isValidEmail(email)
+                                  ? l10n.invalidEmail
+                                  : null)
+                              : null,
                           decoration: InputDecoration(
                             prefixIcon: const Icon(Icons.person),
                             labelText: l10n.emailLabelText,
@@ -56,6 +64,11 @@ class _AuthViewState extends State<AuthView> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.w),
                         child: TextFormField(
+                          validator: (password) => password != null
+                              ? (!AuthHelper.isValidPassword(password)
+                                  ? l10n.invalidEmail
+                                  : null)
+                              : null,
                           decoration: InputDecoration(
                             prefixIcon: const Icon(Icons.lock),
                             labelText: l10n.passwordLabelText,
@@ -75,7 +88,11 @@ class _AuthViewState extends State<AuthView> {
                   ),
                   onPressed: () {
                     if (_formkey.currentState!.validate()) {
-                      // TODO(nograve): Navigate to next(home) view
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (context) => const HomeView(),
+                          ));
                     }
                   },
                   child: Text(l10n.logInButtonText),
