@@ -1,14 +1,12 @@
-name: template
+name: electronic_student_journal
 
 on:
   push:
     branches:
       - master
-      - staging
   pull_request:
     branches:
       - master
-      - staging
 
 jobs:
   semantic-pull-request:
