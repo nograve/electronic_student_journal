@@ -1,4 +1,5 @@
-// TODO(nograve): Maybe use it as extension to String... Or put it at the top level
+// TODO(nograve): Maybe use it as extension to String... Or put it
+// at the top level
 ///
 class AuthHelper {
   AuthHelper._();
