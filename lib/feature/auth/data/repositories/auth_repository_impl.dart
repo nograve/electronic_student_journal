@@ -5,9 +5,7 @@ import 'package:electronic_student_journal/feature/auth/domain/entities/user_ent
 import 'package:electronic_student_journal/feature/auth/domain/repositories/auth_repository.dart';
 import 'package:electronic_student_journal/feature/auth/domain/usecases/sign_in.dart';
 
-///
 class AuthRepositoryImpl implements AuthRepository {
-  ///
   AuthRepositoryImpl(this._firebaseRemoteDataSource);
 
   final FirebaseRemoteDataSource _firebaseRemoteDataSource;

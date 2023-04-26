@@ -8,9 +8,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'sign_in.freezed.dart';
 part 'sign_in.g.dart';
 
-///
 class SignIn extends UseCase<UserEntity, SignInParams> {
-  ///
   SignIn(this._repository);
 
   final AuthRepository _repository;
@@ -20,16 +18,13 @@ class SignIn extends UseCase<UserEntity, SignInParams> {
       _repository.signIn(params);
 }
 
-///
 @freezed
 class SignInParams with _$SignInParams {
-  ///
   const factory SignInParams({
     @Default('') String email,
     @Default('') String password,
   }) = _SignInParams;
 
-  ///
   factory SignInParams.fromJson(Map<String, dynamic> json) =>
       _$SignInParamsFromJson(json);
 }

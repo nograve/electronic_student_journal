@@ -6,7 +6,6 @@ import 'package:electronic_student_journal/feature/auth/data/models/user_model.d
 import 'package:electronic_student_journal/feature/auth/domain/usecases/sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-///
 class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
   final _firebaseAuth = FirebaseAuth.instance;
   final _firebaseFirestore = FirebaseFirestore.instance;
