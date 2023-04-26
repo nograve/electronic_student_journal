@@ -4,7 +4,7 @@
   "passwordLabelText": "Password",
   "emailHintText": "Enter your email",
   "passwordHintText": "Enter your password",
-  "logInButtonText": "Log in",
+  "signInButtonText": "Sign in",
   "invalidEmail": "Invalid Email Address",
   "invalidPassword": "Password must be at least 8 characters and contain at least one letter and number",
   "confirmPasswordMismatch": "Password confirmation not match"

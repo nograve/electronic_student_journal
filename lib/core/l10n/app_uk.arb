@@ -4,8 +4,8 @@
   "passwordLabelText": "Пароль",
   "emailHintText": "Введіть адресу електронної пошти",
   "passwordHintText": "Введіть пароль",
+  "signInButtonText": "Увійти",
   "invalidEmail": "Невірна адреса пошти",
-  "logInButtonText": "Увійти",
   "invalidPassword": "Пароль повинен мати довжину не менше 8 символів і містити принаймні одну літеру та цифру",
   "confirmPasswordMismatch": "Підтвердження паролю не збігається"
 }

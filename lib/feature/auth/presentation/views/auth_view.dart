@@ -38,67 +38,60 @@ class _AuthViewState extends State<AuthView> {
           ),
           Flexible(
             flex: 2,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                // TODO(nograve): Put sign in button in form
-                Form(
-                  key: _formkey,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 16.h),
-                        child: TextFormField(
-                          validator: (email) => email != null
-                              ? (!email.isValidEmail()
-                                  ? l10n.invalidEmail
-                                  : null)
-                              : null,
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.person),
-                            labelText: l10n.emailLabelText,
-                            hintText: l10n.emailHintText,
-                          ),
-                        ),
+            child: Form(
+              key: _formkey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 16.h),
+                    child: TextFormField(
+                      validator: (email) => email != null
+                          ? (!email.isValidEmail() ? l10n.invalidEmail : null)
+                          : null,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.person),
+                        labelText: l10n.emailLabelText,
+                        hintText: l10n.emailHintText,
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.w),
-                        child: TextFormField(
-                          validator: (password) => password != null
-                              ? (!password.isValidPassword()
-                                  ? l10n.invalidEmail
-                                  : null)
-                              : null,
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.lock),
-                            labelText: l10n.passwordLabelText,
-                            hintText: l10n.passwordHintText,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: Size(
-                      100.w,
-                      50.h,
                     ),
                   ),
-                  onPressed: () {
-                    if (_formkey.currentState!.validate()) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (context) => const HomeView(),
-                        ),
-                      );
-                    }
-                  },
-                  child: Text(l10n.logInButtonText),
-                ),
-              ],
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 32.h),
+                    child: TextFormField(
+                      validator: (password) => password != null
+                          ? (!password.isValidPassword()
+                              ? l10n.invalidEmail
+                              : null)
+                          : null,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.lock),
+                        labelText: l10n.passwordLabelText,
+                        hintText: l10n.passwordHintText,
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(
+                        100.w,
+                        50.h,
+                      ),
+                    ),
+                    onPressed: () {
+                      if (_formkey.currentState!.validate()) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (context) => const HomeView(),
+                          ),
+                        );
+                      }
+                    },
+                    child: Text(l10n.signInButtonText),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
