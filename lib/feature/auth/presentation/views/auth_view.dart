@@ -1,6 +1,6 @@
 import 'package:electronic_student_journal/feature/home/presentation/views/home_view.dart';
 import 'package:electronic_student_journal/gen/assets.gen.dart';
-import 'package:electronic_student_journal/utils/helper/auth_helper.dart';
+import 'package:electronic_student_journal/utils/ext/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,7 +50,7 @@ class _AuthViewState extends State<AuthView> {
                         padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 16.h),
                         child: TextFormField(
                           validator: (email) => email != null
-                              ? (!AuthHelper.isValidEmail(email)
+                              ? (!email.isValidEmail()
                                   ? l10n.invalidEmail
                                   : null)
                               : null,
@@ -65,7 +65,7 @@ class _AuthViewState extends State<AuthView> {
                         padding: EdgeInsets.symmetric(horizontal: 8.w),
                         child: TextFormField(
                           validator: (password) => password != null
-                              ? (!AuthHelper.isValidPassword(password)
+                              ? (!password.isValidPassword()
                                   ? l10n.invalidEmail
                                   : null)
                               : null,
