@@ -1,3 +1,4 @@
+import 'package:electronic_student_journal/core/theme/theme_constants.dart';
 import 'package:electronic_student_journal/feature/auth/presentation/views/auth_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           title: 'Electronic student journal',
+          theme: lightTheme,
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
