@@ -2,6 +2,7 @@
 
 class UserRole {
   UserRole._();
+
   static String student = 'student';
 
   static String teacher = 'teacher';
