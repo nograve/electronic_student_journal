@@ -96,6 +96,7 @@ class _AuthViewState extends State<AuthView> {
                       ),
                       onPressed: () {
                         if (_formkey.currentState!.validate()) {
+                          _formkey.currentState!.save();
                           context.read<AuthCubit>().signIn(
                                 SignInParams(
                                   email: _email!,
