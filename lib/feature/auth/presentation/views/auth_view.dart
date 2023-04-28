@@ -1,7 +1,10 @@
+import 'package:electronic_student_journal/feature/auth/domain/usecases/post_sign_in.dart';
+import 'package:electronic_student_journal/feature/auth/presentation/cubit/auth_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/views/home_view.dart';
 import 'package:electronic_student_journal/gen/assets.gen.dart';
 import 'package:electronic_student_journal/utils/ext/auth_string.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,6 +17,8 @@ class AuthView extends StatefulWidget {
 
 class _AuthViewState extends State<AuthView> {
   final _formkey = GlobalKey<FormState>();
+  String? _email;
+  String? _password;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +52,7 @@ class _AuthViewState extends State<AuthView> {
                       validator: (email) => email != null
                           ? (!email.isValidEmail() ? l10n.invalidEmail : null)
                           : null,
+                      onSaved: (newEmail) => _email = newEmail,
                       decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.person),
                         labelText: l10n.emailLabelText,
@@ -62,6 +68,7 @@ class _AuthViewState extends State<AuthView> {
                               ? l10n.invalidEmail
                               : null)
                           : null,
+                      onSaved: (newPassword) => _password = newPassword,
                       decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.lock),
                         labelText: l10n.passwordLabelText,
@@ -69,24 +76,36 @@ class _AuthViewState extends State<AuthView> {
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(
-                        100.w,
-                        50.h,
-                      ),
-                    ),
-                    onPressed: () {
-                      if (_formkey.currentState!.validate()) {
-                        Navigator.push(
+                  BlocListener<AuthCubit, AuthState>(
+                    listener: (context, state) {
+                      state.whenOrNull(
+                        success: (_) => Navigator.push(
                           context,
                           MaterialPageRoute<void>(
                             builder: (context) => const HomeView(),
                           ),
-                        );
-                      }
+                        ),
+                      );
                     },
-                    child: Text(l10n.signInButtonText),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size(
+                          100.w,
+                          50.h,
+                        ),
+                      ),
+                      onPressed: () {
+                        if (_formkey.currentState!.validate()) {
+                          context.read<AuthCubit>().signIn(
+                                SignInParams(
+                                  email: _email!,
+                                  password: _password!,
+                                ),
+                              );
+                        }
+                      },
+                      child: Text(l10n.signInButtonText),
+                    ),
                   ),
                 ],
               ),

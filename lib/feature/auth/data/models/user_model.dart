@@ -16,6 +16,8 @@ class UserModel with _$UserModel {
     required String? surname,
   }) = _UserModel;
 
+  const UserModel._();
+
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
 
