@@ -23,7 +23,9 @@ mixin _$UserModel {
   String get uid => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get role => throw _privateConstructorUsedError;
-  DateTime? get registeredAt => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  DateTime get registeredAt => throw _privateConstructorUsedError;
+  @TimestampNullableConverter()
   DateTime? get lastAccessed => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get surname => throw _privateConstructorUsedError;
@@ -43,8 +45,8 @@ abstract class $UserModelCopyWith<$Res> {
       {String uid,
       String email,
       String role,
-      DateTime? registeredAt,
-      DateTime? lastAccessed,
+      @TimestampConverter() DateTime registeredAt,
+      @TimestampNullableConverter() DateTime? lastAccessed,
       String? name,
       String? surname});
 }
@@ -65,7 +67,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? uid = null,
     Object? email = null,
     Object? role = null,
-    Object? registeredAt = freezed,
+    Object? registeredAt = null,
     Object? lastAccessed = freezed,
     Object? name = freezed,
     Object? surname = freezed,
@@ -83,10 +85,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as String,
-      registeredAt: freezed == registeredAt
+      registeredAt: null == registeredAt
           ? _value.registeredAt
           : registeredAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
       lastAccessed: freezed == lastAccessed
           ? _value.lastAccessed
           : lastAccessed // ignore: cast_nullable_to_non_nullable
@@ -114,8 +116,8 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       {String uid,
       String email,
       String role,
-      DateTime? registeredAt,
-      DateTime? lastAccessed,
+      @TimestampConverter() DateTime registeredAt,
+      @TimestampNullableConverter() DateTime? lastAccessed,
       String? name,
       String? surname});
 }
@@ -134,7 +136,7 @@ class __$$_UserModelCopyWithImpl<$Res>
     Object? uid = null,
     Object? email = null,
     Object? role = null,
-    Object? registeredAt = freezed,
+    Object? registeredAt = null,
     Object? lastAccessed = freezed,
     Object? name = freezed,
     Object? surname = freezed,
@@ -152,10 +154,10 @@ class __$$_UserModelCopyWithImpl<$Res>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as String,
-      registeredAt: freezed == registeredAt
+      registeredAt: null == registeredAt
           ? _value.registeredAt
           : registeredAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
       lastAccessed: freezed == lastAccessed
           ? _value.lastAccessed
           : lastAccessed // ignore: cast_nullable_to_non_nullable
@@ -179,8 +181,8 @@ class _$_UserModel extends _UserModel {
       {required this.uid,
       required this.email,
       required this.role,
-      required this.registeredAt,
-      required this.lastAccessed,
+      @TimestampConverter() required this.registeredAt,
+      @TimestampNullableConverter() required this.lastAccessed,
       required this.name,
       required this.surname})
       : super._();
@@ -195,8 +197,10 @@ class _$_UserModel extends _UserModel {
   @override
   final String role;
   @override
-  final DateTime? registeredAt;
+  @TimestampConverter()
+  final DateTime registeredAt;
   @override
+  @TimestampNullableConverter()
   final DateTime? lastAccessed;
   @override
   final String? name;
@@ -248,8 +252,8 @@ abstract class _UserModel extends UserModel {
       {required final String uid,
       required final String email,
       required final String role,
-      required final DateTime? registeredAt,
-      required final DateTime? lastAccessed,
+      @TimestampConverter() required final DateTime registeredAt,
+      @TimestampNullableConverter() required final DateTime? lastAccessed,
       required final String? name,
       required final String? surname}) = _$_UserModel;
   const _UserModel._() : super._();
@@ -264,8 +268,10 @@ abstract class _UserModel extends UserModel {
   @override
   String get role;
   @override
-  DateTime? get registeredAt;
+  @TimestampConverter()
+  DateTime get registeredAt;
   @override
+  @TimestampNullableConverter()
   DateTime? get lastAccessed;
   @override
   String? get name;

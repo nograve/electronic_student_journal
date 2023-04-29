@@ -10,12 +10,10 @@ _$_UserModel _$$_UserModelFromJson(Map<String, dynamic> json) => _$_UserModel(
       uid: json['uid'] as String,
       email: json['email'] as String,
       role: json['role'] as String,
-      registeredAt: json['registeredAt'] == null
-          ? null
-          : DateTime.parse(json['registeredAt'] as String),
-      lastAccessed: json['lastAccessed'] == null
-          ? null
-          : DateTime.parse(json['lastAccessed'] as String),
+      registeredAt: const TimestampConverter()
+          .fromJson(json['registeredAt'] as Timestamp),
+      lastAccessed: const TimestampNullableConverter()
+          .fromJson(json['lastAccessed'] as Timestamp?),
       name: json['name'] as String?,
       surname: json['surname'] as String?,
     );
@@ -25,8 +23,9 @@ Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
       'uid': instance.uid,
       'email': instance.email,
       'role': instance.role,
-      'registeredAt': instance.registeredAt?.toIso8601String(),
-      'lastAccessed': instance.lastAccessed?.toIso8601String(),
+      'registeredAt': const TimestampConverter().toJson(instance.registeredAt),
+      'lastAccessed':
+          const TimestampNullableConverter().toJson(instance.lastAccessed),
       'name': instance.name,
       'surname': instance.surname,
     };

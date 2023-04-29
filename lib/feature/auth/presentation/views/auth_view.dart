@@ -79,12 +79,14 @@ class _AuthViewState extends State<AuthView> {
                   BlocListener<AuthCubit, AuthState>(
                     listener: (context, state) {
                       state.whenOrNull(
-                        success: (_) => Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (context) => const HomeView(),
-                          ),
-                        ),
+                        success: (_) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (context) => const HomeView(),
+                            ),
+                          );
+                        },
                       );
                     },
                     child: ElevatedButton(
@@ -94,10 +96,10 @@ class _AuthViewState extends State<AuthView> {
                           50.h,
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formkey.currentState!.validate()) {
                           _formkey.currentState!.save();
-                          context.read<AuthCubit>().signIn(
+                          await context.read<AuthCubit>().signIn(
                                 SignInParams(
                                   email: _email!,
                                   password: _password!,

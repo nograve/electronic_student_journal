@@ -17,7 +17,7 @@ class UserEntity extends Equatable {
 
   final String role;
 
-  final DateTime? registeredAt;
+  final DateTime registeredAt;
 
   final DateTime? lastAccessed;
 

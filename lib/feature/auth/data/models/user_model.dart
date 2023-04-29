@@ -1,8 +1,31 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:electronic_student_journal/feature/auth/domain/entities/user_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_model.freezed.dart';
 part 'user_model.g.dart';
+
+class TimestampConverter implements JsonConverter<DateTime, Timestamp> {
+  const TimestampConverter();
+
+  @override
+  DateTime fromJson(Timestamp json) => json.toDate();
+
+  @override
+  Timestamp toJson(DateTime object) => Timestamp.fromDate(object);
+}
+
+class TimestampNullableConverter
+    implements JsonConverter<DateTime?, Timestamp?> {
+  const TimestampNullableConverter();
+
+  @override
+  DateTime? fromJson(Timestamp? json) => json?.toDate();
+
+  @override
+  Timestamp? toJson(DateTime? object) =>
+      object == null ? null : Timestamp.fromDate(object);
+}
 
 @freezed
 class UserModel with _$UserModel {
@@ -10,8 +33,8 @@ class UserModel with _$UserModel {
     required String uid,
     required String email,
     required String role,
-    required DateTime? registeredAt,
-    required DateTime? lastAccessed,
+    @TimestampConverter() required DateTime registeredAt,
+    @TimestampNullableConverter() required DateTime? lastAccessed,
     required String? name,
     required String? surname,
   }) = _UserModel;
