@@ -13,6 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // TODO(nograve): Add options
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
