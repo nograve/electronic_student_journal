@@ -6,6 +6,6 @@ Electronic student journal written with Flutter.
 
 Write the following command before running the application:
 
-'''sh
+```sh
 flutter pub run build_runner build --delete-conflicting-outputs
-'''
+```
