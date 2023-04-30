@@ -4,6 +4,7 @@ import 'package:electronic_student_journal/feature/auth/data/repositories/auth_r
 import 'package:electronic_student_journal/feature/auth/domain/usecases/post_sign_in.dart';
 import 'package:electronic_student_journal/feature/auth/presentation/cubit/auth_cubit.dart';
 import 'package:electronic_student_journal/feature/auth/presentation/views/auth_view.dart';
+import 'package:electronic_student_journal/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,8 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // TODO(nograve): Add options
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
