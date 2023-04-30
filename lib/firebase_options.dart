@@ -70,7 +70,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '340213947966',
     projectId: 'electronic-student-journal',
     storageBucket: 'electronic-student-journal.appspot.com',
-    iosClientId: '340213947966-ho26n86siigpp8r3iglcu4j5j1qnvdap.apps.googleusercontent.com',
+    iosClientId:
+        '340213947966-ho26n86siigpp8r3iglcu4j5j1qnvdap.apps.googleusercontent.com',
     iosBundleId: 'com.example.electronicStudentJournalSimple',
   );
 }
