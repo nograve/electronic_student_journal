@@ -1,13 +1,8 @@
+import 'package:electronic_student_journal/core/router/app_router.dart';
 import 'package:electronic_student_journal/core/theme/theme_constants.dart';
-import 'package:electronic_student_journal/feature/auth/data/datasources/firebase_remote_data_source_impl.dart';
-import 'package:electronic_student_journal/feature/auth/data/repositories/auth_repository_impl.dart';
-import 'package:electronic_student_journal/feature/auth/domain/usecases/post_sign_in.dart';
-import 'package:electronic_student_journal/feature/auth/presentation/cubit/auth_cubit.dart';
-import 'package:electronic_student_journal/feature/auth/presentation/views/auth_view.dart';
 import 'package:electronic_student_journal/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,7 +24,7 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
+        return MaterialApp.router(
           title: 'Electronic student journal',
           theme: lightTheme,
           localizationsDelegates: const [
@@ -39,16 +34,15 @@ class MyApp extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: AppLocalizations.supportedLocales,
-          home: child,
+          routerConfig: appRouter,
+          builder: (context, child) {
+            return MediaQuery(
+              data: MediaQuery.of(context),
+              child: child!,
+            );
+          },
         );
       },
-      child: BlocProvider(
-        create: (_) => AuthCubit(
-          postSignIn:
-              PostSignIn(AuthRepositoryImpl(FirebaseRemoteDataSourceImpl())),
-        ),
-        child: const AuthView(),
-      ),
     );
   }
 }
