@@ -1,4 +1,4 @@
-import 'package:electronic_student_journal/feature/auth/domain/usecases/post_sign_in.dart';
+import 'package:electronic_student_journal/feature/auth/domain/usecases/sign_in_usecase.dart';
 import 'package:electronic_student_journal/feature/auth/presentation/cubit/auth_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/views/home_view.dart';
 import 'package:electronic_student_journal/gen/assets.gen.dart';

@@ -1,4 +1,5 @@
-import 'package:electronic_student_journal/core/router/app_router.dart';
+import 'package:electronic_student_journal/core/app/di/injector.dart';
+import 'package:electronic_student_journal/core/app/router/app_router.dart';
 import 'package:electronic_student_journal/core/theme/theme_constants.dart';
 import 'package:electronic_student_journal/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  initDependencies();
   runApp(const MyApp());
 }
 

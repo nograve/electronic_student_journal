@@ -1,6 +1,6 @@
 import 'package:electronic_student_journal/feature/auth/data/datasources/firebase_remote_data_source_impl.dart';
 import 'package:electronic_student_journal/feature/auth/data/repositories/auth_repository_impl.dart';
-import 'package:electronic_student_journal/feature/auth/domain/usecases/post_sign_in.dart';
+import 'package:electronic_student_journal/feature/auth/domain/usecases/sign_in_usecase.dart';
 import 'package:electronic_student_journal/feature/auth/presentation/cubit/auth_cubit.dart';
 import 'package:electronic_student_journal/feature/auth/presentation/views/auth_view.dart';
 import 'package:electronic_student_journal/feature/home/presentation/views/home_view.dart';
@@ -32,7 +32,7 @@ final appRouter = GoRouter(
       name: Routes.login.name,
       builder: (_, __) => BlocProvider(
         create: (_) => AuthCubit(
-          postSignIn: PostSignIn(
+          signInUseCase: SignInUseCase(
             AuthRepositoryImpl(FirebaseRemoteDataSourceImpl()),
           ),
         ),

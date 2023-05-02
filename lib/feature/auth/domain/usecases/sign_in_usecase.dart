@@ -5,11 +5,11 @@ import 'package:electronic_student_journal/feature/auth/domain/entities/user_ent
 import 'package:electronic_student_journal/feature/auth/domain/repositories/auth_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'post_sign_in.freezed.dart';
-part 'post_sign_in.g.dart';
+part 'sign_in_usecase.freezed.dart';
+part 'sign_in_usecase.g.dart';
 
-class PostSignIn extends UseCase<UserEntity, SignInParams> {
-  PostSignIn(this._repository);
+class SignInUseCase extends UseCase<UserEntity, SignInParams> {
+  SignInUseCase(this._repository);
 
   final AuthRepository _repository;
 
