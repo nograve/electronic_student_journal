@@ -1,9 +1,6 @@
-import 'package:electronic_student_journal/feature/auth/data/datasources/firebase_remote_data_source_impl.dart';
-import 'package:electronic_student_journal/feature/auth/data/repositories/auth_repository_impl.dart';
-import 'package:electronic_student_journal/feature/auth/domain/usecases/sign_in_usecase.dart';
+import 'package:electronic_student_journal/core/app/di/injector.dart';
 import 'package:electronic_student_journal/feature/auth/presentation/cubit/auth_cubit.dart';
 import 'package:electronic_student_journal/feature/auth/presentation/views/auth_view.dart';
-import 'package:electronic_student_journal/feature/home/presentation/views/home_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -24,18 +21,14 @@ final appRouter = GoRouter(
     GoRoute(
       path: Routes.home.path,
       name: Routes.home.name,
-      builder: (_, __) => const HomeView(),
+      builder: (_, __) => const AuthView(),
     ),
     // Login
     GoRoute(
       path: Routes.login.path,
       name: Routes.login.name,
-      builder: (_, __) => BlocProvider(
-        create: (_) => AuthCubit(
-          signInUseCase: SignInUseCase(
-            AuthRepositoryImpl(FirebaseRemoteDataSourceImpl()),
-          ),
-        ),
+      builder: (_, __) => BlocProvider<AuthCubit>(
+        create: (_) => injector(),
         child: const AuthView(),
       ),
     ),
