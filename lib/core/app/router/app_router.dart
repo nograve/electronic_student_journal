@@ -21,7 +21,10 @@ final appRouter = GoRouter(
     GoRoute(
       path: Routes.home.path,
       name: Routes.home.name,
-      builder: (_, __) => const AuthView(),
+      builder: (_, __) => BlocProvider<AuthCubit>(
+        create: (_) => injector(),
+        child: const AuthView(),
+      ),
     ),
     // Login
     GoRoute(
