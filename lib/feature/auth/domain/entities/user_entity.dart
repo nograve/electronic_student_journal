@@ -1,5 +1,15 @@
 import 'package:equatable/equatable.dart';
 
+class UserRole {
+  UserRole._();
+
+  static String student = 'student';
+
+  static String teacher = 'teacher';
+
+  static String admin = 'admin';
+}
+
 class UserEntity extends Equatable {
   const UserEntity({
     required this.uid,
