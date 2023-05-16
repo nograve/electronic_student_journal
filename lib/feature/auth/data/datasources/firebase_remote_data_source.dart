@@ -7,4 +7,6 @@ abstract class FirebaseRemoteDataSource {
   Future<Either<Failure, UserModel>> signIn(SignInParams signInParams);
 
   Future<Either<Failure, bool>> signOut();
+
+  Future<Either<Failure, bool>> isSignedIn();
 }

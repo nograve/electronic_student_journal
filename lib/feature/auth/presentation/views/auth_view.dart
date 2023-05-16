@@ -1,12 +1,12 @@
 import 'package:electronic_student_journal/feature/auth/domain/usecases/sign_in_usecase.dart';
 import 'package:electronic_student_journal/feature/auth/presentation/cubit/auth_cubit.dart';
-import 'package:electronic_student_journal/feature/home/presentation/views/home_view.dart';
 import 'package:electronic_student_journal/gen/assets.gen.dart';
 import 'package:electronic_student_journal/utils/ext/auth_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class AuthView extends StatefulWidget {
   const AuthView({super.key});
@@ -80,12 +80,7 @@ class _AuthViewState extends State<AuthView> {
                     listener: (context, state) {
                       state.whenOrNull(
                         success: (_) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute<void>(
-                              builder: (context) => const HomeView(),
-                            ),
-                          );
+                          GoRouter.of(context).go('/');
                         },
                       );
                     },

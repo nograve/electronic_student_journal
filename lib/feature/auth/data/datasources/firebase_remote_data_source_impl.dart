@@ -9,7 +9,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
   final _firebaseAuth = FirebaseAuth.instance;
   final _firebaseFirestore = FirebaseFirestore.instance;
-  // UserModel? _currentUser;
 
   @override
   Future<Either<Failure, UserModel>> signIn(SignInParams signInParams) async {
@@ -34,10 +33,20 @@ class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
     }
   }
 
+  // TODO(nograve): Add exceptions handling
   @override
   Future<Either<Failure, bool>> signOut() async {
     await _firebaseAuth.signOut();
     return const Right(true);
-    // _currentUser = null;
+  }
+
+  @override
+  Future<Either<Failure, bool>> isSignedIn() async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      return Right(user != null);
+    } catch (e) {
+      return Left(SomeFailure(e.toString()));
+    }
   }
 }

@@ -7,4 +7,6 @@ abstract class AuthRepository {
   Future<Either<Failure, UserEntity>> signIn(SignInParams signInParams);
 
   Future<Either<Failure, bool>> signOut();
+
+  Future<Either<Failure, bool>> isSignedIn();
 }
