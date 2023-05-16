@@ -6,7 +6,7 @@ import 'package:electronic_student_journal/feature/auth/domain/usecases/sign_in_
 abstract class FirebaseRemoteDataSource {
   Future<Either<Failure, UserModel>> signIn(SignInParams signInParams);
 
-  Future<Either<Failure, bool>> signOut();
+  Future<Either<Failure, void>> signOut();
 
-  Future<Either<Failure, bool>> isSignedIn();
+  Future<Either<Failure, UserModel?>> isSignedIn();
 }

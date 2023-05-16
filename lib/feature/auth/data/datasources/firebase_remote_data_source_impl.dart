@@ -44,10 +44,18 @@ class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, bool>> isSignedIn() async {
+  Future<Either<Failure, UserModel?>> isSignedIn() async {
     try {
       final user = _firebaseAuth.currentUser;
-      return Right(user != null);
+      if (user != null) {
+        final doc =
+            await _firebaseFirestore.collection('users').doc(user.uid).get();
+        if (doc.data() != null) {
+          return Right(UserModel.fromJson(doc.data()!));
+        }
+        return const Left(EmptyDataFailure('No data'));
+      }
+      return const Right(null);
     } catch (e) {
       return Left(SomeFailure(e.toString()));
     }

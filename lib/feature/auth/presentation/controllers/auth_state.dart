@@ -6,7 +6,7 @@ class AuthState with _$AuthState {
 
   const factory AuthState.loading() = _Loading;
 
-  const factory AuthState.success(UserEntity userEntity) = _Success;
+  const factory AuthState.success(UserEntity? userEntity) = _Success;
 
   const factory AuthState.failure(String message) = _Failure;
 }

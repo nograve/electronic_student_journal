@@ -1,5 +1,5 @@
 import 'package:electronic_student_journal/feature/auth/domain/usecases/sign_in_usecase.dart';
-import 'package:electronic_student_journal/feature/auth/presentation/cubit/auth_cubit.dart';
+import 'package:electronic_student_journal/feature/auth/presentation/controllers/auth_cubit.dart';
 import 'package:electronic_student_journal/gen/assets.gen.dart';
 import 'package:electronic_student_journal/utils/ext/auth_string.dart';
 import 'package:flutter/material.dart';

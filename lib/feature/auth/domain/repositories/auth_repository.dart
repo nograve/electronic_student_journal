@@ -6,7 +6,7 @@ import 'package:electronic_student_journal/feature/auth/domain/usecases/sign_in_
 abstract class AuthRepository {
   Future<Either<Failure, UserEntity>> signIn(SignInParams signInParams);
 
-  Future<Either<Failure, bool>> signOut();
+  Future<Either<Failure, void>> signOut();
 
-  Future<Either<Failure, bool>> isSignedIn();
+  Future<Either<Failure, UserEntity?>> isSignedIn();
 }

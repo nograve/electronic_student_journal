@@ -4,7 +4,7 @@ import 'package:electronic_student_journal/feature/auth/data/repositories/auth_r
 import 'package:electronic_student_journal/feature/auth/domain/repositories/auth_repository.dart';
 import 'package:electronic_student_journal/feature/auth/domain/usecases/sign_in_usecase.dart';
 import 'package:electronic_student_journal/feature/auth/domain/usecases/sign_out_usecase.dart';
-import 'package:electronic_student_journal/feature/auth/presentation/cubit/auth_cubit.dart';
+import 'package:electronic_student_journal/feature/auth/presentation/controllers/auth_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 final injector = GetIt.instance;
@@ -26,5 +26,11 @@ void initDependencies() {
     ..registerLazySingleton(() => SignOutUseCase(injector()))
 
     // Cubits
-    ..registerFactory(() => AuthCubit(signInUseCase: injector()));
+    ..registerFactory(
+      () => AuthCubit(
+        signInUseCase: injector(),
+        isSignedInUsecase: injector(),
+        signOutUseCase: injector(),
+      ),
+    );
 }

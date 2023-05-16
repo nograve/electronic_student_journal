@@ -1,6 +1,7 @@
 import 'package:electronic_student_journal/core/app/di/injector.dart';
-import 'package:electronic_student_journal/feature/auth/presentation/cubit/auth_cubit.dart';
+import 'package:electronic_student_journal/feature/auth/presentation/controllers/auth_cubit.dart';
 import 'package:electronic_student_journal/feature/auth/presentation/views/auth_view.dart';
+import 'package:electronic_student_journal/feature/home/presentation/views/home_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -23,7 +24,7 @@ final appRouter = GoRouter(
       name: Routes.home.name,
       builder: (_, __) => BlocProvider<AuthCubit>(
         create: (_) => injector(),
-        child: const AuthView(),
+        child: const HomeView(),
       ),
     ),
     // Login

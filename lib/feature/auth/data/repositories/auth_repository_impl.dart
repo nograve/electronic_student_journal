@@ -20,14 +20,19 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> signOut() async {
+  Future<Either<Failure, void>> signOut() async {
     final response = await _firebaseRemoteDataSource.signOut();
     return response.fold(Left.new, Right.new);
   }
 
   @override
-  Future<Either<Failure, bool>> isSignedIn() async {
+  Future<Either<Failure, UserEntity?>> isSignedIn() async {
     final response = await _firebaseRemoteDataSource.isSignedIn();
-    return response.fold(Left.new, Right.new);
+    return response.fold(Left.new, (userModel) {
+      if (userModel != null) {
+        return Right(userModel.toEntity());
+      }
+      return const Right(null);
+    });
   }
 }
