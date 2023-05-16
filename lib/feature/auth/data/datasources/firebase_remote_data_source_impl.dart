@@ -28,16 +28,19 @@ class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
       return const Left(EmptyDataFailure('No data'));
     } on FirebaseAuthException catch (e) {
       return Left(ServerFailure(e.message ?? 'Server failure.'));
-    } on Exception catch (e) {
+    } catch (e) {
       return Left(SomeFailure(e.toString()));
     }
   }
 
-  // TODO(nograve): Add exceptions handling
   @override
   Future<Either<Failure, bool>> signOut() async {
-    await _firebaseAuth.signOut();
-    return const Right(true);
+    try {
+      await _firebaseAuth.signOut();
+      return const Right(true);
+    } catch (e) {
+      return Left(SomeFailure(e.toString()));
+    }
   }
 
   @override
