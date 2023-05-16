@@ -26,8 +26,8 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> isSignedIn() {
-    // TODO(nograve): implement isSignedIn
-    throw UnimplementedError();
+  Future<Either<Failure, bool>> isSignedIn() async {
+    final response = await _firebaseRemoteDataSource.isSignedIn();
+    return response.fold(Left.new, Right.new);
   }
 }

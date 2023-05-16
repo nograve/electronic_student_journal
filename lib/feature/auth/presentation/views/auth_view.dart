@@ -33,7 +33,6 @@ class _AuthViewState extends State<AuthView> {
               height: 250.h,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  // TODO(nograve): Make image trasnparent
                   image: Assets.images.logo.image().image,
                 ),
               ),
