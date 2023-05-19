@@ -14,25 +14,30 @@ class _AuthViewState extends State<AuthView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Flexible(
-            child: Container(
-              width: 250.h,
-              height: 250.h,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: Assets.images.logo.image().image,
+      body: SingleChildScrollView(
+        reverse: true,
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                top: 120.h,
+                bottom: 100.h,
+              ),
+              child: Container(
+                width: 250.h,
+                height: 250.h,
+                decoration: BoxDecoration(
+                  border: const Border.fromBorderSide(BorderSide()),
+                  borderRadius: const BorderRadius.all(Radius.circular(6)),
+                  image: DecorationImage(
+                    image: Assets.images.logo.image().image,
+                  ),
                 ),
               ),
             ),
-          ),
-          const Flexible(
-            flex: 2,
-            child: SignInForm(),
-          ),
-        ],
+            const SignInForm(),
+          ],
+        ),
       ),
     );
   }

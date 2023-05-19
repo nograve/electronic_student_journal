@@ -27,9 +27,8 @@ class _SignInFormState extends State<SignInForm> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 16.h),
-            decoration: const BoxDecoration(border: Border.symmetric()),
+          Padding(
+            padding: EdgeInsets.fromLTRB(12.w, 32.h, 12.w, 16.h),
             child: TextFormField(
               validator: (email) => email != null
                   ? (!email.isValidEmail() ? l10n.invalidEmail : null)
@@ -43,8 +42,12 @@ class _SignInFormState extends State<SignInForm> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 32.h),
+            padding: EdgeInsets.fromLTRB(12.w, 0, 12.w, 24.h),
+            // TODO(nograve): Add eye icon to show password later
             child: TextFormField(
+              obscureText: true,
+              enableSuggestions: false,
+              autocorrect: false,
               validator: (password) => password != null
                   ? (!password.isValidPassword() ? l10n.invalidEmail : null)
                   : null,
@@ -67,7 +70,7 @@ class _SignInFormState extends State<SignInForm> {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 fixedSize: Size(
-                  100.w,
+                  150.w,
                   50.h,
                 ),
               ),
