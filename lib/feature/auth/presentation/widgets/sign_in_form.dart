@@ -46,7 +46,7 @@ class _SignInFormState extends State<SignInForm> {
           Padding(
             padding: EdgeInsets.fromLTRB(12.w, 0, 12.w, 24.h),
             child: Consumer<PasswordHinter>(
-              builder: (context, passwordHinter, child) => TextFormField(
+              builder: (_, passwordHinter, __) => TextFormField(
                 obscureText: passwordHinter.isPasswordHinted,
                 enableSuggestions: false,
                 autocorrect: false,
