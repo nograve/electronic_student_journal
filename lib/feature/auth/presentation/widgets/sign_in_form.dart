@@ -1,11 +1,13 @@
 import 'package:electronic_student_journal/core/app/router/app_router.dart';
 import 'package:electronic_student_journal/feature/auth/domain/usecases/sign_in_usecase.dart';
-import 'package:electronic_student_journal/feature/auth/presentation/controllers/auth_cubit.dart';
+import 'package:electronic_student_journal/feature/auth/presentation/viewmodels/auth_cubit.dart';
+import 'package:electronic_student_journal/feature/auth/presentation/viewmodels/password_hinter.dart';
 import 'package:electronic_student_journal/utils/ext/auth_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -43,19 +45,24 @@ class _SignInFormState extends State<SignInForm> {
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(12.w, 0, 12.w, 24.h),
-            // TODO(nograve): Add eye icon to show password later
-            child: TextFormField(
-              obscureText: true,
-              enableSuggestions: false,
-              autocorrect: false,
-              validator: (password) => password != null
-                  ? (!password.isValidPassword() ? l10n.invalidEmail : null)
-                  : null,
-              onSaved: (newPassword) => _password = newPassword,
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.lock),
-                labelText: l10n.passwordLabelText,
-                hintText: l10n.passwordHintText,
+            child: Consumer<PasswordHinter>(
+              builder: (context, passwordHinter, child) => TextFormField(
+                obscureText: passwordHinter.isPasswordHinted,
+                enableSuggestions: false,
+                autocorrect: false,
+                validator: (password) => password != null
+                    ? (!password.isValidPassword() ? l10n.invalidEmail : null)
+                    : null,
+                onSaved: (newPassword) => _password = newPassword,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.lock),
+                  labelText: l10n.passwordLabelText,
+                  hintText: l10n.passwordHintText,
+                  suffixIcon: IconButton(
+                    onPressed: () => passwordHinter.toggleVisibility(),
+                    icon: const Icon(Icons.remove_red_eye),
+                  ),
+                ),
               ),
             ),
           ),

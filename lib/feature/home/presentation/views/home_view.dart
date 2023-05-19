@@ -1,6 +1,6 @@
 import 'package:electronic_student_journal/core/app/router/app_router.dart';
 import 'package:electronic_student_journal/core/usecase/usecase.dart';
-import 'package:electronic_student_journal/feature/auth/presentation/controllers/auth_cubit.dart';
+import 'package:electronic_student_journal/feature/auth/presentation/viewmodels/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

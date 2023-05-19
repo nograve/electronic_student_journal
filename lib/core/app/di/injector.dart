@@ -5,7 +5,8 @@ import 'package:electronic_student_journal/feature/auth/domain/repositories/auth
 import 'package:electronic_student_journal/feature/auth/domain/usecases/is_signed_in_usecase.dart';
 import 'package:electronic_student_journal/feature/auth/domain/usecases/sign_in_usecase.dart';
 import 'package:electronic_student_journal/feature/auth/domain/usecases/sign_out_usecase.dart';
-import 'package:electronic_student_journal/feature/auth/presentation/controllers/auth_cubit.dart';
+import 'package:electronic_student_journal/feature/auth/presentation/viewmodels/auth_cubit.dart';
+import 'package:electronic_student_journal/feature/auth/presentation/viewmodels/password_hinter.dart';
 import 'package:get_it/get_it.dart';
 
 final injector = GetIt.instance;
@@ -34,5 +35,8 @@ void initDependencies() {
         isSignedInUsecase: injector(),
         signOutUseCase: injector(),
       ),
-    );
+    )
+
+    // Providers
+    ..registerFactory(PasswordHinter.new);
 }
