@@ -1,3 +1,4 @@
+import 'package:electronic_student_journal/core/app/di/injector.dart';
 import 'package:electronic_student_journal/core/app/router/app_router.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/user_changes_bloc.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,10 @@ class HomeView extends StatelessWidget {
             //   child: const Text('Kek'),
             // ),
             ElevatedButton(
-              onPressed: () => context.go(Routes.settings.path),
+              onPressed: () => context.go(
+                Routes.settings.path,
+                extra: injector<UserChangesBloc>(),
+              ),
               child: const Text('Settings'),
             ),
           ],

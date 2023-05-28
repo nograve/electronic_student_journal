@@ -35,8 +35,8 @@ final appRouter = GoRouter(
         GoRoute(
           path: 'settings',
           name: Routes.settings.name,
-          builder: (context, _) => BlocProvider.value(
-            value: BlocProvider.of<UserChangesBloc>(context),
+          builder: (_, state) => BlocProvider.value(
+            value: state.extra! as UserChangesBloc,
             child: BlocProvider<SignOutCubit>(
               create: (_) => injector(),
               child: const SettingsView(),
