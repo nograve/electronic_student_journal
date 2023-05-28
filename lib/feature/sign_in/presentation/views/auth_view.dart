@@ -3,19 +3,13 @@ import 'package:electronic_student_journal/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AuthView extends StatefulWidget {
+class AuthView extends StatelessWidget {
   const AuthView({super.key});
 
-  @override
-  State<AuthView> createState() => _AuthViewState();
-}
-
-class _AuthViewState extends State<AuthView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        reverse: true,
         child: Column(
           children: [
             Padding(
@@ -35,7 +29,7 @@ class _AuthViewState extends State<AuthView> {
                 ),
               ),
             ),
-            const SignInForm(),
+            SignInForm(),
           ],
         ),
       ),

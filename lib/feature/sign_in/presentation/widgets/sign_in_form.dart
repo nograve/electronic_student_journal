@@ -1,6 +1,8 @@
 import 'package:electronic_student_journal/core/app/router/app_router.dart';
 import 'package:electronic_student_journal/feature/sign_in/domain/usecases/sign_in_usecase.dart';
+import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/email_provider.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/password_hinter.dart';
+import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/password_provider.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/sign_in_cubit.dart';
 import 'package:electronic_student_journal/utils/ext/auth_string.dart';
 import 'package:flutter/material.dart';
@@ -9,17 +11,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-class SignInForm extends StatefulWidget {
-  const SignInForm({super.key});
+class SignInForm extends StatelessWidget {
+  SignInForm({super.key});
 
-  @override
-  State<SignInForm> createState() => _SignInFormState();
-}
-
-class _SignInFormState extends State<SignInForm> {
   final _formkey = GlobalKey<FormState>();
-  String? _email;
-  String? _password;
 
   @override
   Widget build(BuildContext context) {
@@ -31,29 +26,33 @@ class _SignInFormState extends State<SignInForm> {
         children: [
           Padding(
             padding: EdgeInsets.fromLTRB(12.w, 32.h, 12.w, 16.h),
-            child: TextFormField(
-              validator: (email) => email != null
-                  ? (!email.isValidEmail() ? l10n.invalidEmail : null)
-                  : null,
-              onSaved: (newEmail) => _email = newEmail,
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.person),
-                labelText: l10n.emailLabelText,
-                hintText: l10n.emailHintText,
+            child: Consumer<EmailProvider>(
+              builder: (_, emailProvider, __) => TextFormField(
+                validator: (email) => email != null
+                    ? (!email.isValidEmail() ? l10n.invalidEmail : null)
+                    : null,
+                onSaved: (newEmail) => emailProvider.changeEmail(newEmail!),
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.person),
+                  labelText: l10n.emailLabelText,
+                  hintText: l10n.emailHintText,
+                ),
               ),
             ),
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(12.w, 0, 12.w, 24.h),
-            child: Consumer<PasswordHinter>(
-              builder: (_, passwordHinter, __) => TextFormField(
+            child: Consumer2<PasswordProvider, PasswordHinter>(
+              builder: (_, passwordProvider, passwordHinter, __) =>
+                  TextFormField(
                 obscureText: passwordHinter.isPasswordHinted,
                 enableSuggestions: false,
                 autocorrect: false,
                 validator: (password) => password != null
                     ? (!password.isValidPassword() ? l10n.invalidEmail : null)
                     : null,
-                onSaved: (newPassword) => _password = newPassword,
+                onSaved: (newPassword) =>
+                    passwordProvider.changePassword(newPassword!),
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.lock),
                   labelText: l10n.passwordLabelText,
@@ -74,25 +73,28 @@ class _SignInFormState extends State<SignInForm> {
                 },
               );
             },
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(
-                  150.w,
-                  50.h,
+            child: Consumer2<EmailProvider, PasswordProvider>(
+              builder: (_, emailProvider, passwordProvider, __) =>
+                  ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  fixedSize: Size(
+                    150.w,
+                    50.h,
+                  ),
                 ),
+                onPressed: () async {
+                  if (_formkey.currentState!.validate()) {
+                    _formkey.currentState!.save();
+                    await context.read<SignInCubit>().signIn(
+                          SignInParams(
+                            email: emailProvider.email!,
+                            password: passwordProvider.password!,
+                          ),
+                        );
+                  }
+                },
+                child: Text(l10n.signInButtonText),
               ),
-              onPressed: () async {
-                if (_formkey.currentState!.validate()) {
-                  _formkey.currentState!.save();
-                  await context.read<SignInCubit>().signIn(
-                        SignInParams(
-                          email: _email!,
-                          password: _password!,
-                        ),
-                      );
-                }
-              },
-              child: Text(l10n.signInButtonText),
             ),
           ),
         ],

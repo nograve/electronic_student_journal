@@ -7,7 +7,9 @@ import 'package:electronic_student_journal/feature/shared/data/datasources/fireb
 import 'package:electronic_student_journal/feature/shared/data/repositories/auth_repository_impl.dart';
 import 'package:electronic_student_journal/feature/shared/domain/repositories/auth_repository.dart';
 import 'package:electronic_student_journal/feature/sign_in/domain/usecases/sign_in_usecase.dart';
+import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/email_provider.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/password_hinter.dart';
+import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/password_provider.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/sign_in_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
@@ -44,6 +46,8 @@ void initDependencies() {
 
     // Providers
     ..registerFactory(PasswordHinter.new)
+    ..registerFactory(EmailProvider.new)
+    ..registerFactory(PasswordProvider.new)
 
     // Logger
     ..registerLazySingleton(Logger.new);

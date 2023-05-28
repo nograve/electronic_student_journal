@@ -3,7 +3,9 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/views/home_view.dart';
 import 'package:electronic_student_journal/feature/settings/presentation/viewmodels/cubit/sign_out_cubit.dart';
 import 'package:electronic_student_journal/feature/settings/presentation/views/settings_view.dart';
+import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/email_provider.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/password_hinter.dart';
+import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/password_provider.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/sign_in_cubit.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/views/auth_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,6 +34,7 @@ final appRouter = GoRouter(
         child: const HomeView(),
       ),
       routes: [
+        // Settings
         GoRoute(
           path: 'settings',
           name: Routes.settings.name,
@@ -49,8 +52,12 @@ final appRouter = GoRouter(
     GoRoute(
       path: Routes.login.path,
       name: Routes.login.name,
-      builder: (_, __) => ChangeNotifierProvider<PasswordHinter>(
-        create: (_) => injector(),
+      builder: (_, __) => MultiProvider(
+        providers: [
+          ChangeNotifierProvider<EmailProvider>(create: (_) => injector()),
+          ChangeNotifierProvider<PasswordProvider>(create: (_) => injector()),
+          ChangeNotifierProvider<PasswordHinter>(create: (_) => injector()),
+        ],
         child: BlocProvider<SignInCubit>(
           create: (_) => injector(),
           child: const AuthView(),
