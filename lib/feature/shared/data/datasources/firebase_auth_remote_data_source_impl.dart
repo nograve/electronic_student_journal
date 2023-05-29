@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseAuthRemoteDataSourceImpl implements FirebaseAuthRemoteDataSource {
   final _firebaseAuth = FirebaseAuth.instance;
-  // final _firebaseFirestore = FirebaseFirestore.instance;
 
   @override
   Future<Either<Failure, User>> signIn(SignInParams signInParams) async {
@@ -15,14 +14,6 @@ class FirebaseAuthRemoteDataSourceImpl implements FirebaseAuthRemoteDataSource {
         email: signInParams.email,
         password: signInParams.password,
       );
-      // TODO(nograve): Add users collection name to constants
-      // final doc = await _firebaseFirestore
-      //     .collection('users')
-      //     .doc(userCredential.user!.uid)
-      //     .get();
-      // if (doc.data() != null) {
-      //   return Right(UserModel.fromJson(doc.data()!));
-      // }
 
       return Right(userCredential.user!);
       // return const Left(EmptyDataFailure('No data'));

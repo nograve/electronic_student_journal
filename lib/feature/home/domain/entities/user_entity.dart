@@ -1,13 +1,14 @@
 import 'package:equatable/equatable.dart';
 
-class UserRole {
-  UserRole._();
+enum UserRole {
+  student(role: 'student'),
+  teacher(role: 'teacher'),
+  admin(role: 'admin'),
+  ;
 
-  static String student = 'student';
+  const UserRole({required this.role});
 
-  static String teacher = 'teacher';
-
-  static String admin = 'admin';
+  final String role;
 }
 
 class UserEntity extends Equatable {

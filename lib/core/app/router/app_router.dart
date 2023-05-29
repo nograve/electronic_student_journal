@@ -1,4 +1,5 @@
 import 'package:electronic_student_journal/core/app/di/injector.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/user_changes_bloc.dart';
 import 'package:electronic_student_journal/feature/home/presentation/views/home_view.dart';
 import 'package:electronic_student_journal/feature/settings/presentation/viewmodels/cubit/sign_out_cubit.dart';
@@ -29,8 +30,20 @@ final appRouter = GoRouter(
     GoRoute(
       path: Routes.home.path,
       name: Routes.home.name,
-      builder: (_, __) => BlocProvider<UserChangesBloc>(
-        create: (_) => injector()..add(const UserChangesEvent.observe()),
+      builder: (_, __) => MultiBlocProvider(
+        providers: [
+          BlocProvider<UserChangesBloc>(
+            create: (_) => injector()..add(const UserChangesEvent.observe()),
+          ),
+          BlocProvider<GetUserDataCubit>(
+            create: (context) => injector(),
+            // ..getUserData(
+            //   context.read<UserChangesBloc>().state.whenOrNull<User>(
+            //         userSignsIn: (user) => user,
+            //       )!,
+            // ),
+          ),
+        ],
         child: const HomeView(),
       ),
       routes: [

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:electronic_student_journal/feature/shared/domain/entities/user_entity.dart';
+import 'package:electronic_student_journal/feature/home/domain/entities/user_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_model.freezed.dart';

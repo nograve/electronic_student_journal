@@ -1,4 +1,10 @@
+import 'package:electronic_student_journal/feature/home/data/datasources/user_remote_data_source.dart';
+import 'package:electronic_student_journal/feature/home/data/datasources/user_remote_data_source_impl.dart';
+import 'package:electronic_student_journal/feature/home/data/repositories/user_repository_impl.dart';
+import 'package:electronic_student_journal/feature/home/domain/repositories/user_repository.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_changes_stream_usecase.dart';
+import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_data_usecase.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/user_changes_bloc.dart';
 import 'package:electronic_student_journal/feature/settings/domain/usecases/sign_out_usecase.dart';
 import 'package:electronic_student_journal/feature/settings/presentation/viewmodels/cubit/sign_out_cubit.dart';
@@ -22,10 +28,14 @@ void initDependencies() {
     ..registerLazySingleton<FirebaseAuthRemoteDataSource>(
       FirebaseAuthRemoteDataSourceImpl.new,
     )
+    ..registerLazySingleton<UserRemoteDataSource>(UserRemoteDataSourceImpl.new)
 
     // Repositories
     ..registerLazySingleton<AuthRepository>(
       () => AuthRepositoryImpl(firebaseRemoteDataSource: injector()),
+    )
+    ..registerLazySingleton<UserRepository>(
+      () => UserRepositoryImpl(userRemoteDataSource: injector()),
     )
 
     // Usecases
@@ -34,10 +44,14 @@ void initDependencies() {
     ..registerLazySingleton(
       () => GetUserChangesStreamUseCase(authRepository: injector()),
     )
+    ..registerLazySingleton(
+      () => GetUserDataUsecase(userRepository: injector()),
+    )
 
     // Cubits
     ..registerFactory(() => SignInCubit(signInUseCase: injector()))
     ..registerFactory(() => SignOutCubit(signOutUseCase: injector()))
+    ..registerFactory(() => GetUserDataCubit(getUserDataUsecase: injector()))
 
     // BLoCs
     ..registerFactory(

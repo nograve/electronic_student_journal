@@ -1,7 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:electronic_student_journal/core/error/failure.dart';
-// ignore: unused_import
-import 'package:electronic_student_journal/feature/shared/data/models/user_model.dart';
 import 'package:electronic_student_journal/feature/sign_in/domain/usecases/sign_in_usecase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
