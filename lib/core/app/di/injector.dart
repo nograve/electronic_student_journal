@@ -5,6 +5,8 @@ import 'package:electronic_student_journal/feature/home/domain/repositories/user
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_changes_stream_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_data_usecase.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_hinter.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/user_changes_bloc.dart';
 import 'package:electronic_student_journal/feature/settings/domain/usecases/sign_out_usecase.dart';
 import 'package:electronic_student_journal/feature/settings/presentation/viewmodels/cubit/sign_out_cubit.dart';
@@ -59,9 +61,11 @@ void initDependencies() {
     )
 
     // Providers
-    ..registerFactory(PasswordHinter.new)
     ..registerFactory(EmailProvider.new)
     ..registerFactory(PasswordProvider.new)
+    ..registerFactory(PasswordHinter.new)
+    ..registerFactory(PasswordConfirmerProvider.new)
+    ..registerFactory(PasswordConfirmerHinter.new)
 
     // Logger
     ..registerLazySingleton(Logger.new);
