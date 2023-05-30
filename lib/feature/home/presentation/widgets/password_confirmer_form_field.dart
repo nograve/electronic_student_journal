@@ -1,5 +1,6 @@
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_hinter.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_controller.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/password_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,9 +24,10 @@ class PasswordConfirmerFormField extends StatelessWidget {
         obscureText: passwordConfirmerHinter.isPasswordHinted,
         enableSuggestions: false,
         autocorrect: false,
-        validator: (password) => password != passwordProvider.password
-            ? "Passwords don't match"
-            : null,
+        validator: (password) =>
+            password != PasswordController.of(context).controller.text
+                ? "Passwords don't match"
+                : null,
         onSaved: (newPassword) =>
             passwordConfirmerProvider.changeConfirmedPassword(newPassword!),
         decoration: InputDecoration(

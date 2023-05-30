@@ -1,3 +1,5 @@
+import 'package:electronic_student_journal/core/app/router/app_router.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_controller.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/password_confirmer_form_field.dart';
 import 'package:electronic_student_journal/feature/shared/presentation/widgets/email_form_field.dart';
 import 'package:electronic_student_journal/feature/shared/presentation/widgets/password_form_field.dart';
@@ -13,48 +15,49 @@ class SignUpForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       key: _formkey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-              left: 12.w,
-              top: 32.h,
-              right: 12.w,
+      child: PasswordController(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                left: 12.w,
+                top: 32.h,
+                right: 12.w,
+              ),
+              child: const EmailFormField(),
             ),
-            child: const EmailFormField(),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: 12.w,
-              top: 24.h,
-              right: 12.w,
+            Padding(
+              padding: EdgeInsets.only(
+                left: 12.w,
+                top: 24.h,
+                right: 12.w,
+              ),
+              child: const PasswordFormField(),
             ),
-            child: const PasswordFormField(),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: 12.w,
-              top: 24.h,
-              right: 12.w,
+            Padding(
+              padding: EdgeInsets.only(
+                left: 12.w,
+                top: 24.h,
+                right: 12.w,
+              ),
+              child: const PasswordConfirmerFormField(),
             ),
-            child: const PasswordConfirmerFormField(),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 16.h),
-            child: ElevatedButton(
-              onPressed: () {
-                if (_formkey.currentState!.validate()) {
-                  _formkey.currentState!.save();
+            Padding(
+              padding: EdgeInsets.only(top: 16.h),
+              child: ElevatedButton(
+                onPressed: () {
+                  if (_formkey.currentState!.validate()) {
+                    _formkey.currentState!.save();
 
-                  print('validates!');
-                }
-                print('not validates!');
-              },
-              child: const Text('Sign up user'),
+                    appRouter.go(Routes.home.path);
+                  }
+                },
+                child: const Text('Sign up user'),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
