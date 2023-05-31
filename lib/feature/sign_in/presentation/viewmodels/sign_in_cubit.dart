@@ -1,4 +1,5 @@
 import 'package:electronic_student_journal/core/app/di/injector.dart';
+import 'package:electronic_student_journal/feature/shared/domain/params/user_credentials_params.dart';
 import 'package:electronic_student_journal/feature/sign_in/domain/usecases/sign_in_usecase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +17,7 @@ class SignInCubit extends Cubit<SignInState> {
 
   final SignInUseCase _signInUseCase;
 
-  Future<void> signIn(SignInParams params) async {
+  Future<void> signIn(UserCredentialsParams params) async {
     emit(const _Loading());
     final response = await _signInUseCase.call(params);
 

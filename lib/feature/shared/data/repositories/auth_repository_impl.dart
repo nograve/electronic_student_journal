@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:electronic_student_journal/core/error/failure.dart';
 import 'package:electronic_student_journal/feature/shared/data/datasources/firebase_auth_remote_data_source.dart';
+import 'package:electronic_student_journal/feature/shared/domain/params/user_credentials_params.dart';
 import 'package:electronic_student_journal/feature/shared/domain/repositories/auth_repository.dart';
-import 'package:electronic_student_journal/feature/sign_in/domain/usecases/sign_in_usecase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -13,8 +13,8 @@ class AuthRepositoryImpl implements AuthRepository {
   final FirebaseAuthRemoteDataSource _firebaseRemoteDataSource;
 
   @override
-  Future<Either<Failure, User>> signIn(SignInParams signInParams) async {
-    final response = await _firebaseRemoteDataSource.signIn(signInParams);
+  Future<Either<Failure, User>> signIn(UserCredentialsParams params) async {
+    final response = await _firebaseRemoteDataSource.signIn(params);
     return response;
   }
 

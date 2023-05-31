@@ -1,7 +1,7 @@
 import 'package:electronic_student_journal/core/app/router/app_router.dart';
+import 'package:electronic_student_journal/feature/shared/domain/params/user_credentials_params.dart';
 import 'package:electronic_student_journal/feature/shared/presentation/widgets/email_form_field.dart';
 import 'package:electronic_student_journal/feature/shared/presentation/widgets/password_form_field.dart';
-import 'package:electronic_student_journal/feature/sign_in/domain/usecases/sign_in_usecase.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/email_provider.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/password_provider.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/sign_in_cubit.dart';
@@ -53,7 +53,7 @@ class SignInForm extends StatelessWidget {
                   if (_formkey.currentState!.validate()) {
                     _formkey.currentState!.save();
                     await context.read<SignInCubit>().signIn(
-                          SignInParams(
+                          UserCredentialsParams(
                             email: emailProvider.email!,
                             password: passwordProvider.password!,
                           ),

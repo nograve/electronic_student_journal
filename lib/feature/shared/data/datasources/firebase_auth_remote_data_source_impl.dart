@@ -1,18 +1,20 @@
 import 'package:dartz/dartz.dart';
 import 'package:electronic_student_journal/core/error/failure.dart';
 import 'package:electronic_student_journal/feature/shared/data/datasources/firebase_auth_remote_data_source.dart';
-import 'package:electronic_student_journal/feature/sign_in/domain/usecases/sign_in_usecase.dart';
+import 'package:electronic_student_journal/feature/shared/domain/params/user_credentials_params.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseAuthRemoteDataSourceImpl implements FirebaseAuthRemoteDataSource {
   final _firebaseAuth = FirebaseAuth.instance;
 
   @override
-  Future<Either<Failure, User>> signIn(SignInParams signInParams) async {
+  Future<Either<Failure, User>> signIn(
+    UserCredentialsParams params,
+  ) async {
     try {
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
-        email: signInParams.email,
-        password: signInParams.password,
+        email: params.email,
+        password: params.password,
       );
 
       return Right(userCredential.user!);
