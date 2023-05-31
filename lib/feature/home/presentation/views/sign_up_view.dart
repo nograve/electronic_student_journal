@@ -19,7 +19,7 @@ class SignUpView extends StatelessWidget {
     return BlocListener<UserChangesBloc, UserChangesState>(
       listener: (_, state) {
         state.maybeWhen(
-          userSingsOut: () => appRouter.go(Routes.home.path),
+          userSingsOut: () => appRouter.go(Routes.signIn.path),
           orElse: () {},
         );
       },

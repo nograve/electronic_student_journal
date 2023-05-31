@@ -1,5 +1,5 @@
 import 'package:electronic_student_journal/core/usecase/usecase.dart';
-import 'package:electronic_student_journal/feature/settings/domain/usecases/sign_out_usecase.dart';
+import 'package:electronic_student_journal/feature/home/domain/usecases/sign_out_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

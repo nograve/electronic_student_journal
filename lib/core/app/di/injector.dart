@@ -1,15 +1,21 @@
+import 'package:electronic_student_journal/feature/home/data/datasources/register_remote_data_source.dart';
+import 'package:electronic_student_journal/feature/home/data/datasources/register_remote_data_source_impl.dart';
 import 'package:electronic_student_journal/feature/home/data/datasources/user_remote_data_source.dart';
 import 'package:electronic_student_journal/feature/home/data/datasources/user_remote_data_source_impl.dart';
+import 'package:electronic_student_journal/feature/home/data/repositories/register_repository_impl.dart';
 import 'package:electronic_student_journal/feature/home/data/repositories/user_repository_impl.dart';
+import 'package:electronic_student_journal/feature/home/domain/repositories/register_repository.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/user_repository.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_changes_stream_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_data_usecase.dart';
+import 'package:electronic_student_journal/feature/home/domain/usecases/register_user_usecase.dart';
+import 'package:electronic_student_journal/feature/home/domain/usecases/sign_out_usecase.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_hinter.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/register_user_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/sign_out_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/user_changes_bloc.dart';
-import 'package:electronic_student_journal/feature/settings/domain/usecases/sign_out_usecase.dart';
-import 'package:electronic_student_journal/feature/settings/presentation/viewmodels/cubit/sign_out_cubit.dart';
 import 'package:electronic_student_journal/feature/shared/data/datasources/firebase_auth_remote_data_source.dart';
 import 'package:electronic_student_journal/feature/shared/data/datasources/firebase_auth_remote_data_source_impl.dart';
 import 'package:electronic_student_journal/feature/shared/data/repositories/auth_repository_impl.dart';
@@ -31,6 +37,9 @@ void initDependencies() {
       FirebaseAuthRemoteDataSourceImpl.new,
     )
     ..registerLazySingleton<UserRemoteDataSource>(UserRemoteDataSourceImpl.new)
+    ..registerLazySingleton<RegisterRemoteDataSource>(
+      RegisterRemoteDataSourceImpl.new,
+    )
 
     // Repositories
     ..registerLazySingleton<AuthRepository>(
@@ -38,6 +47,9 @@ void initDependencies() {
     )
     ..registerLazySingleton<UserRepository>(
       () => UserRepositoryImpl(userRemoteDataSource: injector()),
+    )
+    ..registerLazySingleton<RegisterRepository>(
+      () => RegisterRepositoryImpl(registerRemoteDataSource: injector()),
     )
 
     // Usecases
@@ -49,11 +61,15 @@ void initDependencies() {
     ..registerLazySingleton(
       () => GetUserDataUsecase(userRepository: injector()),
     )
+    ..registerLazySingleton(
+      () => RegisterUserUsecase(registerRepository: injector()),
+    )
 
     // Cubits
     ..registerFactory(() => SignInCubit(signInUseCase: injector()))
     ..registerFactory(() => SignOutCubit(signOutUseCase: injector()))
     ..registerFactory(() => GetUserDataCubit(getUserDataUsecase: injector()))
+    ..registerFactory(() => RegisterUserCubit(registerUserUsecase: injector()))
 
     // BLoCs
     ..registerFactory(

@@ -2,6 +2,7 @@ import 'package:electronic_student_journal/core/app/di/injector.dart';
 import 'package:electronic_student_journal/core/app/router/app_router.dart';
 import 'package:electronic_student_journal/feature/home/domain/entities/user_entity.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/sign_out_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/user_changes_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +26,12 @@ class HomeView extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Electronic journal'),
         ),
-        body: BlocBuilder<GetUserDataCubit, GetUserDataState>(
+        body: BlocConsumer<GetUserDataCubit, GetUserDataState>(
+          listener: (context, state) {
+            state.whenOrNull(
+              failure: (_) => context.read<SignOutCubit>().signOut(),
+            );
+          },
           builder: (context, state) {
             return state.maybeWhen(
               success: (userEntity) {

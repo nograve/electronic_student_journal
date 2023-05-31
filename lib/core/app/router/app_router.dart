@@ -2,11 +2,12 @@ import 'package:electronic_student_journal/core/app/di/injector.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_hinter.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/register_user_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/sign_out_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/user_changes_bloc.dart';
 import 'package:electronic_student_journal/feature/home/presentation/views/home_view.dart';
+import 'package:electronic_student_journal/feature/home/presentation/views/settings_view.dart';
 import 'package:electronic_student_journal/feature/home/presentation/views/sign_up_view.dart';
-import 'package:electronic_student_journal/feature/settings/presentation/viewmodels/cubit/sign_out_cubit.dart';
-import 'package:electronic_student_journal/feature/settings/presentation/views/settings_view.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/email_provider.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/password_hinter.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/password_provider.dart';
@@ -40,7 +41,10 @@ final appRouter = GoRouter(
             create: (_) => injector()..add(const UserChangesEvent.observe()),
           ),
           BlocProvider<GetUserDataCubit>(
-            create: (context) => injector(),
+            create: (_) => injector(),
+          ),
+          BlocProvider<SignOutCubit>(
+            create: (_) => injector(),
           ),
         ],
         child: const HomeView(),
@@ -50,8 +54,15 @@ final appRouter = GoRouter(
         GoRoute(
           path: 'sign_up',
           name: Routes.signUp.name,
-          builder: (_, state) => BlocProvider.value(
-            value: state.extra! as UserChangesBloc,
+          builder: (_, state) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: state.extra! as UserChangesBloc,
+              ),
+              BlocProvider<RegisterUserCubit>(
+                create: (context) => injector(),
+              ),
+            ],
             child: MultiProvider(
               providers: [
                 ChangeNotifierProvider<EmailProvider>(
