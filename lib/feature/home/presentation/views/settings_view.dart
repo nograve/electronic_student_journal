@@ -4,6 +4,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/shared/presentation/widgets/pop_up_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -23,9 +24,13 @@ class SettingsView extends StatelessWidget {
           title: const Text('Settings'),
         ),
         body: Center(
-          child: ElevatedButton(
-            onPressed: () => context.read<SignOutCubit>().signOut(),
-            child: const Text('Log out'),
+          child: SizedBox(
+            width: 150.w,
+            height: 50.h,
+            child: ElevatedButton(
+              onPressed: () => context.read<SignOutCubit>().signOut(),
+              child: const Text('Log out'),
+            ),
           ),
         ),
       ),

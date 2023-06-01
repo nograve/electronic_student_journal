@@ -14,6 +14,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_hinter.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/register_user_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/role_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/sign_out_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/user_changes_bloc.dart';
 import 'package:electronic_student_journal/feature/shared/data/datasources/firebase_auth_remote_data_source.dart';
@@ -82,6 +83,7 @@ void initDependencies() {
     ..registerFactory(PasswordHinter.new)
     ..registerFactory(PasswordConfirmerProvider.new)
     ..registerFactory(PasswordConfirmerHinter.new)
+    ..registerFactory(RoleProvider.new)
 
     // Logger
     ..registerLazySingleton(Logger.new);

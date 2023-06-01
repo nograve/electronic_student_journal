@@ -41,26 +41,23 @@ class SignInForm extends StatelessWidget {
               );
             },
             child: Consumer2<EmailProvider, PasswordProvider>(
-              builder: (_, emailProvider, passwordProvider, __) =>
-                  ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size(
-                    150.w,
-                    50.h,
-                  ),
+              builder: (_, emailProvider, passwordProvider, __) => SizedBox(
+                width: 150.w,
+                height: 50.h,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    if (_formkey.currentState!.validate()) {
+                      _formkey.currentState!.save();
+                      await context.read<SignInCubit>().signIn(
+                            UserCredentialsParams(
+                              email: emailProvider.email!,
+                              password: passwordProvider.password!,
+                            ),
+                          );
+                    }
+                  },
+                  child: Text(l10n.signInButtonText),
                 ),
-                onPressed: () async {
-                  if (_formkey.currentState!.validate()) {
-                    _formkey.currentState!.save();
-                    await context.read<SignInCubit>().signIn(
-                          UserCredentialsParams(
-                            email: emailProvider.email!,
-                            password: passwordProvider.password!,
-                          ),
-                        );
-                  }
-                },
-                child: Text(l10n.signInButtonText),
               ),
             ),
           ),

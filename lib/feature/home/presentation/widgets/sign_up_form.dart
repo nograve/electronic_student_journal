@@ -2,6 +2,7 @@ import 'package:electronic_student_journal/core/app/router/app_router.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_controller.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/register_user_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/password_confirmer_form_field.dart';
+import 'package:electronic_student_journal/feature/home/presentation/widgets/role_form_field.dart';
 import 'package:electronic_student_journal/feature/shared/presentation/widgets/email_form_field.dart';
 import 'package:electronic_student_journal/feature/shared/presentation/widgets/password_form_field.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/email_provider.dart';
@@ -49,6 +50,14 @@ class SignUpForm extends StatelessWidget {
               child: const PasswordConfirmerFormField(),
             ),
             Padding(
+              padding: EdgeInsets.only(
+                left: 12.w,
+                top: 24.h,
+                right: 12.w,
+              ),
+              child: const RoleFormField(),
+            ),
+            Padding(
               padding: EdgeInsets.only(top: 16.h),
               child: BlocListener<RegisterUserCubit, RegisterUserState>(
                 listener: (_, state) {
@@ -58,18 +67,22 @@ class SignUpForm extends StatelessWidget {
                 },
                 child: Consumer2<EmailProvider, PasswordProvider>(
                   builder: (context, emailProvider, passwordProvider, child) =>
-                      ElevatedButton(
-                    onPressed: () {
-                      if (_formkey.currentState!.validate()) {
-                        _formkey.currentState!.save();
+                      SizedBox(
+                    width: 150.w,
+                    height: 50.h,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_formkey.currentState!.validate()) {
+                          _formkey.currentState!.save();
 
-                        context.read<RegisterUserCubit>().registerUser(
-                              emailProvider.email!,
-                              passwordProvider.password!,
-                            );
-                      }
-                    },
-                    child: const Text('Sign up user'),
+                          context.read<RegisterUserCubit>().registerUser(
+                                emailProvider.email!,
+                                passwordProvider.password!,
+                              );
+                        }
+                      },
+                      child: const Text('Sign up user'),
+                    ),
                   ),
                 ),
               ),

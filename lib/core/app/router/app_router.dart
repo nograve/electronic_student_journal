@@ -3,6 +3,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_hinter.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/register_user_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/role_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/sign_out_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/user_changes_bloc.dart';
 import 'package:electronic_student_journal/feature/home/presentation/views/home_view.dart';
@@ -78,6 +79,9 @@ final appRouter = GoRouter(
                   create: (_) => injector(),
                 ),
                 ChangeNotifierProvider<PasswordConfirmerHinter>(
+                  create: (_) => injector(),
+                ),
+                ChangeNotifierProvider<RoleProvider>(
                   create: (_) => injector(),
                 ),
               ],

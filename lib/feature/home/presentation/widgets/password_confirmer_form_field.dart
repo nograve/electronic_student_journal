@@ -10,7 +10,6 @@ class PasswordConfirmerFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //
     return Consumer3<PasswordConfirmerProvider, PasswordProvider,
         PasswordConfirmerHinter>(
       builder: (
