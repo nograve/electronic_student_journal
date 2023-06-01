@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:electronic_student_journal/core/error/failure.dart';
 import 'package:electronic_student_journal/feature/home/data/datasources/register_remote_data_source.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/register_repository.dart';
-import 'package:electronic_student_journal/feature/shared/domain/params/user_credentials_params.dart';
+import 'package:electronic_student_journal/feature/home/domain/usecases/register_user_usecase.dart';
 
 class RegisterRepositoryImpl implements RegisterRepository {
   RegisterRepositoryImpl({
@@ -13,7 +13,7 @@ class RegisterRepositoryImpl implements RegisterRepository {
 
   @override
   Future<Either<Failure, void>> registerUser(
-    UserCredentialsParams params,
+    RegisterParams params,
   ) async {
     final response = await _registerRemoteDataSource.registerUser(params);
 

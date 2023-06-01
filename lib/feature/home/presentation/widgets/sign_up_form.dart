@@ -1,8 +1,19 @@
 import 'package:electronic_student_journal/core/app/router/app_router.dart';
+import 'package:electronic_student_journal/feature/home/domain/entities/user_entity.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/group_controller.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/group_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_controller.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/register_user_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/role_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/surname_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/university_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/widgets/group_form_field.dart';
+import 'package:electronic_student_journal/feature/home/presentation/widgets/name_form_field.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/password_confirmer_form_field.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/role_form_field.dart';
+import 'package:electronic_student_journal/feature/home/presentation/widgets/surname_form_field.dart';
+import 'package:electronic_student_journal/feature/home/presentation/widgets/university_form_field.dart';
 import 'package:electronic_student_journal/feature/shared/presentation/widgets/email_form_field.dart';
 import 'package:electronic_student_journal/feature/shared/presentation/widgets/password_form_field.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/email_provider.dart';
@@ -22,72 +33,158 @@ class SignUpForm extends StatelessWidget {
     return Form(
       key: _formkey,
       child: PasswordController(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                left: 12.w,
-                top: 32.h,
-                right: 12.w,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 16.h,
+                ),
+                child: const EmailFormField(),
               ),
-              child: const EmailFormField(),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                left: 12.w,
-                top: 24.h,
-                right: 12.w,
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 16.h,
+                ),
+                child: const PasswordFormField(),
               ),
-              child: const PasswordFormField(),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                left: 12.w,
-                top: 24.h,
-                right: 12.w,
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 12.h,
+                ),
+                child: const PasswordConfirmerFormField(),
               ),
-              child: const PasswordConfirmerFormField(),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                left: 12.w,
-                top: 24.h,
-                right: 12.w,
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 24.h,
+                ),
+                child: const RoleFormField(),
               ),
-              child: const RoleFormField(),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 16.h),
-              child: BlocListener<RegisterUserCubit, RegisterUserState>(
-                listener: (_, state) {
-                  state.whenOrNull(
-                    success: () => appRouter.go(Routes.home.path),
-                  );
-                },
-                child: Consumer2<EmailProvider, PasswordProvider>(
-                  builder: (context, emailProvider, passwordProvider, child) =>
-                      SizedBox(
-                    width: 150.w,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_formkey.currentState!.validate()) {
-                          _formkey.currentState!.save();
+              GroupController(
+                child: Consumer<RoleProvider>(
+                  builder: (_, roleProvider, __) {
+                    if (roleProvider.role == null) {
+                      return const SizedBox.shrink();
+                    } else {
+                      if (roleProvider.role == UserRole.student) {
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 24.h,
+                              ),
+                              child: const NameFormField(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 12.h,
+                              ),
+                              child: const SurnameFormField(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 12.h,
+                              ),
+                              child: const UniversityFormField(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 12.h,
+                              ),
+                              child: const GroupFormField(),
+                            ),
+                          ],
+                        );
+                      } else if (roleProvider.role == UserRole.teacher) {
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 24.h,
+                              ),
+                              child: const NameFormField(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 12.h,
+                              ),
+                              child: const SurnameFormField(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 12.h,
+                              ),
+                              child: const UniversityFormField(),
+                            ),
+                          ],
+                        );
+                      } else {
+                        return const SizedBox.shrink();
+                      }
+                    }
+                  },
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 12.h),
+                child: BlocListener<RegisterUserCubit, RegisterUserState>(
+                  listener: (_, state) {
+                    state.whenOrNull(
+                      success: () => appRouter.go(Routes.home.path),
+                    );
+                  },
+                  child: Consumer6<
+                      EmailProvider,
+                      PasswordProvider,
+                      RoleProvider,
+                      NameProvider,
+                      SurnameProvider,
+                      UniversityProvider>(
+                    builder: (
+                      _,
+                      emailProvider,
+                      passwordProvider,
+                      roleProvider,
+                      nameProvider,
+                      surnameProvider,
+                      universityProvider,
+                      __,
+                    ) =>
+                        Consumer<GroupProvider>(
+                      builder: (_, groupProvider, __) => SizedBox(
+                        width: 150.w,
+                        height: 50.h,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_formkey.currentState!.validate()) {
+                              _formkey.currentState!.save();
 
-                          context.read<RegisterUserCubit>().registerUser(
-                                emailProvider.email!,
-                                passwordProvider.password!,
-                              );
-                        }
-                      },
-                      child: const Text('Sign up user'),
+                              context.read<RegisterUserCubit>().registerUser(
+                                    UserEntity(
+                                      email: emailProvider.email!,
+                                      role: roleProvider.role!,
+                                      registeredAt: DateTime.now(),
+                                      lastAccessed: null,
+                                      name: nameProvider.name,
+                                      surname: surnameProvider.surname,
+                                      university: universityProvider.university,
+                                      group: groupProvider.group,
+                                    ),
+                                    passwordProvider.password!,
+                                  );
+                            }
+                          },
+                          child: const Text('Sign up user'),
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

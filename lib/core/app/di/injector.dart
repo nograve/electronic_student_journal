@@ -11,11 +11,15 @@ import 'package:electronic_student_journal/feature/home/domain/usecases/get_user
 import 'package:electronic_student_journal/feature/home/domain/usecases/register_user_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/sign_out_usecase.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/group_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_hinter.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/register_user_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/role_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/sign_out_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/surname_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/university_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/user_changes_bloc.dart';
 import 'package:electronic_student_journal/feature/shared/data/datasources/firebase_auth_remote_data_source.dart';
 import 'package:electronic_student_journal/feature/shared/data/datasources/firebase_auth_remote_data_source_impl.dart';
@@ -84,6 +88,10 @@ void initDependencies() {
     ..registerFactory(PasswordConfirmerProvider.new)
     ..registerFactory(PasswordConfirmerHinter.new)
     ..registerFactory(RoleProvider.new)
+    ..registerFactory(NameProvider.new)
+    ..registerFactory(SurnameProvider.new)
+    ..registerFactory(UniversityProvider.new)
+    ..registerFactory(GroupProvider.new)
 
     // Logger
     ..registerLazySingleton(Logger.new);

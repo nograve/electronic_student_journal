@@ -30,13 +30,14 @@ class TimestampNullableConverter
 @freezed
 class UserModel with _$UserModel {
   const factory UserModel({
-    required String uid,
     required String email,
     required String role,
     @TimestampConverter() required DateTime registeredAt,
     @TimestampNullableConverter() required DateTime? lastAccessed,
     required String? name,
     required String? surname,
+    required String? university,
+    required String? group,
   }) = _UserModel;
 
   const UserModel._();
@@ -45,12 +46,13 @@ class UserModel with _$UserModel {
       _$UserModelFromJson(json);
 
   UserEntity toEntity() => UserEntity(
-        uid: uid,
         email: email,
         role: role,
         registeredAt: registeredAt,
         lastAccessed: lastAccessed,
         name: name,
         surname: surname,
+        university: university,
+        group: group,
       );
 }

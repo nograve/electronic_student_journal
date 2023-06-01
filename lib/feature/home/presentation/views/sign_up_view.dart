@@ -5,6 +5,7 @@ import 'package:electronic_student_journal/feature/home/presentation/widgets/sig
 import 'package:electronic_student_journal/feature/shared/presentation/widgets/pop_up_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignUpView extends StatelessWidget {
   const SignUpView({
@@ -28,11 +29,15 @@ class SignUpView extends StatelessWidget {
           leading: const PopUpButton(),
           title: const Text('Sign up user'),
         ),
-        body: userRole == UserRole.admin
-            ? const SignUpForm()
-            : const Center(
-                child: CircularProgressIndicator(),
-              ),
+        body: SingleChildScrollView(
+          reverse: true,
+          padding: EdgeInsets.only(bottom: 8.h),
+          child: userRole == UserRole.admin
+              ? const SignUpForm()
+              : const Center(
+                  child: CircularProgressIndicator(),
+                ),
+        ),
       ),
     );
   }

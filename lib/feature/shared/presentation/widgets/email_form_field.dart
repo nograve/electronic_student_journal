@@ -21,6 +21,7 @@ class EmailFormField extends StatelessWidget {
           labelText: l10n.emailLabelText,
           hintText: l10n.emailHintText,
         ),
+        keyboardType: TextInputType.emailAddress,
       ),
     );
   }

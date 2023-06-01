@@ -32,6 +32,7 @@ class PasswordFormField extends StatelessWidget {
             icon: const Icon(Icons.remove_red_eye),
           ),
         ),
+        maxLength: 128,
       ),
     );
   }

@@ -1,10 +1,14 @@
 import 'package:electronic_student_journal/core/app/di/injector.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/group_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_hinter.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/register_user_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/role_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/sign_out_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/surname_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/university_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/user_changes_bloc.dart';
 import 'package:electronic_student_journal/feature/home/presentation/views/home_view.dart';
 import 'package:electronic_student_journal/feature/home/presentation/views/settings_view.dart';
@@ -19,7 +23,6 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 enum Routes {
-  // splashScreen('/splashScreen'),
   home('/'),
   signIn('/sign_in'),
   signUp('/sign_up'),
@@ -82,6 +85,18 @@ final appRouter = GoRouter(
                   create: (_) => injector(),
                 ),
                 ChangeNotifierProvider<RoleProvider>(
+                  create: (_) => injector(),
+                ),
+                ChangeNotifierProvider<NameProvider>(
+                  create: (_) => injector(),
+                ),
+                ChangeNotifierProvider<SurnameProvider>(
+                  create: (_) => injector(),
+                ),
+                ChangeNotifierProvider<UniversityProvider>(
+                  create: (_) => injector(),
+                ),
+                ChangeNotifierProvider<GroupProvider>(
                   create: (_) => injector(),
                 ),
               ],

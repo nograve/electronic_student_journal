@@ -9,8 +9,7 @@ class RoleFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<RoleProvider>(
-      builder: (context, roleProvider, child) =>
-          DropdownButtonFormField<String>(
+      builder: (_, roleProvider, __) => DropdownButtonFormField<String>(
         items: <String>[UserRole.student, UserRole.teacher]
             .map(
               (value) => DropdownMenuItem(

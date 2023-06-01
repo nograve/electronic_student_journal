@@ -7,7 +7,7 @@ class GroupProvider extends ChangeNotifier {
 
   String? get group => _group;
 
-  void changeGroup(String group) {
+  void changeGroup(String? group) {
     _group = group;
     notifyListeners();
   }
