@@ -15,8 +15,9 @@ class UserEntity extends Equatable {
     required this.role,
     required this.registeredAt,
     required this.lastAccessed,
-    required this.name,
     required this.surname,
+    required this.name,
+    required this.patronymic,
     required this.university,
     required this.group,
   });
@@ -29,9 +30,11 @@ class UserEntity extends Equatable {
 
   final DateTime? lastAccessed;
 
+  final String? surname;
+
   final String? name;
 
-  final String? surname;
+  final String? patronymic;
 
   final String? university;
 
@@ -42,8 +45,9 @@ class UserEntity extends Equatable {
         role: role,
         registeredAt: registeredAt,
         lastAccessed: lastAccessed,
-        name: name,
         surname: surname,
+        name: name,
+        patronymic: patronymic,
         university: university,
         group: group,
       );
@@ -54,8 +58,9 @@ class UserEntity extends Equatable {
         role,
         registeredAt,
         lastAccessed,
-        name,
         surname,
+        name,
+        patronymic,
         university,
         group,
       ];

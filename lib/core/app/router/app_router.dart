@@ -4,6 +4,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_hinter.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/patronymic_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/register_user_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/role_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/sign_out_cubit.dart';
@@ -87,10 +88,13 @@ final appRouter = GoRouter(
                 ChangeNotifierProvider<RoleProvider>(
                   create: (_) => injector(),
                 ),
+                ChangeNotifierProvider<SurnameProvider>(
+                  create: (_) => injector(),
+                ),
                 ChangeNotifierProvider<NameProvider>(
                   create: (_) => injector(),
                 ),
-                ChangeNotifierProvider<SurnameProvider>(
+                ChangeNotifierProvider<PatronymicProvider>(
                   create: (_) => injector(),
                 ),
                 ChangeNotifierProvider<UniversityProvider>(

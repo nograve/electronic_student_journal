@@ -20,6 +20,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_hinter.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/patronymic_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/register_user_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/role_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/sign_out_cubit.dart';
@@ -107,8 +108,9 @@ void initDependencies() {
     ..registerFactory(PasswordConfirmerProvider.new)
     ..registerFactory(PasswordConfirmerHinter.new)
     ..registerFactory(RoleProvider.new)
-    ..registerFactory(NameProvider.new)
     ..registerFactory(SurnameProvider.new)
+    ..registerFactory(NameProvider.new)
+    ..registerFactory(PatronymicProvider.new)
     ..registerFactory(UniversityProvider.new)
     ..registerFactory(GroupProvider.new)
 

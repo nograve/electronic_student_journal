@@ -4,6 +4,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/group_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_controller.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/patronymic_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/register_user_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/role_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/surname_provider.dart';
@@ -11,6 +12,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/widgets/group_form_field.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/name_form_field.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/password_confirmer_form_field.dart';
+import 'package:electronic_student_journal/feature/home/presentation/widgets/patronymic_form_field.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/role_form_field.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/surname_form_field.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/university_form_field.dart';
@@ -75,13 +77,19 @@ class SignUpForm extends StatelessWidget {
                               padding: EdgeInsets.only(
                                 top: 24.h,
                               ),
+                              child: const SurnameFormField(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 12.h,
+                              ),
                               child: const NameFormField(),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
                                 top: 12.h,
                               ),
-                              child: const SurnameFormField(),
+                              child: const PatronymicFormField(),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
@@ -104,13 +112,19 @@ class SignUpForm extends StatelessWidget {
                               padding: EdgeInsets.only(
                                 top: 24.h,
                               ),
+                              child: const SurnameFormField(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 12.h,
+                              ),
                               child: const NameFormField(),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
                                 top: 12.h,
                               ),
-                              child: const SurnameFormField(),
+                              child: const PatronymicFormField(),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
@@ -152,8 +166,9 @@ class SignUpForm extends StatelessWidget {
                       universityProvider,
                       __,
                     ) =>
-                        Consumer<GroupProvider>(
-                      builder: (_, groupProvider, __) => SizedBox(
+                        Consumer2<GroupProvider, PatronymicProvider>(
+                      builder: (_, groupProvider, patronymicProvider, __) =>
+                          SizedBox(
                         width: 150.w,
                         height: 50.h,
                         child: ElevatedButton(
@@ -167,8 +182,9 @@ class SignUpForm extends StatelessWidget {
                                       role: roleProvider.role!,
                                       registeredAt: DateTime.now(),
                                       lastAccessed: null,
-                                      name: nameProvider.name,
                                       surname: surnameProvider.surname,
+                                      name: nameProvider.name,
+                                      patronymic: patronymicProvider.patronymic,
                                       university: universityProvider.university,
                                       group: groupProvider.group,
                                     ),

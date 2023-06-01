@@ -34,8 +34,9 @@ class UserModel with _$UserModel {
     required String role,
     @TimestampConverter() required DateTime registeredAt,
     @TimestampNullableConverter() required DateTime? lastAccessed,
-    required String? name,
     required String? surname,
+    required String? name,
+    required String? patronymic,
     required String? university,
     required String? group,
   }) = _UserModel;
@@ -50,8 +51,9 @@ class UserModel with _$UserModel {
         role: role,
         registeredAt: registeredAt,
         lastAccessed: lastAccessed,
-        name: name,
         surname: surname,
+        name: name,
+        patronymic: patronymic,
         university: university,
         group: group,
       );
