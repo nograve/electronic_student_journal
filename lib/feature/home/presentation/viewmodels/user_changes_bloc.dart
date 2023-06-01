@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:electronic_student_journal/core/app/di/injector.dart';
+import 'package:electronic_student_journal/feature/home/domain/params/user_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_changes_stream_usecase.dart';
+import 'package:electronic_student_journal/feature/home/domain/usecases/update_access_time_usecase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -14,7 +16,9 @@ part 'user_changes_state.dart';
 class UserChangesBloc extends Bloc<UserChangesEvent, UserChangesState> {
   UserChangesBloc({
     required GetUserChangesStreamUseCase getUserChangesStreamUseCase,
+    required UpdateAccessTimeUseCase updateAccessTimeUseCase,
   })  : _getUserChangesStreamUseCase = getUserChangesStreamUseCase,
+        _updateAccessTimeUseCase = updateAccessTimeUseCase,
         super(const _Initial()) {
     _stream = _getUserChangesStreamUseCase.call();
 
@@ -30,6 +34,8 @@ class UserChangesBloc extends Bloc<UserChangesEvent, UserChangesState> {
   }
 
   final GetUserChangesStreamUseCase _getUserChangesStreamUseCase;
+  final UpdateAccessTimeUseCase _updateAccessTimeUseCase;
+
   late Stream<User?> _stream;
   StreamSubscription<User?>? _subscription;
   final logger = injector<Logger>();
@@ -64,6 +70,7 @@ class UserChangesBloc extends Bloc<UserChangesEvent, UserChangesState> {
     Emitter<UserChangesState> emit,
   ) {
     if (event.user != null) {
+      _updateAccessTimeUseCase.call(UserParams(user: event.user!));
       emit(_UserSignsIn(event.user!));
     } else {
       emit(const _UserSignsOut());

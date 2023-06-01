@@ -1,4 +1,5 @@
 import 'package:electronic_student_journal/feature/home/domain/entities/user_entity.dart';
+import 'package:electronic_student_journal/feature/home/domain/params/user_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_data_usecase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

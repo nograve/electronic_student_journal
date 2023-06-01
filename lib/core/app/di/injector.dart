@@ -1,15 +1,20 @@
 import 'package:electronic_student_journal/feature/home/data/datasources/register_remote_data_source.dart';
 import 'package:electronic_student_journal/feature/home/data/datasources/register_remote_data_source_impl.dart';
+import 'package:electronic_student_journal/feature/home/data/datasources/update_access_time_remote_data_source.dart';
+import 'package:electronic_student_journal/feature/home/data/datasources/update_access_time_remote_data_source_impl.dart';
 import 'package:electronic_student_journal/feature/home/data/datasources/user_remote_data_source.dart';
 import 'package:electronic_student_journal/feature/home/data/datasources/user_remote_data_source_impl.dart';
 import 'package:electronic_student_journal/feature/home/data/repositories/register_repository_impl.dart';
+import 'package:electronic_student_journal/feature/home/data/repositories/update_access_time_repository_impl.dart';
 import 'package:electronic_student_journal/feature/home/data/repositories/user_repository_impl.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/register_repository.dart';
+import 'package:electronic_student_journal/feature/home/domain/repositories/update_access_time_repository.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/user_repository.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_changes_stream_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_data_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/register_user_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/sign_out_usecase.dart';
+import 'package:electronic_student_journal/feature/home/domain/usecases/update_access_time_usecase.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/group_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/name_provider.dart';
@@ -45,6 +50,9 @@ void initDependencies() {
     ..registerLazySingleton<RegisterRemoteDataSource>(
       RegisterRemoteDataSourceImpl.new,
     )
+    ..registerLazySingleton<UpdateAccessTimeRemoteDataSource>(
+      UpdateAccessTimeRemoteDataSourceImpl.new,
+    )
 
     // Repositories
     ..registerLazySingleton<AuthRepository>(
@@ -55,6 +63,11 @@ void initDependencies() {
     )
     ..registerLazySingleton<RegisterRepository>(
       () => RegisterRepositoryImpl(registerRemoteDataSource: injector()),
+    )
+    ..registerLazySingleton<UpdateAccessTimeRepository>(
+      () => UpdateAccessTimeRepositoryImpl(
+        updateAccessTimeRemoteDataSource: injector(),
+      ),
     )
 
     // Usecases
@@ -69,6 +82,9 @@ void initDependencies() {
     ..registerLazySingleton(
       () => RegisterUserUsecase(registerRepository: injector()),
     )
+    ..registerLazySingleton(
+      () => UpdateAccessTimeUseCase(updateAccessTimeRepository: injector()),
+    )
 
     // Cubits
     ..registerFactory(() => SignInCubit(signInUseCase: injector()))
@@ -78,7 +94,10 @@ void initDependencies() {
 
     // BLoCs
     ..registerFactory(
-      () => UserChangesBloc(getUserChangesStreamUseCase: injector()),
+      () => UserChangesBloc(
+        getUserChangesStreamUseCase: injector(),
+        updateAccessTimeUseCase: injector(),
+      ),
     )
 
     // Providers

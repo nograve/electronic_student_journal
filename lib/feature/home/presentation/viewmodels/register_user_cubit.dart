@@ -1,4 +1,5 @@
 import 'package:electronic_student_journal/feature/home/domain/entities/user_entity.dart';
+import 'package:electronic_student_journal/feature/home/domain/params/register_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/register_user_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

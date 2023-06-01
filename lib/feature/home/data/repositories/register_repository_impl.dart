@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:electronic_student_journal/core/error/failure.dart';
 import 'package:electronic_student_journal/feature/home/data/datasources/register_remote_data_source.dart';
+import 'package:electronic_student_journal/feature/home/domain/params/register_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/register_repository.dart';
-import 'package:electronic_student_journal/feature/home/domain/usecases/register_user_usecase.dart';
 
 class RegisterRepositoryImpl implements RegisterRepository {
   RegisterRepositoryImpl({

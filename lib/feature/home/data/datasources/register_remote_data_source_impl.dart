@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:electronic_student_journal/core/error/failure.dart';
 import 'package:electronic_student_journal/feature/home/data/datasources/register_remote_data_source.dart';
-import 'package:electronic_student_journal/feature/home/domain/usecases/register_user_usecase.dart';
+import 'package:electronic_student_journal/feature/home/domain/params/register_params.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterRemoteDataSourceImpl implements RegisterRemoteDataSource {
