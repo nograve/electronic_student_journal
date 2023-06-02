@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class PopUpButton extends StatelessWidget {
-  const PopUpButton({super.key});
+class PopButton extends StatelessWidget {
+  const PopButton({super.key});
 
   @override
   Widget build(BuildContext context) {

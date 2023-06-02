@@ -12,6 +12,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/university_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/user_changes_bloc.dart';
 import 'package:electronic_student_journal/feature/home/presentation/views/home_view.dart';
+import 'package:electronic_student_journal/feature/home/presentation/views/scores_view.dart';
 import 'package:electronic_student_journal/feature/home/presentation/views/settings_view.dart';
 import 'package:electronic_student_journal/feature/home/presentation/views/sign_up_view.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/email_provider.dart';
@@ -26,6 +27,7 @@ import 'package:provider/provider.dart';
 enum Routes {
   home('/'),
   signIn('/sign_in'),
+  scores('/scores'),
   signUp('/sign_up'),
   settings('/settings');
 
@@ -107,6 +109,18 @@ final appRouter = GoRouter(
               child: SignUpView(
                 userRole: state.queryParameters['userRole'],
               ),
+            ),
+          ),
+        ),
+        // Scores
+        GoRoute(
+          path: 'scores',
+          name: Routes.scores.name,
+          builder: (_, state) => BlocProvider.value(
+            value: state.extra! as UserChangesBloc,
+            child: BlocProvider<GetUserDataCubit>(
+              create: (_) => injector(),
+              child: const ScoresView(),
             ),
           ),
         ),

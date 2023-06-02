@@ -4,6 +4,7 @@ import 'package:electronic_student_journal/feature/home/domain/entities/user_ent
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/sign_out_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/user_changes_bloc.dart';
+import 'package:electronic_student_journal/feature/home/presentation/widgets/scores_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -15,11 +16,10 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<UserChangesBloc, UserChangesState>(
       listener: (context, state) {
-        state.maybeWhen(
+        state.whenOrNull(
           userSignsIn: (user) =>
               context.read<GetUserDataCubit>().getUserData(user),
           userSingsOut: () => appRouter.go(Routes.signIn.path),
-          orElse: () {},
         );
       },
       child: Scaffold(
@@ -35,7 +35,7 @@ class HomeView extends StatelessWidget {
           builder: (context, state) {
             return state.maybeWhen(
               success: (userEntity) {
-                final buttons = <ElevatedButton>[];
+                final buttons = <Widget>[];
 
                 switch (userEntity.role) {
                   case UserRole.admin:
@@ -44,20 +44,25 @@ class HomeView extends StatelessWidget {
                         onPressed: () => context.goNamed(
                           Routes.signUp.name,
                           queryParameters: {'userRole': userEntity.role},
-                          extra: injector<UserChangesBloc>(),
+                          extra: context.read<UserChangesBloc>(),
                         ),
                         child: const Text('Register user'),
                       ),
                     );
                     break;
-                  default:
+                  case UserRole.student:
+                    buttons.add(const ScoresButton());
+                    break;
+                  case UserRole.teacher:
+                    buttons.add(const ScoresButton());
+                    break;
                 }
 
                 buttons.add(
                   ElevatedButton(
                     onPressed: () => context.go(
                       Routes.settings.path,
-                      extra: injector<UserChangesBloc>(),
+                      extra: context.read<UserChangesBloc>(),
                     ),
                     child: const Text('Settings'),
                   ),
@@ -65,16 +70,7 @@ class HomeView extends StatelessWidget {
 
                 return GridView.count(
                   crossAxisCount: 2,
-                  children: buttons
-                  // ElevatedButton(
-                  //   onPressed: () {},
-                  //   child: const Text('Subjects'),
-                  // ),
-                  // ElevatedButton(
-                  //   onPressed: () {},
-                  //   child: const Text('Kek'),
-                  // ),
-                  ,
+                  children: buttons,
                 );
               },
               orElse: () => const Center(child: CircularProgressIndicator()),
