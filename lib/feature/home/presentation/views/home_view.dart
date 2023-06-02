@@ -1,4 +1,3 @@
-import 'package:electronic_student_journal/core/app/di/injector.dart';
 import 'package:electronic_student_journal/core/app/router/app_router.dart';
 import 'package:electronic_student_journal/feature/home/domain/entities/user_entity.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';

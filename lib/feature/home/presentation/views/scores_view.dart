@@ -4,7 +4,6 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/sign_out_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/user_changes_bloc.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/add_scores_table_button.dart';
-import 'package:electronic_student_journal/feature/home/presentation/widgets/scores_button.dart';
 import 'package:electronic_student_journal/feature/shared/presentation/widgets/pop_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
