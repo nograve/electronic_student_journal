@@ -19,10 +19,14 @@ class RegisterRemoteDataSourceImpl implements RegisterRemoteDataSource {
         email: params.user.email,
         password: params.password,
       );
+
+      final userUid = userCredentials.user!.uid;
+      final userData = params.user.copyWith(uid: userUid);
+
       await _firebaseFirestore
           .collection('users')
-          .doc(userCredentials.user!.uid)
-          .set(params.user.toJson());
+          .doc(userUid)
+          .set(userData.toJson());
 
       return const Right(null);
     } on FirebaseAuthException catch (e) {

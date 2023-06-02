@@ -11,6 +11,7 @@ class UserRole {
 
 class UserEntity extends Equatable {
   const UserEntity({
+    required this.uid,
     required this.email,
     required this.role,
     required this.registeredAt,
@@ -21,6 +22,8 @@ class UserEntity extends Equatable {
     required this.university,
     required this.group,
   });
+
+  final String? uid;
 
   final String email;
 
@@ -41,6 +44,7 @@ class UserEntity extends Equatable {
   final String? group;
 
   UserModel toModel() => UserModel(
+        uid: uid,
         email: email,
         role: role,
         registeredAt: registeredAt,
@@ -54,6 +58,7 @@ class UserEntity extends Equatable {
 
   @override
   List<Object?> get props => [
+        uid,
         email,
         role,
         registeredAt,

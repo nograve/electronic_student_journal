@@ -178,6 +178,7 @@ class SignUpForm extends StatelessWidget {
 
                               context.read<RegisterUserCubit>().registerUser(
                                     UserEntity(
+                                      uid: '',
                                       email: emailProvider.email!,
                                       role: roleProvider.role!,
                                       registeredAt: DateTime.now(),

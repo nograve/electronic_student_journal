@@ -30,6 +30,7 @@ class TimestampNullableConverter
 @freezed
 class UserModel with _$UserModel {
   const factory UserModel({
+    required String? uid,
     required String email,
     required String role,
     @TimestampConverter() required DateTime registeredAt,
@@ -47,6 +48,7 @@ class UserModel with _$UserModel {
       _$UserModelFromJson(json);
 
   UserEntity toEntity() => UserEntity(
+        uid: uid,
         email: email,
         role: role,
         registeredAt: registeredAt,
