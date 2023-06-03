@@ -15,15 +15,15 @@ class UserEntity extends Equatable {
     required this.email,
     required this.role,
     required this.registeredAt,
-    required this.lastAccessed,
-    required this.surname,
-    required this.name,
-    required this.patronymic,
-    required this.university,
-    required this.group,
+    this.lastAccessed,
+    this.surname,
+    this.name,
+    this.patronymic,
+    this.university,
+    this.group,
   });
 
-  final String? uid;
+  final String uid;
 
   final String email;
 

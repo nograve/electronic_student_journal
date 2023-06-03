@@ -8,21 +8,13 @@ class AddScoresTableButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {},
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.add,
-            size: 96.r,
-          ),
-          // Text(
-          //   'Add',
-          //   style: TextStyle(
-          //     fontSize: 16.sp,
-          //     fontWeight: FontWeight.bold,
-          //   ),
-          // )
-        ],
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        foregroundColor: Theme.of(context).primaryColor,
+      ),
+      child: Icon(
+        Icons.add,
+        size: 72.r,
       ),
     );
   }

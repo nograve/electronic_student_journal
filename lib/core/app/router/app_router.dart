@@ -1,4 +1,5 @@
 import 'package:electronic_student_journal/core/app/di/injector.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_scores_tables_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/group_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/name_provider.dart';
@@ -116,12 +117,17 @@ final appRouter = GoRouter(
         GoRoute(
           path: 'scores',
           name: Routes.scores.name,
-          builder: (_, state) => BlocProvider.value(
-            value: state.extra! as UserChangesBloc,
-            child: BlocProvider<GetUserDataCubit>(
-              create: (_) => injector(),
-              child: const ScoresView(),
-            ),
+          builder: (_, state) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: state.extra! as UserChangesBloc,
+              ),
+              BlocProvider<GetScoresTablesCubit>(
+                create: (_) => injector(),
+              ),
+              BlocProvider<GetUserDataCubit>(create: (_) => injector()),
+            ],
+            child: const ScoresView(),
           ),
         ),
         // Settings

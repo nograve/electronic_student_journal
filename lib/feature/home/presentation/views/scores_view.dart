@@ -1,5 +1,7 @@
 import 'package:electronic_student_journal/core/app/router/app_router.dart';
+import 'package:electronic_student_journal/feature/home/domain/entities/scores_table_entity.dart';
 import 'package:electronic_student_journal/feature/home/domain/entities/user_entity.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_scores_tables_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/sign_out_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/user_changes_bloc.dart';
@@ -7,6 +9,7 @@ import 'package:electronic_student_journal/feature/home/presentation/widgets/add
 import 'package:electronic_student_journal/feature/shared/presentation/widgets/pop_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ScoresView extends StatelessWidget {
   const ScoresView({super.key});
@@ -39,23 +42,48 @@ class ScoresView extends StatelessWidget {
                 );
               },
               builder: (context, state) {
-                // context.read<GetUserDataCubit>().getUserData(
-                //       context.read<UserChangesBloc>().state.whenOrNull(
-                //             userSignsIn: (user) => user,
-                //           )!,
-                //     );
-
                 return state.maybeWhen(
                   success: (userEntity) {
-                    final buttons = <Widget>[];
+                    context
+                        .read<GetScoresTablesCubit>()
+                        .getScoresTables(userEntity);
 
-                    if (userEntity.role == UserRole.teacher) {
-                      buttons.add(const AddScoresTableButton());
-                    }
+                    return BlocBuilder<GetScoresTablesCubit,
+                        GetScoresTablesState>(
+                      builder: (context, state) {
+                        final buttons = <Widget>[];
 
-                    return GridView.count(
-                      crossAxisCount: 2,
-                      children: buttons,
+                        final scoreTables = state.maybeWhen(
+                          success: (tables) => tables,
+                          orElse: () => <ScoresTableEntity>[],
+                        );
+
+                        print(state);
+                        print(scoreTables);
+
+                        final scoreTablesButtons = scoreTables.map(
+                          (table) => ElevatedButton(
+                            onPressed: () {},
+                            child: Text(
+                              table.name,
+                              style: TextStyle(fontSize: 18.sp),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        );
+
+                        if (userEntity.role == UserRole.teacher) {
+                          buttons.add(const AddScoresTableButton());
+                        }
+
+                        buttons.addAll(scoreTablesButtons);
+
+                        return GridView.count(
+                          crossAxisCount: 3,
+                          children: buttons,
+                        );
+                      },
                     );
                   },
                   orElse: () =>

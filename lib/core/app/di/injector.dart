@@ -1,20 +1,18 @@
+import 'package:electronic_student_journal/feature/home/data/datasources/firestore_remote_data_source.dart';
+import 'package:electronic_student_journal/feature/home/data/datasources/firestore_remote_data_source_impl.dart';
 import 'package:electronic_student_journal/feature/home/data/datasources/register_remote_data_source.dart';
 import 'package:electronic_student_journal/feature/home/data/datasources/register_remote_data_source_impl.dart';
-import 'package:electronic_student_journal/feature/home/data/datasources/update_access_time_remote_data_source.dart';
-import 'package:electronic_student_journal/feature/home/data/datasources/update_access_time_remote_data_source_impl.dart';
-import 'package:electronic_student_journal/feature/home/data/datasources/user_remote_data_source.dart';
-import 'package:electronic_student_journal/feature/home/data/datasources/user_remote_data_source_impl.dart';
+import 'package:electronic_student_journal/feature/home/data/repositories/firestore_repository_impl.dart';
 import 'package:electronic_student_journal/feature/home/data/repositories/register_repository_impl.dart';
-import 'package:electronic_student_journal/feature/home/data/repositories/update_access_time_repository_impl.dart';
-import 'package:electronic_student_journal/feature/home/data/repositories/user_repository_impl.dart';
+import 'package:electronic_student_journal/feature/home/domain/repositories/firestore_repository.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/register_repository.dart';
-import 'package:electronic_student_journal/feature/home/domain/repositories/update_access_time_repository.dart';
-import 'package:electronic_student_journal/feature/home/domain/repositories/user_repository.dart';
+import 'package:electronic_student_journal/feature/home/domain/usecases/get_scores_tables_list_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_changes_stream_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_data_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/register_user_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/sign_out_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/update_access_time_usecase.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_scores_tables_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/group_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/name_provider.dart';
@@ -47,28 +45,22 @@ void initDependencies() {
     ..registerLazySingleton<FirebaseAuthRemoteDataSource>(
       FirebaseAuthRemoteDataSourceImpl.new,
     )
-    ..registerLazySingleton<UserRemoteDataSource>(UserRemoteDataSourceImpl.new)
     ..registerLazySingleton<RegisterRemoteDataSource>(
       RegisterRemoteDataSourceImpl.new,
     )
-    ..registerLazySingleton<UpdateAccessTimeRemoteDataSource>(
-      UpdateAccessTimeRemoteDataSourceImpl.new,
+    ..registerLazySingleton<FirestoreRemoteDataSource>(
+      FirestoreRemoteDataSourceImpl.new,
     )
 
     // Repositories
     ..registerLazySingleton<AuthRepository>(
       () => AuthRepositoryImpl(firebaseRemoteDataSource: injector()),
     )
-    ..registerLazySingleton<UserRepository>(
-      () => UserRepositoryImpl(userRemoteDataSource: injector()),
-    )
     ..registerLazySingleton<RegisterRepository>(
       () => RegisterRepositoryImpl(registerRemoteDataSource: injector()),
     )
-    ..registerLazySingleton<UpdateAccessTimeRepository>(
-      () => UpdateAccessTimeRepositoryImpl(
-        updateAccessTimeRemoteDataSource: injector(),
-      ),
+    ..registerLazySingleton<FirestoreRepository>(
+      () => FirestoreRepositoryImpl(firestoreRemoteDataSource: injector()),
     )
 
     // Usecases
@@ -78,13 +70,16 @@ void initDependencies() {
       () => GetUserChangesStreamUseCase(authRepository: injector()),
     )
     ..registerLazySingleton(
-      () => GetUserDataUsecase(userRepository: injector()),
+      () => GetUserDataUsecase(firestoreRepository: injector()),
     )
     ..registerLazySingleton(
       () => RegisterUserUsecase(registerRepository: injector()),
     )
     ..registerLazySingleton(
-      () => UpdateAccessTimeUseCase(updateAccessTimeRepository: injector()),
+      () => UpdateAccessTimeUseCase(firestoreRepository: injector()),
+    )
+    ..registerLazySingleton(
+      () => GetScoresTablesUseCase(firestoreRepository: injector()),
     )
 
     // Cubits
@@ -92,6 +87,9 @@ void initDependencies() {
     ..registerFactory(() => SignOutCubit(signOutUseCase: injector()))
     ..registerFactory(() => GetUserDataCubit(getUserDataUsecase: injector()))
     ..registerFactory(() => RegisterUserCubit(registerUserUsecase: injector()))
+    ..registerFactory(
+      () => GetScoresTablesCubit(getScoresTablesUseCase: injector()),
+    )
 
     // BLoCs
     ..registerFactory(
