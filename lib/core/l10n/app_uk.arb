@@ -41,5 +41,8 @@
   "groupLabelText": "Група",
   "groupErrorText": "Введіть групу",
   "universityLabelText": "Університет",
-  "universityErrorText": "Введіть назву університету"
+  "universityErrorText": "Введіть назву університету",
+
+  "create": "Створити",
+  "tableTitle": "Таблиця"
 }
