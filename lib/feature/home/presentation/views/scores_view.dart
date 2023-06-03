@@ -10,6 +10,7 @@ import 'package:electronic_student_journal/feature/shared/presentation/widgets/p
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class ScoresView extends StatelessWidget {
   const ScoresView({super.key});
@@ -60,7 +61,10 @@ class ScoresView extends StatelessWidget {
 
                         final scoreTablesButtons = scoreTables.map(
                           (table) => ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () => context.goNamed(
+                              Routes.scoresTable.name,
+                              extra: context.read<UserChangesBloc>(),
+                            ),
                             child: Text(
                               table.name,
                               textAlign: TextAlign.center,

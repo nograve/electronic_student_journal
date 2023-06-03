@@ -13,6 +13,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/university_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/user_changes_bloc.dart';
 import 'package:electronic_student_journal/feature/home/presentation/views/home_view.dart';
+import 'package:electronic_student_journal/feature/home/presentation/views/scores_table_view.dart';
 import 'package:electronic_student_journal/feature/home/presentation/views/scores_view.dart';
 import 'package:electronic_student_journal/feature/home/presentation/views/settings_view.dart';
 import 'package:electronic_student_journal/feature/home/presentation/views/sign_up_view.dart';
@@ -29,6 +30,7 @@ enum Routes {
   home('/'),
   signIn('/sign_in'),
   scores('/scores'),
+  scoresTable('/scores/scoresTable'),
   signUp('/sign_up'),
   settings('/settings');
 
@@ -129,6 +131,17 @@ final appRouter = GoRouter(
             ],
             child: const ScoresView(),
           ),
+          // Scores Table
+          routes: [
+            GoRoute(
+              path: 'scoresTable',
+              name: Routes.scoresTable.name,
+              builder: (_, state) => BlocProvider.value(
+                value: state.extra! as UserChangesBloc,
+                child: const ScoresTableView(),
+              ),
+            ),
+          ],
         ),
         // Settings
         GoRoute(
