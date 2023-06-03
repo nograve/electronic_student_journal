@@ -68,7 +68,7 @@ class ScoresView extends StatelessWidget {
                                 fontSize: 18.sp,
                               ),
                               overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
+                              maxLines: 3,
                             ),
                           ),
                         );
