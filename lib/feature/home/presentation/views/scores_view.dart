@@ -58,9 +58,6 @@ class ScoresView extends StatelessWidget {
                           orElse: () => <ScoresTableEntity>[],
                         );
 
-                        print(state);
-                        print(scoreTables);
-
                         final scoreTablesButtons = scoreTables.map(
                           (table) => ElevatedButton(
                             onPressed: () {},
