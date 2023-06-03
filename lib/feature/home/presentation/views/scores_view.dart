@@ -63,9 +63,12 @@ class ScoresView extends StatelessWidget {
                             onPressed: () {},
                             child: Text(
                               table.name,
-                              style: TextStyle(fontSize: 18.sp),
-                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 18.sp,
+                              ),
                               overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
                             ),
                           ),
                         );
