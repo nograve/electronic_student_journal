@@ -7,7 +7,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class PasswordFormField extends StatelessWidget {
-  const PasswordFormField({super.key});
+  const PasswordFormField({
+    this.maxLength = 128,
+    super.key,
+  });
+
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +37,7 @@ class PasswordFormField extends StatelessWidget {
             icon: const Icon(Icons.remove_red_eye),
           ),
         ),
-        maxLength: 128,
+        maxLength: maxLength,
       ),
     );
   }

@@ -26,11 +26,15 @@ class SignInForm extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.fromLTRB(12.w, 32.h, 12.w, 16.h),
-            child: const EmailFormField(),
+            child: const EmailFormField(
+              maxLength: null,
+            ),
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(12.w, 0, 12.w, 24.h),
-            child: const PasswordFormField(),
+            child: const PasswordFormField(
+              maxLength: null,
+            ),
           ),
           BlocListener<SignInCubit, SignInState>(
             listener: (context, state) {

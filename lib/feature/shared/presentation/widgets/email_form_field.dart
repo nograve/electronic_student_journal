@@ -5,7 +5,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class EmailFormField extends StatelessWidget {
-  const EmailFormField({super.key});
+  const EmailFormField({
+    this.maxLength = 128,
+    super.key,
+  });
+
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +26,8 @@ class EmailFormField extends StatelessWidget {
           labelText: l10n.emailLabelText,
           hintText: l10n.emailHintText,
         ),
-        maxLength: 128,
         keyboardType: TextInputType.emailAddress,
+        maxLength: maxLength,
       ),
     );
   }
