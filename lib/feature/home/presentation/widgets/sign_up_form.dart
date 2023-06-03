@@ -22,6 +22,7 @@ import 'package:electronic_student_journal/feature/sign_in/presentation/viewmode
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/password_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +33,7 @@ class SignUpForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Form(
       key: _formkey,
       child: PasswordController(
@@ -194,7 +196,7 @@ class SignUpForm extends StatelessWidget {
                                   );
                             }
                           },
-                          child: const Text('Sign up user'),
+                          child: Text(l10n.signUpUserButtonText),
                         ),
                       ),
                     ),

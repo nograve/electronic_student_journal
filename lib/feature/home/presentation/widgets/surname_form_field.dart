@@ -1,5 +1,6 @@
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/surname_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class SurnameFormField extends StatelessWidget {
@@ -7,6 +8,7 @@ class SurnameFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Consumer<SurnameProvider>(
       builder: (_, surnameProvider, __) => TextFormField(
         initialValue: surnameProvider.surname,
@@ -14,12 +16,12 @@ class SurnameFormField extends StatelessWidget {
           if (surname != null && surname.isNotEmpty) {
             return null;
           }
-          return 'Enter surname';
+          return l10n.surnameErrorText;
         },
         onSaved: (newSurname) => surnameProvider.changeSurname(newSurname!),
-        decoration: const InputDecoration(
-          labelText: 'Surname',
-          hintText: 'Enter surname',
+        decoration: InputDecoration(
+          labelText: l10n.surnameLabelText,
+          hintText: l10n.surnameErrorText,
         ),
         maxLength: 64,
       ),

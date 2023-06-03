@@ -6,6 +6,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/widgets/scores_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeView extends StatelessWidget {
@@ -13,6 +14,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return BlocListener<UserChangesBloc, UserChangesState>(
       listener: (context, state) {
         state.whenOrNull(
@@ -23,7 +25,7 @@ class HomeView extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Electronic journal'),
+          title: Text(l10n.appNameTitle),
         ),
         body: BlocConsumer<GetUserDataCubit, GetUserDataState>(
           listener: (context, state) {
@@ -45,7 +47,10 @@ class HomeView extends StatelessWidget {
                           queryParameters: {'userRole': userEntity.role},
                           extra: context.read<UserChangesBloc>(),
                         ),
-                        child: const Text('Register user'),
+                        child: Text(
+                          l10n.signUpUser,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     );
                     break;
@@ -63,7 +68,7 @@ class HomeView extends StatelessWidget {
                       Routes.settings.path,
                       extra: context.read<UserChangesBloc>(),
                     ),
-                    child: const Text('Settings'),
+                    child: Text(l10n.settings),
                   ),
                 );
 

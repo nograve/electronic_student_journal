@@ -4,6 +4,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/shared/presentation/widgets/pop_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SettingsView extends StatelessWidget {
@@ -11,6 +12,7 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return BlocListener<UserChangesBloc, UserChangesState>(
       listener: (_, state) {
         state.whenOrNull(
@@ -20,7 +22,7 @@ class SettingsView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           leading: const PopButton(),
-          title: const Text('Settings'),
+          title: Text(l10n.settings),
         ),
         body: Center(
           child: SizedBox(
@@ -28,7 +30,7 @@ class SettingsView extends StatelessWidget {
             height: 50.h,
             child: ElevatedButton(
               onPressed: () => context.read<SignOutCubit>().signOut(),
-              child: const Text('Log out'),
+              child: Text(l10n.signOutButtonText),
             ),
           ),
         ),

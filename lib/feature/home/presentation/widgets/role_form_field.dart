@@ -1,6 +1,7 @@
 import 'package:electronic_student_journal/feature/home/domain/entities/user_entity.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/role_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class RoleFormField extends StatelessWidget {
@@ -8,9 +9,10 @@ class RoleFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Consumer<RoleProvider>(
       builder: (_, roleProvider, __) => DropdownButtonFormField<String>(
-        items: <String>[UserRole.student, UserRole.teacher]
+        items: <String>[l10n.student, l10n.teacher]
             .map(
               (value) => DropdownMenuItem(
                 value: value,
@@ -18,9 +20,17 @@ class RoleFormField extends StatelessWidget {
               ),
             )
             .toList(),
-        hint: const Text('Select user role'),
-        validator: (role) => role == null ? 'Please select user role' : null,
-        onChanged: (role) => roleProvider.changeRole(role!),
+        hint: Text(l10n.selectUserRoleHintText),
+        validator: (role) => role == null ? l10n.invalidUserRole : null,
+        onChanged: (role) {
+          if (role == l10n.student) {
+            role = UserRole.student;
+          } else if (role == l10n.teacher) {
+            role = UserRole.teacher;
+          }
+
+          roleProvider.changeRole(role!);
+        },
       ),
     );
   }

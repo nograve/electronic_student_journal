@@ -1,5 +1,6 @@
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/name_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class NameFormField extends StatelessWidget {
@@ -7,6 +8,7 @@ class NameFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Consumer<NameProvider>(
       builder: (_, nameProvider, __) => TextFormField(
         initialValue: nameProvider.name,
@@ -14,12 +16,12 @@ class NameFormField extends StatelessWidget {
           if (name != null && name.isNotEmpty) {
             return null;
           }
-          return 'Enter name';
+          return l10n.nameErrorText;
         },
         onSaved: (newName) => nameProvider.changeName(newName!),
-        decoration: const InputDecoration(
-          labelText: 'Name',
-          hintText: 'Enter name',
+        decoration: InputDecoration(
+          labelText: l10n.nameLabelText,
+          hintText: l10n.nameErrorText,
         ),
         maxLength: 64,
       ),

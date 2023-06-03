@@ -9,6 +9,7 @@ import 'package:electronic_student_journal/feature/home/presentation/widgets/add
 import 'package:electronic_student_journal/feature/shared/presentation/widgets/pop_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
@@ -17,6 +18,7 @@ class ScoresView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return BlocListener<UserChangesBloc, UserChangesState>(
       listener: (_, state) {
         state.whenOrNull(
@@ -28,7 +30,7 @@ class ScoresView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           leading: const PopButton(),
-          title: const Text('Scores'),
+          title: Text(l10n.scores),
         ),
         body: BlocBuilder<UserChangesBloc, UserChangesState>(
           builder: (context, userChangesState) {

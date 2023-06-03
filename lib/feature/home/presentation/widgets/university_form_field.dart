@@ -1,5 +1,6 @@
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/university_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class UniversityFormField extends StatelessWidget {
@@ -7,6 +8,7 @@ class UniversityFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Consumer<UniversityProvider>(
       builder: (_, universityProvider, __) => TextFormField(
         initialValue: universityProvider.university,
@@ -14,13 +16,13 @@ class UniversityFormField extends StatelessWidget {
           if (university != null && university.isNotEmpty) {
             return null;
           }
-          return "Enter university's name";
+          return l10n.universityErrorText;
         },
         onSaved: (newUniversity) =>
             universityProvider.changeUniversity(newUniversity!),
-        decoration: const InputDecoration(
-          labelText: 'University',
-          hintText: 'Enter university',
+        decoration: InputDecoration(
+          labelText: l10n.universityLabelText,
+          hintText: l10n.universityErrorText,
         ),
         maxLength: 128,
       ),

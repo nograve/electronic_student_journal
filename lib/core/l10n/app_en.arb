@@ -1,11 +1,45 @@
 {
   "@@locale": "en",
+
   "emailLabelText": "Email",
-  "passwordLabelText": "Password",
   "emailHintText": "Enter your email",
+
+  "passwordLabelText": "Password",
   "passwordHintText": "Enter your password",
-  "signInButtonText": "Sign in",
+
+  "confirmPasswordLabelText": "Confirm Password",
+  "confirmPasswordHintText": "Enter password again",
+
   "invalidEmail": "Invalid Email Address",
-  "invalidPassword": "Password must be at least 8 characters and contain at least one letter and number",
-  "confirmPasswordMismatch": "Password confirmation not match"
+  "invalidPassword": "Password must be at least 6 characters",
+  "invalidConfirmPassword": "Passwords don't match",
+
+  "signInButtonText": "Sign in",
+  "signOutButtonText": "Sign out",
+
+  "appNameTitle": "Electronic Journal",
+  "signUpUser": "Sign up user",
+  "settings": "Settings",
+
+  "selectUserRoleHintText": "Select user role",
+  "invalidUserRole": "Please select user role",
+
+  "signUpUserButtonText": "Sign up",
+
+  "scores": "Scores",
+
+  "student": "student",
+  "teacher": "teacher",
+  "admin": "admin",
+
+  "patronymicLabelText": "Patronymic",
+  "patronymicErrorText": "Enter patronymic",
+  "nameLabelText": "Name",
+  "nameErrorText": "Enter name",
+  "surnameLabelText": "Surname",
+  "surnameErrorText": "Enter surname",
+  "groupLabelText": "Group",
+  "groupErrorText": "Enter group",
+  "universityLabelText": "University",
+  "universityErrorText": "Введіть назву університету"
 }

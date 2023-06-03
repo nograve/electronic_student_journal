@@ -31,7 +31,7 @@ class PasswordFormField extends StatelessWidget {
           prefixIcon: const Icon(Icons.lock),
           labelText: l10n.passwordLabelText,
           hintText: l10n.passwordHintText,
-          errorMaxLines: 3,
+          errorMaxLines: 2,
           suffixIcon: IconButton(
             onPressed: () => passwordHinter.toggleVisibility(),
             icon: const Icon(Icons.remove_red_eye),

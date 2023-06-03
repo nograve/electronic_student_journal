@@ -1,11 +1,45 @@
 {
   "@@locale": "uk",
+
   "emailLabelText": "Пошта",
-  "passwordLabelText": "Пароль",
   "emailHintText": "Введіть адресу електронної пошти",
+
+  "passwordLabelText": "Пароль",
   "passwordHintText": "Введіть пароль",
-  "signInButtonText": "Увійти",
+
+  "confirmPasswordLabelText": "Підтвердіть пароль",
+  "confirmPasswordHintText": "Повторно введіть пароль",
+
   "invalidEmail": "Невірна адреса пошти",
-  "invalidPassword": "Пароль повинен мати довжину не менше 8 символів і містити принаймні одну літеру та цифру",
-  "confirmPasswordMismatch": "Підтвердження паролю не збігається"
+  "invalidPassword": "Пароль повинен мати довжину не менше 6 символів",
+  "invalidConfirmPassword": "Паролі не співпадають",
+  
+  "signInButtonText": "Увійти",
+  "signOutButtonText": "Вийти",
+
+  "appNameTitle": "Електронний журнал",
+  "signUpUser": "Зареєструвати користувача",
+  "settings": "Налаштування",
+
+  "selectUserRoleHintText": "Виберіть роль користувача",
+  "invalidUserRole": "Будь ласка, оберіть роль користувача",
+
+  "signUpUserButtonText": "Зареєструвати",
+
+  "scores": "Оцінки",
+
+  "student": "студент",
+  "teacher": "викладач",
+  "admin": "адмін",
+
+  "patronymicLabelText": "По-батькові",
+  "patronymicErrorText": "Введіть по-батькові",
+  "nameLabelText": "Ім'я",
+  "nameErrorText": "Введіть ім'я",
+  "surnameLabelText": "Прізвище",
+  "surnameErrorText": "Введіть прізвище",
+  "groupLabelText": "Група",
+  "groupErrorText": "Введіть групу",
+  "universityLabelText": "Університет",
+  "universityErrorText": "Введіть назву університету"
 }
