@@ -8,8 +8,9 @@ part 'score_model.g.dart';
 class ScoreModel with _$ScoreModel {
   const factory ScoreModel({
     required String studentUid,
-    required int? score,
+    required int score,
     required DateTime date,
+    String? name,
   }) = _ScoreModel;
 
   factory ScoreModel.fromJson(Map<String, Object?> json) =>

@@ -1,3 +1,4 @@
+import 'package:electronic_student_journal/feature/home/domain/entities/scores_table_entity.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/add_score_date_button.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/add_student_button.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/scores_table_name_field.dart';
@@ -6,7 +7,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EditScoresTableForm extends StatelessWidget {
-  const EditScoresTableForm({super.key});
+  const EditScoresTableForm({
+    this.scoresTable,
+    super.key,
+  });
+
+  final ScoresTableEntity? scoresTable;
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +24,29 @@ class EditScoresTableForm extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const ScoresTableNameField(),
-            const Row(
+            Row(
               children: [
-                AddScoreDateButton(),
+                SizedBox(
+                  width: 50.r,
+                  height: 50.r,
+                  child: const AddScoreDateButton(),
+                ),
               ],
             ),
-            const Row(
+            Row(
               children: [
-                AddStudentButton(),
+                SizedBox(
+                  width: 50.r,
+                  height: 50.r,
+                  child: const AddStudentButton(),
+                ),
               ],
             ),
-            ElevatedButton(onPressed: () {}, child: Text(l10n.create)),
+            SizedBox(
+              width: 150.w,
+              height: 50.h,
+              child: ElevatedButton(onPressed: () {}, child: Text(l10n.create)),
+            ),
           ],
         ),
       ),

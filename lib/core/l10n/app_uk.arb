@@ -44,5 +44,8 @@
   "universityErrorText": "Введіть назву університету",
 
   "create": "Створити",
-  "tableTitle": "Таблиця"
+  "tableTitle": "Таблиця",
+
+  "tableNameLabelText": "Назва таблиці",
+  "tableNameErrorText": "Введіть назву таблиці"
 }

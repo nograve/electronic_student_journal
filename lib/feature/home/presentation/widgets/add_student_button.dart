@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddStudentButton extends StatelessWidget {
   const AddStudentButton({super.key});
@@ -7,7 +8,12 @@ class AddStudentButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {},
-      child: const Icon(Icons.add),
+      child: Center(
+        child: Icon(
+          Icons.add,
+          size: 16.r,
+        ),
+      ),
     );
   }
 }

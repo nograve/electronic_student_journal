@@ -1,7 +1,7 @@
 name: electronic_student_journal
 description: Electronic student journal application
 publish_to: 'none' 
-version: 0.3.0+1
+version: 0.4.0+1
 
 environment:
   sdk: ^3.0.0

@@ -21,6 +21,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/patronymic_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/register_user_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/role_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/scores_table_name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/sign_out_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/surname_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/university_provider.dart';
@@ -111,6 +112,7 @@ void initDependencies() {
     ..registerFactory(PatronymicProvider.new)
     ..registerFactory(UniversityProvider.new)
     ..registerFactory(GroupProvider.new)
+    ..registerFactory(ScoresTableNameProvider.new)
 
     // Logger
     ..registerLazySingleton(Logger.new);

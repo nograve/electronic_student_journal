@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddScoreDateButton extends StatelessWidget {
   const AddScoreDateButton({super.key});
@@ -12,7 +13,10 @@ class AddScoreDateButton extends StatelessWidget {
         firstDate: DateTime(1900),
         lastDate: DateTime(2101),
       ),
-      child: const Icon(Icons.add),
+      child: Icon(
+        Icons.add,
+        size: 16.r,
+      ),
     );
   }
 }

@@ -44,5 +44,8 @@
   "universityErrorText": "Enter university's name",
 
   "create": "Create",
-  "tableTitle": "Table"
+  "tableTitle": "Table",
+
+  "tableNameLabelText": "Table name",
+  "tableNameErrorText": "Enter table name"
 }
