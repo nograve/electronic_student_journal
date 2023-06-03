@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:electronic_student_journal/core/error/exception.dart';
 import 'package:electronic_student_journal/core/error/failure.dart';
 import 'package:electronic_student_journal/feature/home/data/datasources/firestore_remote_data_source.dart';
 import 'package:electronic_student_journal/feature/home/data/models/scores_table_model.dart';
@@ -73,8 +74,9 @@ class FirestoreRemoteDataSourceImpl implements FirestoreRemoteDataSource {
 
         return Right(tables);
       }
-      // TODO(nograve): Add AdminSelectedFailure
-      return const Left(SomeFailure('Admin selected.'));
+      throw AdminSelectedException();
+    } on AdminSelectedException catch (e) {
+      return Left(AdminSelectedFailure(e.toString()));
     } catch (e) {
       return Left(SomeFailure(e.toString()));
     }
