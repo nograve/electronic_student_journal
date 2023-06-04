@@ -9,14 +9,13 @@ part 'scores_table_model.g.dart';
 
 @freezed
 class ScoresTableModel with _$ScoresTableModel {
-  const ScoresTableModel._();
-
-  // ignore: sort_unnamed_constructors_first
   const factory ScoresTableModel({
     required String name,
     @TimestampConverter() required DateTime createdAt,
     required String ownerUid,
   }) = _ScoresTableModel;
+
+  const ScoresTableModel._();
 
   factory ScoresTableModel.fromJson(Map<String, Object?> json) =>
       _$ScoresTableModelFromJson(json);
