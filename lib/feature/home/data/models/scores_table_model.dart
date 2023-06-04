@@ -13,6 +13,7 @@ class ScoresTableModel with _$ScoresTableModel {
     required String name,
     @TimestampConverter() required DateTime createdAt,
     required String ownerUid,
+    required String uid,
   }) = _ScoresTableModel;
 
   const ScoresTableModel._();
@@ -24,5 +25,6 @@ class ScoresTableModel with _$ScoresTableModel {
         name: name,
         createdAt: createdAt,
         ownerUid: ownerUid,
+        uid: uid,
       );
 }

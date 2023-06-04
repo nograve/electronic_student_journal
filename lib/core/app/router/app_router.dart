@@ -141,9 +141,12 @@ final appRouter = GoRouter(
               name: Routes.scoresTable.name,
               builder: (_, state) => BlocProvider.value(
                 value: state.extra! as UserChangesBloc,
-                child: const ScoresTableView(),
+                child: ScoresTableView(
+                  userRole: state.queryParameters['userRole'],
+                ),
               ),
             ),
+            // Edit scores table
             GoRoute(
               path: 'editScoresTable',
               name: Routes.editScoresTable.name,

@@ -64,6 +64,7 @@ class ScoresView extends StatelessWidget {
                             onPressed: () => context.goNamed(
                               Routes.scoresTable.name,
                               extra: context.read<UserChangesBloc>(),
+                              queryParameters: {'userRole': userEntity.role},
                             ),
                             child: Text(
                               table.name,
