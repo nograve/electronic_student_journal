@@ -19,7 +19,7 @@ class HomeView extends StatelessWidget {
       listener: (context, state) {
         state.whenOrNull(
           userSignsIn: (user) =>
-              context.read<GetUserDataCubit>().getUserData(user),
+              context.read<GetUserDataCubit>().getUserData(user.uid),
           userSingsOut: () => appRouter.go(Routes.signIn.path),
         );
       },

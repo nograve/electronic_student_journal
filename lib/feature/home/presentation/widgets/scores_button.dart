@@ -14,7 +14,7 @@ class ScoresButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () => context.goNamed(
         Routes.scores.name,
-        extra: context.read<UserChangesBloc>(),
+        extra: (context.read<UserChangesBloc>(), null),
       ),
       child: Text(l10n.scores),
     );

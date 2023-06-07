@@ -1,4 +1,6 @@
 import 'package:electronic_student_journal/core/app/di/injector.dart';
+import 'package:electronic_student_journal/feature/home/domain/entities/scores_table_entity.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_scores_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_scores_tables_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/group_provider.dart';
@@ -122,39 +124,58 @@ final appRouter = GoRouter(
         GoRoute(
           path: 'scores',
           name: Routes.scores.name,
-          builder: (_, state) => MultiBlocProvider(
-            providers: [
-              BlocProvider.value(
-                value: state.extra! as UserChangesBloc,
-              ),
-              BlocProvider<GetScoresTablesCubit>(
-                create: (_) => injector(),
-              ),
-              BlocProvider<GetUserDataCubit>(create: (_) => injector()),
-            ],
-            child: const ScoresView(),
-          ),
+          builder: (_, state) {
+            final extra = state.extra! as (UserChangesBloc, ScoresTableEntity?);
+
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider.value(
+                  value: extra.$1,
+                ),
+                BlocProvider<GetScoresTablesCubit>(
+                  create: (_) => injector(),
+                ),
+                BlocProvider<GetUserDataCubit>(create: (_) => injector()),
+              ],
+              child: const ScoresView(),
+            );
+          },
           // Scores Table
           routes: [
             GoRoute(
               path: 'scoresTable',
               name: Routes.scoresTable.name,
-              builder: (_, state) => BlocProvider.value(
-                value: state.extra! as UserChangesBloc,
-                child: ScoresTableView(
-                  userRole: state.queryParameters['userRole'],
-                ),
-              ),
+              builder: (_, state) {
+                final extra =
+                    state.extra! as (UserChangesBloc, ScoresTableEntity);
+
+                return BlocProvider.value(
+                  value: extra.$1,
+                  child: BlocProvider<GetScoresCubit>(
+                    create: (_) => injector()..getScores(extra.$2.uid),
+                    child: BlocProvider<GetUserDataCubit>(
+                      create: (context) => injector(),
+                      child: ScoresTableView(
+                        userRole: state.queryParameters['userRole']!,
+                        table: extra.$2,
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
             // Edit scores table
             GoRoute(
               path: 'editScoresTable',
               name: Routes.editScoresTable.name,
-              builder: (_, state) => BlocProvider.value(
+              builder: (context, state) => BlocProvider.value(
                 value: state.extra! as UserChangesBloc,
-                child: ChangeNotifierProvider<ScoresTableNameProvider>(
+                child: BlocProvider<GetUserDataCubit>(
                   create: (_) => injector(),
-                  child: const EditScoresTableView(),
+                  child: ChangeNotifierProvider<ScoresTableNameProvider>(
+                    create: (_) => injector(),
+                    child: const EditScoresTableView(),
+                  ),
                 ),
               ),
             ),

@@ -22,7 +22,7 @@ class ScoresView extends StatelessWidget {
       listener: (_, state) {
         state.whenOrNull(
           userSignsIn: (user) =>
-              context.read<GetUserDataCubit>().getUserData(user),
+              context.read<GetUserDataCubit>().getUserData(user.uid),
           userSingsOut: () => appRouter.go(Routes.signIn.path),
         );
       },
@@ -34,7 +34,7 @@ class ScoresView extends StatelessWidget {
           builder: (context, userChangesState) {
             userChangesState.whenOrNull(
               userSignsIn: (user) =>
-                  context.read<GetUserDataCubit>().getUserData(user),
+                  context.read<GetUserDataCubit>().getUserData(user.uid),
             );
             return BlocConsumer<GetUserDataCubit, GetUserDataState>(
               listener: (context, state) {
@@ -63,7 +63,7 @@ class ScoresView extends StatelessWidget {
                           (table) => ElevatedButton(
                             onPressed: () => context.goNamed(
                               Routes.scoresTable.name,
-                              extra: context.read<UserChangesBloc>(),
+                              extra: (context.read<UserChangesBloc>(), table),
                               queryParameters: {'userRole': userEntity.role},
                             ),
                             child: Text(

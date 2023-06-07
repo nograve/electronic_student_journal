@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'user_params.freezed.dart';
+part 'table_params.freezed.dart';
 
 @freezed
-class UserParams with _$UserParams {
-  const factory UserParams({
+class TableParams with _$TableParams {
+  const factory TableParams({
     required String uid,
-  }) = _UserParams;
+  }) = _TableParams;
 }

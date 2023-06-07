@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
 class ScoreEntity extends Equatable {
-  const ScoreEntity(
-    this.studentUid,
-    this.score,
-    this.date,
-    this.name,
-  );
+  const ScoreEntity({
+    required this.studentUid,
+    required this.score,
+    required this.date,
+    required this.name,
+  });
 
   final String studentUid;
   final int score;

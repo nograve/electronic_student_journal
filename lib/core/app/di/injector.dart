@@ -7,11 +7,13 @@ import 'package:electronic_student_journal/feature/home/data/repositories/regist
 import 'package:electronic_student_journal/feature/home/domain/repositories/firestore_repository.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/register_repository.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_scores_tables_list_usecase.dart';
+import 'package:electronic_student_journal/feature/home/domain/usecases/get_scores_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_changes_stream_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_data_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/register_user_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/sign_out_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/update_access_time_usecase.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_scores_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_scores_tables_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/group_provider.dart';
@@ -82,6 +84,9 @@ void initDependencies() {
     ..registerLazySingleton(
       () => GetScoresTablesUseCase(firestoreRepository: injector()),
     )
+    ..registerLazySingleton(
+      () => GetScoresUseCase(firestoreRepository: injector()),
+    )
 
     // Cubits
     ..registerFactory(() => SignInCubit(signInUseCase: injector()))
@@ -91,6 +96,7 @@ void initDependencies() {
     ..registerFactory(
       () => GetScoresTablesCubit(getScoresTablesUseCase: injector()),
     )
+    ..registerFactory(() => GetScoresCubit(getScoresUseCase: injector()))
 
     // BLoCs
     ..registerFactory(

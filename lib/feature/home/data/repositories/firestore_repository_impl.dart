@@ -1,12 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:electronic_student_journal/core/error/failure.dart';
 import 'package:electronic_student_journal/feature/home/data/datasources/firestore_remote_data_source.dart';
+import 'package:electronic_student_journal/feature/home/domain/entities/score_entity.dart';
 import 'package:electronic_student_journal/feature/home/domain/entities/scores_table_entity.dart';
 import 'package:electronic_student_journal/feature/home/domain/entities/user_entity.dart';
+import 'package:electronic_student_journal/feature/home/domain/params/table_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_model_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/firestore_repository.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class FirestoreRepositoryImpl implements FirestoreRepository {
   FirestoreRepositoryImpl({
@@ -16,8 +17,8 @@ class FirestoreRepositoryImpl implements FirestoreRepository {
   final FirestoreRemoteDataSource _firestoreRemoteDataSource;
 
   @override
-  Future<Either<Failure, UserEntity>> getUserData(User user) async {
-    final response = await _firestoreRemoteDataSource.getUserData(user);
+  Future<Either<Failure, UserEntity>> getUserData(String uid) async {
+    final response = await _firestoreRemoteDataSource.getUserData(uid);
 
     return response.fold(
       Left.new,
@@ -42,6 +43,18 @@ class FirestoreRepositoryImpl implements FirestoreRepository {
       Left.new,
       (scoresTables) =>
           Right(scoresTables.map((table) => table.toEntity()).toList()),
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<ScoreEntity>>> getScores(
+    TableParams params,
+  ) async {
+    final response = await _firestoreRemoteDataSource.getScores(params);
+
+    return response.fold(
+      Left.new,
+      (scores) => Right(scores.map((score) => score.toEntity()).toList()),
     );
   }
 }

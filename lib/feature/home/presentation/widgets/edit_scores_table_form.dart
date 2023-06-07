@@ -1,4 +1,3 @@
-import 'package:electronic_student_journal/feature/home/domain/entities/scores_table_entity.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/add_score_date_button.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/add_student_button.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/scores_table_name_field.dart';
@@ -7,12 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EditScoresTableForm extends StatelessWidget {
-  const EditScoresTableForm({
-    this.scoresTable,
-    super.key,
-  });
-
-  final ScoresTableEntity? scoresTable;
+  const EditScoresTableForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +20,7 @@ class EditScoresTableForm extends StatelessWidget {
             const ScoresTableNameField(),
             Row(
               children: [
+                // ScoreDateField(scores: ),
                 SizedBox(
                   width: 50.r,
                   height: 50.r,

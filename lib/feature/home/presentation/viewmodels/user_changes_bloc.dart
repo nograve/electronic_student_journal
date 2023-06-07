@@ -70,7 +70,7 @@ class UserChangesBloc extends Bloc<UserChangesEvent, UserChangesState> {
     Emitter<UserChangesState> emit,
   ) {
     if (event.user != null) {
-      _updateAccessTimeUseCase.call(UserParams(user: event.user!));
+      _updateAccessTimeUseCase.call(UserParams(uid: event.user!.uid));
       emit(_UserSignsIn(event.user!));
     } else {
       emit(const _UserSignsOut());

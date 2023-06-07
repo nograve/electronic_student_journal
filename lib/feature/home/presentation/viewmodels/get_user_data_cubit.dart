@@ -1,7 +1,6 @@
 import 'package:electronic_student_journal/feature/home/domain/entities/user_entity.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_data_usecase.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -15,9 +14,9 @@ class GetUserDataCubit extends Cubit<GetUserDataState> {
 
   final GetUserDataUsecase _getUserDataUsecase;
 
-  Future<void> getUserData(User user) async {
+  Future<void> getUserData(String uid) async {
     emit(const _Loading());
-    final response = await _getUserDataUsecase.call(UserParams(user: user));
+    final response = await _getUserDataUsecase.call(UserParams(uid: uid));
 
     response.fold(
       (failure) => emit(_Failure(failure.message)),

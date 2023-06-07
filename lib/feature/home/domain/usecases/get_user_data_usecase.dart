@@ -13,7 +13,7 @@ class GetUserDataUsecase extends UseCase<UserEntity, UserParams> {
 
   @override
   Future<Either<Failure, UserEntity>> call(UserParams params) async {
-    final response = await _firestoreRepository.getUserData(params.user);
+    final response = await _firestoreRepository.getUserData(params.uid);
 
     return response;
   }
