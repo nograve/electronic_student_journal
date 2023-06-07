@@ -4,6 +4,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class ScoresTableView extends StatelessWidget {
   const ScoresTableView({
@@ -27,20 +28,19 @@ class ScoresTableView extends StatelessWidget {
       ),
       body: BlocBuilder<GetScoresCubit, GetScoresState>(
         builder: (context, state) {
-          print(state);
-
           return state.maybeWhen(
             success: (scores) {
               final tableName = Text(table.name);
 
-              final scoresTitles = scores
-                  .map(
-                    (score) => DecoratedBox(
-                      decoration: BoxDecoration(border: Border.all()),
-                      child: Text('${score.name} ${score.date}'),
-                    ),
-                  )
-                  .toSet();
+              final scoresTitles = scores.map((score) {
+                return DecoratedBox(
+                  decoration: BoxDecoration(border: Border.all()),
+                  child: Text(
+                    '${score.name} '
+                    '${DateFormat('dd/MM/yyyy').format(score.date)}',
+                  ),
+                );
+              }).toSet();
 
               for (final score in scores) {
                 context.read<GetUserDataCubit>().getUserData(score.studentUid);
