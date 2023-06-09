@@ -9,7 +9,7 @@ class ScoreEntity extends Equatable {
   });
 
   final String studentUid;
-  final int score;
+  final int? score;
   final DateTime date;
   final String? name;
 

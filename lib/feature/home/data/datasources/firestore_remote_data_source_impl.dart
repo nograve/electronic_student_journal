@@ -94,6 +94,7 @@ class FirestoreRemoteDataSourceImpl implements FirestoreRemoteDataSource {
     final scoresSnapshot = await _firebaseFirestore
         .doc(tableSnapshot.docs.first.reference.path)
         .collection('scores')
+        .orderBy('date')
         .get();
 
     final scores = scoresSnapshot.docs

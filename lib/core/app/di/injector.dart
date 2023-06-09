@@ -1,11 +1,16 @@
+import 'package:electronic_student_journal/feature/home/data/datasources/excel_local_data_source.dart';
+import 'package:electronic_student_journal/feature/home/data/datasources/excel_local_data_source_impl.dart';
 import 'package:electronic_student_journal/feature/home/data/datasources/firestore_remote_data_source.dart';
 import 'package:electronic_student_journal/feature/home/data/datasources/firestore_remote_data_source_impl.dart';
 import 'package:electronic_student_journal/feature/home/data/datasources/register_remote_data_source.dart';
 import 'package:electronic_student_journal/feature/home/data/datasources/register_remote_data_source_impl.dart';
+import 'package:electronic_student_journal/feature/home/data/repositories/excel_repository_impl.dart';
 import 'package:electronic_student_journal/feature/home/data/repositories/firestore_repository_impl.dart';
 import 'package:electronic_student_journal/feature/home/data/repositories/register_repository_impl.dart';
+import 'package:electronic_student_journal/feature/home/domain/repositories/excel_repository.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/firestore_repository.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/register_repository.dart';
+import 'package:electronic_student_journal/feature/home/domain/usecases/export_table_to_excel_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_scores_tables_list_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_scores_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_changes_stream_usecase.dart';
@@ -13,6 +18,7 @@ import 'package:electronic_student_journal/feature/home/domain/usecases/get_user
 import 'package:electronic_student_journal/feature/home/domain/usecases/register_user_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/sign_out_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/update_access_time_usecase.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/export_to_excel_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_scores_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_scores_tables_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
@@ -54,6 +60,7 @@ void initDependencies() {
     ..registerLazySingleton<FirestoreRemoteDataSource>(
       FirestoreRemoteDataSourceImpl.new,
     )
+    ..registerLazySingleton<ExcelLocalDataSource>(ExcelLocalDataSourceImpl.new)
 
     // Repositories
     ..registerLazySingleton<AuthRepository>(
@@ -64,6 +71,9 @@ void initDependencies() {
     )
     ..registerLazySingleton<FirestoreRepository>(
       () => FirestoreRepositoryImpl(firestoreRemoteDataSource: injector()),
+    )
+    ..registerLazySingleton<ExcelRepository>(
+      () => ExcelRepositoryImpl(excelLocalDataSource: injector()),
     )
 
     // Usecases
@@ -87,6 +97,9 @@ void initDependencies() {
     ..registerLazySingleton(
       () => GetScoresUseCase(firestoreRepository: injector()),
     )
+    ..registerLazySingleton(
+      () => ExportTableToExcelUseCase(excelRepository: injector()),
+    )
 
     // Cubits
     ..registerFactory(() => SignInCubit(signInUseCase: injector()))
@@ -97,6 +110,9 @@ void initDependencies() {
       () => GetScoresTablesCubit(getScoresTablesUseCase: injector()),
     )
     ..registerFactory(() => GetScoresCubit(getScoresUseCase: injector()))
+    ..registerFactory(
+      () => ExportToExcelCubit(exportTableToExcelUseCase: injector()),
+    )
 
     // BLoCs
     ..registerFactory(

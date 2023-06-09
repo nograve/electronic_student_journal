@@ -1,5 +1,7 @@
 import 'package:electronic_student_journal/feature/home/domain/entities/scores_table_entity.dart';
 import 'package:electronic_student_journal/feature/home/domain/entities/user_entity.dart';
+import 'package:electronic_student_journal/feature/home/domain/params/exporting_table_params.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/export_to_excel_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_scores_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
 import 'package:flutter/material.dart';
@@ -68,9 +70,30 @@ class ScoresTableView extends StatelessWidget {
                       ...scoresValues
                     ];
 
-                    return GridView.count(
-                      crossAxisCount: scores.length + 1,
-                      children: resultTable,
+                    final crossAxisCount = scores.length + 1;
+                    final mainAxisCount = crossAxisCount;
+
+                    return Column(
+                      children: [
+                        Expanded(
+                          child: GridView.count(
+                            crossAxisCount: scores.length + 1,
+                            children: resultTable,
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () =>
+                              context.read<ExportToExcelCubit>().exportToExcel(
+                                    ExportingTableParams(
+                                      cols: mainAxisCount,
+                                      rows: crossAxisCount,
+                                      content: ['123', '123'],
+                                      tableName: table.name,
+                                    ),
+                                  ),
+                          child: const Text('Export to Excel'),
+                        ),
+                      ],
                     );
                   },
                   orElse: () => const Center(

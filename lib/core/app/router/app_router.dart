@@ -1,5 +1,6 @@
 import 'package:electronic_student_journal/core/app/di/injector.dart';
 import 'package:electronic_student_journal/feature/home/domain/entities/scores_table_entity.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/export_to_excel_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_scores_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_scores_tables_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
@@ -154,10 +155,13 @@ final appRouter = GoRouter(
                   child: BlocProvider<GetScoresCubit>(
                     create: (_) => injector()..getScores(extra.$2.uid),
                     child: BlocProvider<GetUserDataCubit>(
-                      create: (context) => injector(),
-                      child: ScoresTableView(
-                        userRole: state.queryParameters['userRole']!,
-                        table: extra.$2,
+                      create: (_) => injector(),
+                      child: BlocProvider<ExportToExcelCubit>(
+                        create: (_) => injector(),
+                        child: ScoresTableView(
+                          userRole: state.queryParameters['userRole']!,
+                          table: extra.$2,
+                        ),
                       ),
                     ),
                   ),
