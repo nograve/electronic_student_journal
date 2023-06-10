@@ -32,52 +32,70 @@ class ScoresTableView extends StatelessWidget {
         builder: (context, state) {
           return state.maybeWhen(
             success: (scores) {
-              final tableName = Text(table.name);
+              final tableName = table.name;
+              final tableNameText = Text(tableName);
 
-              final scoresTitles = scores.map((score) {
+              final scoresTitles = scores
+                  .map(
+                    (score) => '${score.name} '
+                        '${DateFormat('dd/MM/yyyy').format(score.date)}',
+                  )
+                  .toSet()
+                  .toList();
+
+              final scoresTitlesWidgets = scoresTitles.map((scoreTitle) {
                 return DecoratedBox(
                   decoration: BoxDecoration(border: Border.all()),
-                  child: Text(
-                    '${score.name} '
-                    '${DateFormat('dd/MM/yyyy').format(score.date)}',
-                  ),
+                  child: Text(scoreTitle),
                 );
-              }).toSet();
+              });
 
               for (final score in scores) {
                 context.read<GetUserDataCubit>().getUserData(score.studentUid);
               }
 
-              final scoresValues = scores.map(
-                (scores) => DecoratedBox(
+              final scoresValues =
+                  scores.map((score) => '${score.score}').toList();
+
+              final scoresValuesWidgets = scoresValues.map(
+                (scoresValue) => DecoratedBox(
                   decoration: BoxDecoration(border: Border.all()),
-                  child: Text('${scores.score}'),
+                  child: Text(scoresValue),
                 ),
               );
 
               return BlocBuilder<GetUserDataCubit, GetUserDataState>(
                 builder: (context, state) => state.maybeWhen(
                   success: (userEntity) {
-                    final studentsFullNames = <Text>[
-                      Text('${userEntity.surname} ${userEntity.name} '
-                          '${userEntity.patronymic}')
+                    final studentsFullNames =
+                        '${userEntity.surname} ${userEntity.name} '
+                        '${userEntity.patronymic}';
+
+                    final studentsFullNamesTexts = [
+                      Text(studentsFullNames),
                     ];
 
                     final resultTable = <Widget>[
-                      tableName,
-                      ...scoresTitles,
-                      ...studentsFullNames,
-                      ...scoresValues
+                      tableNameText,
+                      ...scoresTitlesWidgets,
+                      ...studentsFullNamesTexts,
+                      ...scoresValuesWidgets
                     ];
 
-                    final crossAxisCount = scores.length + 1;
-                    final mainAxisCount = crossAxisCount;
+                    final crossAxisCount = scoresTitles.length + 1;
+                    final mainAxisCount = studentsFullNames.length + 1;
+                    final content = <String>[
+                      tableName,
+                      ...scoresTitles,
+                      studentsFullNames,
+                      ...scoresValues
+                    ];
 
                     return Column(
                       children: [
                         Expanded(
                           child: GridView.count(
-                            crossAxisCount: scores.length + 1,
+                            crossAxisCount: crossAxisCount,
                             children: resultTable,
                           ),
                         ),
@@ -87,7 +105,7 @@ class ScoresTableView extends StatelessWidget {
                                     ExportingTableParams(
                                       cols: mainAxisCount,
                                       rows: crossAxisCount,
-                                      content: ['123', '123'],
+                                      content: content,
                                       tableName: table.name,
                                     ),
                                   ),
