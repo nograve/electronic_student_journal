@@ -14,23 +14,12 @@ class ExcelLocalDataSourceImpl implements ExcelLocalDataSource {
     try {
       final excel = Excel.createExcel();
       final sheet = excel.sheets[excel.getDefaultSheet()];
-      sheet!.setColWidth(2, 50);
-      sheet.setColAutoFit(3);
-
-      // sheet
-      //     .cell(CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: 3))
-      //     .value = 'Text string';
-
-      // sheet
-      //         .cell(CellIndex.indexByColumnRow(columnIndex: 3, rowIndex: 4))
-      //         .value =
-      //     'Text string Text string Text string Text string Text string';
 
       for (var i = 0; i < params.rows; i++) {
         for (var j = 0; j < params.cols; j++) {
-          sheet
+          sheet!
               .cell(CellIndex.indexByColumnRow(columnIndex: j, rowIndex: i))
-              .value = params.content[i * (params.cols - 1) + j];
+              .value = params.content[i * params.cols + j];
         }
       }
 

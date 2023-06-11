@@ -43,7 +43,7 @@ class ScoresTableView extends StatelessWidget {
                   .toSet()
                   .toList();
 
-              final scoresTitlesWidgets = scoresTitles.map((scoreTitle) {
+              final scoresTitlesTexts = scoresTitles.map((scoreTitle) {
                 return DecoratedBox(
                   decoration: BoxDecoration(border: Border.all()),
                   child: Text(scoreTitle),
@@ -54,13 +54,12 @@ class ScoresTableView extends StatelessWidget {
                 context.read<GetUserDataCubit>().getUserData(score.studentUid);
               }
 
-              final scoresValues =
-                  scores.map((score) => '${score.score}').toList();
+              final scoresValues = scores.map((score) => score.score).toList();
 
               final scoresValuesWidgets = scoresValues.map(
                 (scoresValue) => DecoratedBox(
                   decoration: BoxDecoration(border: Border.all()),
-                  child: Text(scoresValue),
+                  child: Text(scoresValue.toString()),
                 ),
               );
 
@@ -68,8 +67,8 @@ class ScoresTableView extends StatelessWidget {
                 builder: (context, state) => state.maybeWhen(
                   success: (userEntity) {
                     final studentsFullNames =
-                        '${userEntity.surname} ${userEntity.name} '
-                        '${userEntity.patronymic}';
+                        '${userEntity.surname} ${userEntity.name![0]}. '
+                        '${userEntity.patronymic![0]}.';
 
                     final studentsFullNamesTexts = [
                       Text(studentsFullNames),
@@ -77,14 +76,14 @@ class ScoresTableView extends StatelessWidget {
 
                     final resultTable = <Widget>[
                       tableNameText,
-                      ...scoresTitlesWidgets,
+                      ...scoresTitlesTexts,
                       ...studentsFullNamesTexts,
                       ...scoresValuesWidgets
                     ];
 
                     final crossAxisCount = scoresTitles.length + 1;
-                    final mainAxisCount = studentsFullNames.length + 1;
-                    final content = <String>[
+                    final mainAxisCount = studentsFullNamesTexts.length + 1;
+                    final content = <dynamic>[
                       tableName,
                       ...scoresTitles,
                       studentsFullNames,
@@ -103,8 +102,8 @@ class ScoresTableView extends StatelessWidget {
                           onPressed: () =>
                               context.read<ExportToExcelCubit>().exportToExcel(
                                     ExportingTableParams(
-                                      cols: mainAxisCount,
-                                      rows: crossAxisCount,
+                                      cols: crossAxisCount,
+                                      rows: mainAxisCount,
                                       content: content,
                                       tableName: table.name,
                                     ),

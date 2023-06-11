@@ -6,7 +6,7 @@ part 'exporting_table_params.freezed.dart';
 @freezed
 class ExportingTableParams with _$ExportingTableParams {
   const factory ExportingTableParams({
-    required List<String> content,
+    required List<dynamic> content,
     required int rows,
     required int cols,
     required String tableName,
