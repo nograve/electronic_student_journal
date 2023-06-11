@@ -7,6 +7,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 class ScoresTableView extends StatelessWidget {
   const ScoresTableView({
@@ -98,17 +99,24 @@ class ScoresTableView extends StatelessWidget {
                             children: resultTable,
                           ),
                         ),
-                        ElevatedButton(
-                          onPressed: () =>
-                              context.read<ExportToExcelCubit>().exportToExcel(
-                                    ExportingTableParams(
-                                      cols: crossAxisCount,
-                                      rows: mainAxisCount,
-                                      content: content,
-                                      tableName: table.name,
-                                    ),
+                        BlocListener<ExportToExcelCubit, ExportToExcelState>(
+                          listener: (context, state) => state.whenOrNull(
+                            success: () => toast('Saved!'),
+                            failure: toast,
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () => context
+                                .read<ExportToExcelCubit>()
+                                .exportToExcel(
+                                  ExportingTableParams(
+                                    cols: crossAxisCount,
+                                    rows: mainAxisCount,
+                                    content: content,
+                                    tableName: table.name,
                                   ),
-                          child: const Text('Export to Excel'),
+                                ),
+                            child: const Text('Export to Excel'),
+                          ),
                         ),
                       ],
                     );

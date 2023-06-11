@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -27,7 +28,10 @@ class SettingsView extends StatelessWidget {
             width: 150.w,
             height: 50.h,
             child: ElevatedButton(
-              onPressed: () => context.read<SignOutCubit>().signOut(),
+              onPressed: () {
+                toast('Signed out');
+                context.read<SignOutCubit>().signOut();
+              },
               child: Text(l10n.signOutButtonText),
             ),
           ),
