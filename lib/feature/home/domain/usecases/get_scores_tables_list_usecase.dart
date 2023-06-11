@@ -6,7 +6,7 @@ import 'package:electronic_student_journal/feature/home/domain/params/user_model
 import 'package:electronic_student_journal/feature/home/domain/repositories/firestore_repository.dart';
 
 class GetScoresTablesUseCase
-    extends UseCase<List<ScoresTableEntity>, UserModelParams> {
+    extends AsyncUseCase<List<ScoresTableEntity>, UserModelParams> {
   GetScoresTablesUseCase({required FirestoreRepository firestoreRepository})
       : _firestoreRepository = firestoreRepository;
 

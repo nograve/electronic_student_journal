@@ -4,7 +4,7 @@ import 'package:electronic_student_journal/core/usecase/usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/register_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/register_repository.dart';
 
-class RegisterUserUsecase extends UseCase<void, RegisterParams> {
+class RegisterUserUsecase extends AsyncUseCase<void, RegisterParams> {
   RegisterUserUsecase({required RegisterRepository registerRepository})
       : _registerRepository = registerRepository;
 

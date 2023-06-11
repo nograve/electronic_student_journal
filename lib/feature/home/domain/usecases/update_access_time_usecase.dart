@@ -4,7 +4,7 @@ import 'package:electronic_student_journal/core/usecase/usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/firestore_repository.dart';
 
-class UpdateAccessTimeUseCase extends UseCase<void, UserParams> {
+class UpdateAccessTimeUseCase extends AsyncUseCase<void, UserParams> {
   UpdateAccessTimeUseCase({
     required FirestoreRepository firestoreRepository,
   }) : _firestoreRepository = firestoreRepository;

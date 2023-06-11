@@ -5,7 +5,7 @@ import 'package:electronic_student_journal/feature/home/domain/entities/score_en
 import 'package:electronic_student_journal/feature/home/domain/params/table_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/firestore_repository.dart';
 
-class GetScoresUseCase extends UseCase<List<ScoreEntity>, TableParams> {
+class GetScoresUseCase extends AsyncUseCase<List<ScoreEntity>, TableParams> {
   GetScoresUseCase({required FirestoreRepository firestoreRepository})
       : _firestoreRepository = firestoreRepository;
 

@@ -25,7 +25,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Stream<User?> getUserChangesStream() {
+  Either<Failure, Stream<User?>> getUserChangesStream() {
     return _firebaseRemoteDataSource.getUserChangesStream();
   }
 }

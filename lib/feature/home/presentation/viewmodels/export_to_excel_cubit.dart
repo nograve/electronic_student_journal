@@ -16,7 +16,7 @@ class ExportToExcelCubit extends Cubit<ExportToExcelState> {
 
   Future<void> exportToExcel(ExportingTableParams params) async {
     emit(const _Loading());
-    final response = await _exportTableToExcelUseCase.exportToExcel(params);
+    final response = await _exportTableToExcelUseCase.call(params);
 
     response.fold(
       (failure) => emit(_Failure(failure.message)),

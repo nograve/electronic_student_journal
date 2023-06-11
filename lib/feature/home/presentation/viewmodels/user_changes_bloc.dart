@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:electronic_student_journal/core/app/di/injector.dart';
+import 'package:electronic_student_journal/core/usecase/usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_changes_stream_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/update_access_time_usecase.dart';
@@ -17,10 +18,12 @@ class UserChangesBloc extends Bloc<UserChangesEvent, UserChangesState> {
   UserChangesBloc({
     required GetUserChangesStreamUseCase getUserChangesStreamUseCase,
     required UpdateAccessTimeUseCase updateAccessTimeUseCase,
-  })  : _getUserChangesStreamUseCase = getUserChangesStreamUseCase,
-        _updateAccessTimeUseCase = updateAccessTimeUseCase,
+  })  : _updateAccessTimeUseCase = updateAccessTimeUseCase,
         super(const _Initial()) {
-    _stream = _getUserChangesStreamUseCase.call();
+    getUserChangesStreamUseCase.call(NoParams()).fold(
+          (failure) => logger.e(failure.message),
+          (stream) => _stream = stream,
+        );
 
     on<_Started>(_started);
     on<_Observe>(_observe);
@@ -33,7 +36,6 @@ class UserChangesBloc extends Bloc<UserChangesEvent, UserChangesState> {
     add(const _Started());
   }
 
-  final GetUserChangesStreamUseCase _getUserChangesStreamUseCase;
   final UpdateAccessTimeUseCase _updateAccessTimeUseCase;
 
   late Stream<User?> _stream;

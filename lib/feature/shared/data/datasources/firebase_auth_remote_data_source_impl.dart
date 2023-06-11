@@ -37,7 +37,11 @@ class FirebaseAuthRemoteDataSourceImpl implements FirebaseAuthRemoteDataSource {
   }
 
   @override
-  Stream<User?> getUserChangesStream() {
-    return _firebaseAuth.authStateChanges();
+  Either<Failure, Stream<User?>> getUserChangesStream() {
+    try {
+      return Right(_firebaseAuth.authStateChanges());
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
   }
 }

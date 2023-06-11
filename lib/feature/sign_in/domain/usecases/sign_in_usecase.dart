@@ -5,7 +5,7 @@ import 'package:electronic_student_journal/feature/shared/domain/params/user_cre
 import 'package:electronic_student_journal/feature/shared/domain/repositories/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class SignInUseCase extends UseCase<User, UserCredentialsParams> {
+class SignInUseCase extends AsyncUseCase<User, UserCredentialsParams> {
   SignInUseCase({required AuthRepository authRepository})
       : _authRepository = authRepository;
 

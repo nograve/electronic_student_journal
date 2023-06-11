@@ -5,7 +5,7 @@ import 'package:electronic_student_journal/feature/home/domain/entities/user_ent
 import 'package:electronic_student_journal/feature/home/domain/params/user_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/firestore_repository.dart';
 
-class GetUserDataUsecase extends UseCase<UserEntity, UserParams> {
+class GetUserDataUsecase extends AsyncUseCase<UserEntity, UserParams> {
   GetUserDataUsecase({required FirestoreRepository firestoreRepository})
       : _firestoreRepository = firestoreRepository;
 

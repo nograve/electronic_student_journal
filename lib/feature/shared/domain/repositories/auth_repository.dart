@@ -8,5 +8,5 @@ abstract interface class AuthRepository {
 
   Future<Either<Failure, void>> signOut();
 
-  Stream<User?> getUserChangesStream();
+  Either<Failure, Stream<User?>> getUserChangesStream();
 }
