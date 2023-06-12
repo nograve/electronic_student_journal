@@ -10,6 +10,7 @@ import 'package:electronic_student_journal/feature/home/domain/entities/user_ent
 import 'package:electronic_student_journal/feature/home/domain/params/table_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_model_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_params.dart';
+import 'package:electronic_student_journal/feature/home/domain/params/users_params.dart';
 
 class FirestoreRemoteDataSourceImpl implements FirestoreRemoteDataSource {
   final _firebaseFirestore = FirebaseFirestore.instance;
@@ -102,5 +103,30 @@ class FirestoreRemoteDataSourceImpl implements FirestoreRemoteDataSource {
         .toList();
 
     return Right(scores);
+  }
+
+  @override
+  Future<Either<Failure, List<UserModel>>> getUsersData(
+    UsersParams params,
+  ) async {
+    try {
+      final usersModels = <UserModel>[];
+
+      final uids = params.uids;
+      for (final uid in uids) {
+        final doc = await _firebaseFirestore.collection('users').doc(uid).get();
+        if (doc.data() != null) {
+          usersModels.add(UserModel.fromJson(doc.data()!));
+        } else {
+          throw EmptyDataException();
+        }
+      }
+
+      return Right(usersModels);
+    } on EmptyDataException catch (e) {
+      return Left(EmptyDataFailure(e.toString()));
+    } catch (e) {
+      return Left(SomeFailure(e.toString()));
+    }
   }
 }

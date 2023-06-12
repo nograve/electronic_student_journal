@@ -1,9 +1,9 @@
 import 'package:electronic_student_journal/feature/home/domain/entities/scores_table_entity.dart';
 import 'package:electronic_student_journal/feature/home/domain/entities/user_entity.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/exporting_table_params.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/export_to_excel_cubit.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_scores_cubit.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/export_to_excel_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_scores_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_users_data_cubit_dart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -51,44 +51,77 @@ class ScoresTableView extends StatelessWidget {
                 );
               });
 
-              for (final score in scores) {
-                context.read<GetUserDataCubit>().getUserData(score.studentUid);
-              }
+              final studentsUids =
+                  scores.map((score) => score.studentUid).toSet().toList();
 
-              final scoresValues = scores.map((score) => score.score).toList();
+              context.read<GetUsersDataCubit>().getUsersData(studentsUids);
 
-              final scoresValuesWidgets = scoresValues.map(
-                (scoresValue) => DecoratedBox(
-                  decoration: BoxDecoration(border: Border.all()),
-                  child: Text(scoresValue.toString()),
-                ),
-              );
-
-              return BlocBuilder<GetUserDataCubit, GetUserDataState>(
+              return BlocBuilder<GetUsersDataCubit, GetUsersDataState>(
                 builder: (context, state) => state.maybeWhen(
-                  success: (userEntity) {
-                    final studentsFullNames =
-                        '${userEntity.surname} ${userEntity.name![0]}. '
-                        '${userEntity.patronymic![0]}.';
+                  success: (userEntities) {
+                    final scoresMap = <String, List<int>>{};
+                    final studentsFullNames = <String>[];
 
-                    final studentsFullNamesTexts = [
-                      Text(studentsFullNames),
-                    ];
+                    for (var i = 0; i < userEntities.length; i++) {
+                      studentsFullNames.add('${userEntities[i].surname} '
+                          '${userEntities[i].name![0]}. '
+                          '${userEntities[i].patronymic![0]}.');
+
+                      final scoresValues = scores
+                          .where(
+                            (score) => score.studentUid == userEntities[i].uid,
+                          )
+                          .map((score) => score.score)
+                          .toList();
+
+                      scoresMap.addAll({studentsFullNames[i]: scoresValues});
+                    }
+
+                    final studentsFullNamesTexts =
+                        studentsFullNames.map(Text.new).toList();
+
+                    final scoresMapWidgets = scoresMap.map(
+                      (studentFullName, scoresValues) => MapEntry(
+                        studentFullName,
+                        scoresValues
+                            .map(
+                              (score) => DecoratedBox(
+                                decoration: BoxDecoration(border: Border.all()),
+                                child: Text(score.toString()),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    );
+
+                    final resultScores = <dynamic>[];
+                    for (var i = 0; i < studentsFullNames.length; i++) {
+                      resultScores.addAll([
+                        studentsFullNames[i],
+                        ...scoresMap.values.toList()[i],
+                      ]);
+                    }
+
+                    final resultScoresWidgets = <Widget>[];
+                    for (var i = 0; i < studentsFullNamesTexts.length; i++) {
+                      resultScoresWidgets.addAll([
+                        studentsFullNamesTexts[i],
+                        ...scoresMapWidgets.values.toList()[i],
+                      ]);
+                    }
 
                     final resultTable = <Widget>[
                       tableNameText,
                       ...scoresTitlesTexts,
-                      ...studentsFullNamesTexts,
-                      ...scoresValuesWidgets
+                      ...resultScoresWidgets,
                     ];
 
-                    final crossAxisCount = scoresTitles.length + 1;
+                    final crossAxisCount = scoresTitlesTexts.length + 1;
                     final mainAxisCount = studentsFullNamesTexts.length + 1;
                     final content = <dynamic>[
                       tableName,
                       ...scoresTitles,
-                      studentsFullNames,
-                      ...scoresValues
+                      ...resultScores,
                     ];
 
                     return Column(

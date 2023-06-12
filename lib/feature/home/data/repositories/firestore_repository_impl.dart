@@ -7,6 +7,7 @@ import 'package:electronic_student_journal/feature/home/domain/entities/user_ent
 import 'package:electronic_student_journal/feature/home/domain/params/table_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_model_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_params.dart';
+import 'package:electronic_student_journal/feature/home/domain/params/users_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/firestore_repository.dart';
 
 class FirestoreRepositoryImpl implements FirestoreRepository {
@@ -55,6 +56,20 @@ class FirestoreRepositoryImpl implements FirestoreRepository {
     return response.fold(
       Left.new,
       (scores) => Right(scores.map((score) => score.toEntity()).toList()),
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<UserEntity>>> getUsersData(
+    UsersParams usersParams,
+  ) async {
+    final response = await _firestoreRemoteDataSource.getUsersData(usersParams);
+
+    return response.fold(
+      Left.new,
+      (usersModels) => Right(
+        usersModels.map((userModel) => userModel.toEntity()).toList(),
+      ),
     );
   }
 }

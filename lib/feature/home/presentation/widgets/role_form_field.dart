@@ -1,5 +1,5 @@
 import 'package:electronic_student_journal/feature/home/domain/entities/user_entity.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/role_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/role_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';

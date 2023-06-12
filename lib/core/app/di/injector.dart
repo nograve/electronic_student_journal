@@ -15,25 +15,27 @@ import 'package:electronic_student_journal/feature/home/domain/usecases/get_scor
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_scores_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_changes_stream_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_user_data_usecase.dart';
+import 'package:electronic_student_journal/feature/home/domain/usecases/get_users_data_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/register_user_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/sign_out_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/update_access_time_usecase.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/export_to_excel_cubit.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_scores_cubit.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_scores_tables_cubit.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/get_user_data_cubit.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/group_provider.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/name_provider.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_hinter.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_confirmer_provider.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/patronymic_provider.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/register_user_cubit.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/role_provider.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/scores_table_name_provider.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/sign_out_cubit.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/surname_provider.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/university_provider.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/user_changes_bloc.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/blocs/user_changes_bloc.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/export_to_excel_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_scores_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_scores_tables_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_user_data_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_users_data_cubit_dart_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/register_user_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/sign_out_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/group_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/name_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/password_confirmer_hinter.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/password_confirmer_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/patronymic_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/role_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/scores_table_name_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/surname_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/university_provider.dart';
 import 'package:electronic_student_journal/feature/shared/data/datasources/firebase_auth_remote_data_source.dart';
 import 'package:electronic_student_journal/feature/shared/data/datasources/firebase_auth_remote_data_source_impl.dart';
 import 'package:electronic_student_journal/feature/shared/data/repositories/auth_repository_impl.dart';
@@ -100,6 +102,9 @@ void initDependencies() {
     ..registerLazySingleton(
       () => ExportTableToExcelUseCase(excelRepository: injector()),
     )
+    ..registerLazySingleton(
+      () => GetUsersDataUseCase(firestoreRepository: injector()),
+    )
 
     // Cubits
     ..registerFactory(() => SignInCubit(signInUseCase: injector()))
@@ -113,6 +118,7 @@ void initDependencies() {
     ..registerFactory(
       () => ExportToExcelCubit(exportTableToExcelUseCase: injector()),
     )
+    ..registerFactory(() => GetUsersDataCubit(getUsersDataUseCase: injector()))
 
     // BLoCs
     ..registerFactory(

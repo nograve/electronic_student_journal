@@ -1,4 +1,4 @@
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/password_controller.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/inherited/password_controller.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/password_hinter.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/password_provider.dart';
 import 'package:electronic_student_journal/utils/ext/auth_string.dart';

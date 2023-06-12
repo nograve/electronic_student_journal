@@ -6,6 +6,7 @@ import 'package:electronic_student_journal/feature/home/domain/entities/user_ent
 import 'package:electronic_student_journal/feature/home/domain/params/table_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_model_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_params.dart';
+import 'package:electronic_student_journal/feature/home/domain/params/users_params.dart';
 
 abstract interface class FirestoreRepository {
   Future<Either<Failure, UserEntity>> getUserData(String uid);
@@ -14,4 +15,7 @@ abstract interface class FirestoreRepository {
     UserModelParams params,
   );
   Future<Either<Failure, List<ScoreEntity>>> getScores(TableParams params);
+  Future<Either<Failure, List<UserEntity>>> getUsersData(
+    UsersParams usersParams,
+  );
 }

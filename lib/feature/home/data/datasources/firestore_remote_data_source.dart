@@ -6,9 +6,13 @@ import 'package:electronic_student_journal/feature/home/data/models/user_model.d
 import 'package:electronic_student_journal/feature/home/domain/params/table_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_model_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_params.dart';
+import 'package:electronic_student_journal/feature/home/domain/params/users_params.dart';
 
 abstract interface class FirestoreRemoteDataSource {
   Future<Either<Failure, UserModel>> getUserData(String uid);
+  Future<Either<Failure, List<UserModel>>> getUsersData(
+    UsersParams params,
+  );
   Future<Either<Failure, void>> updateAccessTime(UserParams params);
   Future<Either<Failure, List<ScoresTableModel>>> getScoresTables(
     UserModelParams params,
