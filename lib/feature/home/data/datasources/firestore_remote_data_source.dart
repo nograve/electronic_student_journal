@@ -3,6 +3,7 @@ import 'package:electronic_student_journal/core/error/failure.dart';
 import 'package:electronic_student_journal/feature/home/data/models/score_model.dart';
 import 'package:electronic_student_journal/feature/home/data/models/scores_table_model.dart';
 import 'package:electronic_student_journal/feature/home/data/models/user_model.dart';
+import 'package:electronic_student_journal/feature/home/domain/params/edit_table_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/table_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_model_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_params.dart';
@@ -18,4 +19,7 @@ abstract interface class FirestoreRemoteDataSource {
     UserModelParams params,
   );
   Future<Either<Failure, List<ScoreModel>>> getScores(TableParams params);
+  Future<Either<Failure, void>> createTable(EditTableParams params);
+  Future<Either<Failure, void>> updateTable(EditTableParams params);
+  Future<Either<Failure, void>> deleteTable(TableParams params);
 }

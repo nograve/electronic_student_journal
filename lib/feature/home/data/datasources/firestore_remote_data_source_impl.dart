@@ -7,6 +7,7 @@ import 'package:electronic_student_journal/feature/home/data/models/score_model.
 import 'package:electronic_student_journal/feature/home/data/models/scores_table_model.dart';
 import 'package:electronic_student_journal/feature/home/data/models/user_model.dart';
 import 'package:electronic_student_journal/feature/home/domain/entities/user_entity.dart';
+import 'package:electronic_student_journal/feature/home/domain/params/edit_table_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/table_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_model_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_params.dart';
@@ -128,5 +129,23 @@ class FirestoreRemoteDataSourceImpl implements FirestoreRemoteDataSource {
     } catch (e) {
       return Left(SomeFailure(e.toString()));
     }
+  }
+
+  @override
+  Future<Either<Failure, void>> createTable(EditTableParams params) {
+    // TODO(nograve): implement createTable
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteTable(TableParams params) {
+    // TODO(nograve): implement deleteTable
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, void>> updateTable(EditTableParams params) {
+    // TODO(nograve): implement updateTable
+    throw UnimplementedError();
   }
 }
