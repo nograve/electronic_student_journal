@@ -12,8 +12,8 @@ class AddScoresTableButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () => context.go(
-        Routes.editScoresTable.path,
-        extra: context.read<UserChangesBloc>(),
+        Routes.createScoresTable.path,
+        extra: (context.read<UserChangesBloc>(), null),
       ),
       style: ElevatedButton.styleFrom(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,

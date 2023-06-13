@@ -1,11 +1,14 @@
+import 'package:electronic_student_journal/core/app/router/app_router.dart';
 import 'package:electronic_student_journal/feature/home/domain/entities/scores_table_entity.dart';
 import 'package:electronic_student_journal/feature/home/domain/entities/user_entity.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/exporting_table_params.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/blocs/user_changes_bloc.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/export_to_excel_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_scores_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_users_data_cubit_dart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
 
@@ -26,7 +29,14 @@ class ScoresTableView extends StatelessWidget {
         title: Text(table.name),
         actions: [
           if (userRole == UserRole.teacher)
-            IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+            IconButton(
+              onPressed: () => context.goNamed(
+                Routes.editScoresTable.name,
+                extra: (context.read<UserChangesBloc>(), table),
+                queryParameters: {'userRole': userRole},
+              ),
+              icon: const Icon(Icons.edit),
+            ),
         ],
       ),
       body: BlocBuilder<GetScoresCubit, GetScoresState>(

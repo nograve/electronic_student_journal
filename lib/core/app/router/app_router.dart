@@ -37,7 +37,8 @@ enum Routes {
   signIn('/sign_in'),
   scores('/scores'),
   scoresTable('/scores/scoresTable'),
-  editScoresTable('/scores/editScoresTable'),
+  createScoresTable('/scores/create'),
+  editScoresTable('/scores/scoresTable/edit'),
   signUp('/sign_up'),
   settings('/settings');
 
@@ -168,21 +169,51 @@ final appRouter = GoRouter(
                   ),
                 );
               },
-            ),
-            // Edit scores table
-            GoRoute(
-              path: 'editScoresTable',
-              name: Routes.editScoresTable.name,
-              builder: (context, state) => BlocProvider.value(
-                value: state.extra! as UserChangesBloc,
-                child: BlocProvider<GetUserDataCubit>(
-                  create: (_) => injector(),
-                  child: ChangeNotifierProvider<ScoresTableNameProvider>(
-                    create: (_) => injector(),
-                    child: const EditScoresTableView(),
-                  ),
+              // Edit scores table
+              routes: [
+                GoRoute(
+                  path: 'edit',
+                  name: Routes.editScoresTable.name,
+                  builder: (_, state) {
+                    final extra =
+                        state.extra! as (UserChangesBloc, ScoresTableEntity);
+
+                    return BlocProvider.value(
+                      value: extra.$1,
+                      child: BlocProvider<GetUserDataCubit>(
+                        create: (_) => injector(),
+                        child: ChangeNotifierProvider<ScoresTableNameProvider>(
+                          create: (_) => injector(),
+                          child: EditScoresTableView(
+                            userRole: state.queryParameters['userRole'],
+                            table: extra.$2,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
-              ),
+              ],
+            ),
+            // Create scores table
+            GoRoute(
+              path: 'create',
+              name: Routes.createScoresTable.name,
+              builder: (_, state) {
+                final extra =
+                    state.extra! as (UserChangesBloc, ScoresTableEntity?);
+
+                return BlocProvider.value(
+                  value: extra.$1,
+                  child: BlocProvider<GetUserDataCubit>(
+                    create: (_) => injector(),
+                    child: ChangeNotifierProvider<ScoresTableNameProvider>(
+                      create: (_) => injector(),
+                      child: const EditScoresTableView(),
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),
