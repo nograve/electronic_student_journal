@@ -97,18 +97,33 @@ class ScoresTableView extends StatelessWidget {
                             .map(
                               (score) => DecoratedBox(
                                 decoration: BoxDecoration(border: Border.all()),
-                                child: Text(score.toString()),
+                                child:
+                                    // TODO(nograve): Solve checking for -1 in
+                                    // scores only once
+                                    Text(score == -1 ? '' : score.toString()),
                               ),
                             )
                             .toList(),
                       ),
                     );
 
+                    // TODO(nograve): Move this to export table data source
                     final resultScores = <dynamic>[];
                     for (var i = 0; i < studentsFullNames.length; i++) {
+                      final studentScores = <dynamic>[];
+                      for (var j = 0;
+                          j < scoresMap.values.toList()[i].length;
+                          j++) {
+                        if (scoresMap.values.toList()[i][j] == -1) {
+                          studentScores.add('');
+                        } else {
+                          studentScores.add(scoresMap.values.toList()[i][j]);
+                        }
+                      }
+
                       resultScores.addAll([
                         studentsFullNames[i],
-                        ...scoresMap.values.toList()[i],
+                        ...studentScores,
                       ]);
                     }
 
