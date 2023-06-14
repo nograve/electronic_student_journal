@@ -47,5 +47,9 @@
   "tableTitle": "Таблиця",
 
   "tableNameLabelText": "Назва таблиці",
-  "tableNameErrorText": "Введіть назву таблиці"
+  "tableNameErrorText": "Введіть назву таблиці",
+  
+  "language": "Мова",
+  "enLang": "Англійська",
+  "uaLang": "Українська"
 }

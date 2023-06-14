@@ -25,6 +25,10 @@ class AdminSelectedFailure extends Failure {
   const AdminSelectedFailure(super.message);
 }
 
+class EmptyLocaleFailure extends Failure {
+  const EmptyLocaleFailure(super.message);
+}
+
 class SomeFailure extends Failure {
   const SomeFailure(super.message);
 }
