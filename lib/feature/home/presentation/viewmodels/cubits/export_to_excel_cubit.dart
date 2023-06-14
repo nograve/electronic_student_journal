@@ -20,7 +20,7 @@ class ExportToExcelCubit extends Cubit<ExportToExcelState> {
 
     response.fold(
       (failure) => emit(_Failure(failure.message)),
-      (success) => emit(const _Success()),
+      (_) => emit(const _Success()),
     );
   }
 }

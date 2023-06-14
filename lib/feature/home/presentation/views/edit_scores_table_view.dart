@@ -30,7 +30,9 @@ class EditScoresTableView extends StatelessWidget {
               context.read<GetUserDataCubit>().getUserData(user.uid);
 
               return BlocBuilder<GetUserDataCubit, GetUserDataState>(
-                builder: (context, state) => const EditScoresTableForm(),
+                builder: (context, state) => EditScoresTableForm(
+                  table: table,
+                ),
               );
             },
             orElse: () => const Center(child: CircularProgressIndicator()),

@@ -72,4 +72,11 @@ class FirestoreRepositoryImpl implements FirestoreRepository {
       ),
     );
   }
+
+  @override
+  Future<Either<Failure, void>> deleteTable(TableParams params) async {
+    final response = await _firestoreRemoteDataSource.deleteTable(params);
+
+    return response;
+  }
 }

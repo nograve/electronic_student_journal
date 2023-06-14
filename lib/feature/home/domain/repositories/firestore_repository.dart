@@ -18,4 +18,5 @@ abstract interface class FirestoreRepository {
   Future<Either<Failure, List<UserEntity>>> getUsersData(
     UsersParams usersParams,
   );
+  Future<Either<Failure, void>> deleteTable(TableParams params);
 }

@@ -1,6 +1,7 @@
 import 'package:electronic_student_journal/core/app/di/injector.dart';
 import 'package:electronic_student_journal/feature/home/domain/entities/scores_table_entity.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/blocs/user_changes_bloc.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/delete_table_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/export_to_excel_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_scores_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_scores_tables_cubit.dart';
@@ -182,11 +183,15 @@ final appRouter = GoRouter(
                       value: extra.$1,
                       child: BlocProvider<GetUserDataCubit>(
                         create: (_) => injector(),
-                        child: ChangeNotifierProvider<ScoresTableNameProvider>(
+                        child: BlocProvider<DeleteTableCubit>(
                           create: (_) => injector(),
-                          child: EditScoresTableView(
-                            userRole: state.queryParameters['userRole'],
-                            table: extra.$2,
+                          child:
+                              ChangeNotifierProvider<ScoresTableNameProvider>(
+                            create: (_) => injector(),
+                            child: EditScoresTableView(
+                              userRole: state.queryParameters['userRole'],
+                              table: extra.$2,
+                            ),
                           ),
                         ),
                       ),

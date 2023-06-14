@@ -138,9 +138,19 @@ class FirestoreRemoteDataSourceImpl implements FirestoreRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, void>> deleteTable(TableParams params) {
-    // TODO(nograve): implement deleteTable
-    throw UnimplementedError();
+  Future<Either<Failure, void>> deleteTable(TableParams params) async {
+    try {
+      final snapshot = await _firebaseFirestore
+          .collection('scores_tables')
+          .doc(params.uid)
+          .get();
+      await _firebaseFirestore.runTransaction<Transaction>(
+        (transaction) async => transaction.delete(snapshot.reference),
+      );
+      return const Right(null);
+    } catch (e) {
+      return Left(SomeFailure(e.toString()));
+    }
   }
 
   @override

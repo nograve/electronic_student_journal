@@ -12,6 +12,7 @@ import 'package:electronic_student_journal/feature/home/domain/repositories/fire
 import 'package:electronic_student_journal/feature/home/domain/repositories/locale_repository.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/locale_repository_impl.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/register_repository.dart';
+import 'package:electronic_student_journal/feature/home/domain/usecases/delete_table_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/export_table_to_excel_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_locale_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_scores_tables_list_usecase.dart';
@@ -24,6 +25,7 @@ import 'package:electronic_student_journal/feature/home/domain/usecases/set_loca
 import 'package:electronic_student_journal/feature/home/domain/usecases/sign_out_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/update_access_time_usecase.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/blocs/user_changes_bloc.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/delete_table_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/export_to_excel_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_scores_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_scores_tables_cubit.dart';
@@ -117,6 +119,9 @@ void initDependencies() {
     ..registerLazySingleton(
       () => SetLocaleUseCase(localeRepository: injector()),
     )
+    ..registerLazySingleton(
+      () => DeleteTableUseCase(firestoreRepository: injector()),
+    )
 
     // Cubits
     ..registerFactory(() => SignInCubit(signInUseCase: injector()))
@@ -137,6 +142,7 @@ void initDependencies() {
         setLocaleUseCase: injector(),
       ),
     )
+    ..registerFactory(() => DeleteTableCubit(deleteTableUseCase: injector()))
 
     // BLoCs
     ..registerFactory(
