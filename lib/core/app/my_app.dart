@@ -35,7 +35,6 @@ class MyApp extends StatelessWidget {
                 },
               );
 
-              _logger.w(AppLocalizations.supportedLocales);
               _logger.w(locale);
 
               return MaterialApp.router(

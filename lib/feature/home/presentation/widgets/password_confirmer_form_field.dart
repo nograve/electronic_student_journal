@@ -37,7 +37,9 @@ class PasswordConfirmerFormField extends StatelessWidget {
           hintText: l10n.confirmPasswordHintText,
           suffixIcon: IconButton(
             onPressed: () => passwordConfirmerHinter.toggleVisibility(),
-            icon: const Icon(Icons.remove_red_eye),
+            icon: passwordConfirmerHinter.isPasswordHinted
+                ? const Icon(Icons.visibility_off)
+                : const Icon(Icons.visibility),
           ),
         ),
       ),
