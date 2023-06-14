@@ -9,3 +9,6 @@ Write the following command before running the application:
 ```sh
 flutter pub run build_runner build --delete-conflicting-outputs
 ```
+
+## Made by student Ihor Zakharov
+Виконано студентом групи 122-19-1 Захаровим Ігорем
