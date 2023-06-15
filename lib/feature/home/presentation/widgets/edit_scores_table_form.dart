@@ -98,7 +98,8 @@ class EditScoresTableForm extends StatelessWidget {
                                     context
                                         .read<DeleteTableCubit>()
                                         .deleteTable(
-                                            TableParams(uid: table!.uid));
+                                          TableParams(uid: table!.uid),
+                                        );
                                     // TODO(nograve): Make app router go home
                                     // screen here
                                     context.goNamed(
