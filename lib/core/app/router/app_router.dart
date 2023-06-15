@@ -15,6 +15,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/password_confirmer_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/patronymic_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/role_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/score_name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/scores_table_name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/surname_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/university_provider.dart';
@@ -185,12 +186,18 @@ final appRouter = GoRouter(
                         create: (_) => injector(),
                         child: BlocProvider<DeleteTableCubit>(
                           create: (_) => injector(),
-                          child:
-                              ChangeNotifierProvider<ScoresTableNameProvider>(
-                            create: (_) => injector(),
-                            child: EditScoresTableView(
-                              userRole: state.queryParameters['userRole'],
-                              table: extra.$2,
+                          child: BlocProvider<GetScoresCubit>(
+                            create: (_) => injector()..getScores(extra.$2.uid),
+                            child:
+                                ChangeNotifierProvider<ScoresTableNameProvider>(
+                              create: (_) => injector(),
+                              child: ChangeNotifierProvider<ScoreNameProvider>(
+                                create: (_) => injector(),
+                                child: EditScoresTableView(
+                                  userRole: state.queryParameters['userRole'],
+                                  table: extra.$2,
+                                ),
+                              ),
                             ),
                           ),
                         ),

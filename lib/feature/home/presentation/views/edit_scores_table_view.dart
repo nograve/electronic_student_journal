@@ -21,7 +21,7 @@ class EditScoresTableView extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.tableTitle),
+        title: table != null ? Text(table!.name) : Text(l10n.tableTitle),
       ),
       body: BlocBuilder<UserChangesBloc, UserChangesState>(
         builder: (context, state) {

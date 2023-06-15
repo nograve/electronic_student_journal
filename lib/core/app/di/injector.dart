@@ -40,6 +40,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/password_confirmer_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/patronymic_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/role_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/score_name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/scores_table_name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/surname_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/university_provider.dart';
@@ -165,6 +166,7 @@ void initDependencies() {
     ..registerFactory(UniversityProvider.new)
     ..registerFactory(GroupProvider.new)
     ..registerFactory(ScoresTableNameProvider.new)
+    ..registerFactory(ScoreNameProvider.new)
 
     // Logger
     ..registerLazySingleton(Logger.new);
