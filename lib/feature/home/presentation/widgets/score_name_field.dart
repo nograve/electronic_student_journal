@@ -14,9 +14,9 @@ class ScoreNameField extends StatelessWidget {
         value: scoreNameProvider.scoreName,
         items: scoresNames
             .map(
-              (value) => DropdownMenuItem(
-                value: value,
-                child: Text(value),
+              (scoreName) => DropdownMenuItem(
+                value: scoreName,
+                child: Text(scoreName),
               ),
             )
             .toList(),

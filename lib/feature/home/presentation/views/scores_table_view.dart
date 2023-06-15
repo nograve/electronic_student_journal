@@ -6,10 +6,10 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/export_to_excel_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_scores_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_users_data_cubit_dart_cubit.dart';
+import 'package:electronic_student_journal/utils/ext/score_date.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 class ScoresTableView extends StatelessWidget {
@@ -49,7 +49,7 @@ class ScoresTableView extends StatelessWidget {
               final scoresTitles = scores
                   .map(
                     (score) => '${score.name} '
-                        '${DateFormat('dd/MM/yyyy').format(score.date)}',
+                        '${score.date.scoreDateFormat()}',
                   )
                   .toSet()
                   .toList();

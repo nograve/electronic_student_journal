@@ -31,99 +31,153 @@ class EditScoresTableForm extends StatelessWidget {
     return Form(
       child: Padding(
         padding: EdgeInsets.all(8.h),
-        child: BlocBuilder<GetScoresCubit, GetScoresState>(
-          builder: (context, state) {
-            return state.maybeWhen(
-              success: (scores) {
-                final scoresNames = scores
-                    .map(
-                      (score) => '${score.date} ${score.name}',
-                    )
-                    .toSet()
-                    .toList();
-                return BlocProvider<ScoresNamesCubit>(
-                  create: (context) =>
-                      ScoresNamesCubit(scoresNames: scoresNames),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const ScoresTableNameField(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ScoreNameField(
-                            scoresNames: scoresNames,
-                          ),
-                          SizedBox(
-                            width: 50.r,
-                            height: 50.r,
-                            child: const AddScoreDateButton(),
-                          ),
-                        ],
-                      ),
-                      Consumer<ScoreNameProvider>(
-                        builder: (context, scoreNameProvider, child) {
-                          if (scoreNameProvider.scoreName != null) {
-                            return Row(
+        child: table != null
+            // Edit existing table
+            ? BlocBuilder<GetScoresCubit, GetScoresState>(
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    success: (scores) {
+                      final scoresNames = scores
+                          .map(
+                            (score) => '${score.date} ${score.name}',
+                          )
+                          .toSet()
+                          .toList();
+                      return BlocProvider<ScoresNamesCubit>(
+                        create: (context) =>
+                            ScoresNamesCubit(scoresNames: scoresNames),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const ScoresTableNameField(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                ScoreNameField(
+                                  scoresNames: scoresNames,
+                                ),
                                 SizedBox(
                                   width: 50.r,
                                   height: 50.r,
-                                  child: const AddStudentButton(),
+                                  child: const AddScoreDateButton(),
                                 ),
                               ],
-                            );
-                          } else {
-                            return const SizedBox.shrink();
-                          }
-                        },
-                      ),
-                      SizedBox(
-                        width: 150.w,
-                        height: 50.h,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Text(l10n.create),
-                        ),
-                      ),
-                      if (table != null)
-                        Padding(
-                          padding: EdgeInsets.only(top: 24.h),
-                          child: SizedBox(
-                            width: 150.w,
-                            height: 50.h,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                context
-                                    .read<DeleteTableCubit>()
-                                    .deleteTable(TableParams(uid: table!.uid));
-                                // TODO(nograve): Make app router go home
-                                // screen here
-                                context.goNamed(
-                                  Routes.scores.name,
-                                  extra: (
-                                    context.read<UserChangesBloc>(),
-                                    null
-                                  ),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.red,
-                              ),
-                              child: const Text('Remove table'),
                             ),
-                          ),
-                        )
-                      else
-                        const SizedBox.shrink(),
-                    ],
-                  ),
-                );
-              },
-              orElse: () => const Center(child: CircularProgressIndicator()),
-            );
-          },
-        ),
+                            Consumer<ScoreNameProvider>(
+                              builder: (context, scoreNameProvider, child) {
+                                if (scoreNameProvider.scoreName != null) {
+                                  return Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 50.r,
+                                        height: 50.r,
+                                        child: const AddStudentButton(),
+                                      ),
+                                    ],
+                                  );
+                                } else {
+                                  return const SizedBox.shrink();
+                                }
+                              },
+                            ),
+                            SizedBox(
+                              width: 150.w,
+                              height: 50.h,
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                child: Text(l10n.create),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 24.h),
+                              child: SizedBox(
+                                width: 150.w,
+                                height: 50.h,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    context
+                                        .read<DeleteTableCubit>()
+                                        .deleteTable(
+                                            TableParams(uid: table!.uid));
+                                    // TODO(nograve): Make app router go home
+                                    // screen here
+                                    context.goNamed(
+                                      Routes.scores.name,
+                                      extra: (
+                                        context.read<UserChangesBloc>(),
+                                        null
+                                      ),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.red,
+                                  ),
+                                  child: const Text('Remove table'),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    orElse: () =>
+                        const Center(child: CircularProgressIndicator()),
+                  );
+                },
+              )
+            // Create new table
+            : BlocProvider<ScoresNamesCubit>(
+                create: (context) =>
+                    ScoresNamesCubit(scoresNames: List.empty(growable: true)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const ScoresTableNameField(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        BlocBuilder<ScoresNamesCubit, ScoresNamesState>(
+                          builder: (context, state) {
+                            return ScoreNameField(
+                              scoresNames: state.scoresNames,
+                            );
+                          },
+                        ),
+                        SizedBox(
+                          width: 50.r,
+                          height: 50.r,
+                          child: const AddScoreDateButton(),
+                        ),
+                      ],
+                    ),
+                    Consumer<ScoreNameProvider>(
+                      builder: (context, scoreNameProvider, child) {
+                        if (scoreNameProvider.scoreName != null) {
+                          return Row(
+                            children: [
+                              SizedBox(
+                                width: 50.r,
+                                height: 50.r,
+                                child: const AddStudentButton(),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      width: 150.w,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text(l10n.create),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
       ),
     );
   }

@@ -190,7 +190,9 @@ final appRouter = GoRouter(
                             create: (_) => injector()..getScores(extra.$2.uid),
                             child:
                                 ChangeNotifierProvider<ScoresTableNameProvider>(
-                              create: (_) => injector(),
+                              create: (_) => ScoresTableNameProvider(
+                                tableName: extra.$2.name,
+                              ),
                               child: ChangeNotifierProvider<ScoreNameProvider>(
                                 create: (_) => injector(),
                                 child: EditScoresTableView(
@@ -221,7 +223,10 @@ final appRouter = GoRouter(
                     create: (_) => injector(),
                     child: ChangeNotifierProvider<ScoresTableNameProvider>(
                       create: (_) => injector(),
-                      child: const EditScoresTableView(),
+                      child: ChangeNotifierProvider<ScoreNameProvider>(
+                        create: (_) => injector(),
+                        child: const EditScoresTableView(),
+                      ),
                     ),
                   ),
                 );

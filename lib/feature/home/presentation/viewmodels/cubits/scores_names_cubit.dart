@@ -6,19 +6,21 @@ part 'scores_names_cubit.freezed.dart';
 
 class ScoresNamesCubit extends Cubit<ScoresNamesState> {
   ScoresNamesCubit({required List<String> scoresNames})
-      : super(ScoresNamesState.initial(scoresNames));
+      : super(ScoresNamesState.initial(List.of(scoresNames)));
 
   void addScoreName(String scoreName) {
     // emit(_Loading(state.scoresNames));
-    state.scoresNames.add(scoreName);
+    final scoresNames = List.of(state.scoresNames)
+      ..add(scoreName)
+      ..toSet().toList();
 
-    emit(_ScoreAdded(state.scoresNames));
+    emit(_ScoreAdded(scoresNames));
   }
 
-  void removeScoreName(int index) {
+  void removeScoreName(String scoreName) {
     // emit(_Loading(state.scoresNames));
-    state.scoresNames.removeAt(index);
+    final scoresNames = List.of(state.scoresNames)..remove(scoreName);
 
-    emit(_ScoreNameRemoved(state.scoresNames));
+    emit(_ScoreNameRemoved(scoresNames));
   }
 }
