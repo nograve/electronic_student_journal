@@ -1,11 +1,17 @@
+import 'package:electronic_student_journal/core/app/di/injector.dart';
 import 'package:electronic_student_journal/core/app/router/app_router.dart';
+import 'package:electronic_student_journal/feature/home/data/models/score_model.dart';
+import 'package:electronic_student_journal/feature/home/data/models/scores_table_model.dart';
 import 'package:electronic_student_journal/feature/home/domain/entities/scores_table_entity.dart';
+import 'package:electronic_student_journal/feature/home/domain/params/edit_table_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/table_params.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/blocs/user_changes_bloc.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/create_table_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/delete_table_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_scores_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_user_data_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/scores_names_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/score_name_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/scores_table_name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/add_score_date_button.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/add_student_button.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/score_name_field.dart';
@@ -14,7 +20,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class EditScoresTableForm extends StatelessWidget {
@@ -24,11 +29,13 @@ class EditScoresTableForm extends StatelessWidget {
   });
 
   final ScoresTableEntity? table;
+  static final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Form(
+      key: _formkey,
       child: Padding(
         padding: EdgeInsets.all(8.h),
         child: table != null
@@ -100,15 +107,7 @@ class EditScoresTableForm extends StatelessWidget {
                                         .deleteTable(
                                           TableParams(uid: table!.uid),
                                         );
-                                    // TODO(nograve): Make app router go home
-                                    // screen here
-                                    context.goNamed(
-                                      Routes.scores.name,
-                                      extra: (
-                                        context.read<UserChangesBloc>(),
-                                        null
-                                      ),
-                                    );
+                                    appRouter.go(Routes.home.path);
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.red,
@@ -128,8 +127,7 @@ class EditScoresTableForm extends StatelessWidget {
               )
             // Create new table
             : BlocProvider<ScoresNamesCubit>(
-                create: (context) =>
-                    ScoresNamesCubit(scoresNames: List.empty(growable: true)),
+                create: (context) => ScoresNamesCubit(scoresNames: []),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -171,9 +169,45 @@ class EditScoresTableForm extends StatelessWidget {
                     SizedBox(
                       width: 150.w,
                       height: 50.h,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: Text(l10n.create),
+                      child: BlocProvider<CreateTableCubit>(
+                        create: (context) => injector(),
+                        child: Consumer<ScoresTableNameProvider>(
+                          builder: (_, scoresTableNameProvider, __) =>
+                              BlocBuilder<GetUserDataCubit, GetUserDataState>(
+                            builder: (context, state) {
+                              return ElevatedButton(
+                                onPressed: () {
+                                  if (_formkey.currentState!.validate()) {
+                                    _formkey.currentState!.save();
+
+                                    final createdTable = ScoresTableModel(
+                                      name: scoresTableNameProvider.tableName!,
+                                      createdAt: DateTime.now(),
+                                      ownerUid: state.whenOrNull(
+                                            success: (userEntity) =>
+                                                userEntity.uid,
+                                          ) ??
+                                          '',
+                                      uid: '',
+                                    );
+
+                                    context
+                                        .read<CreateTableCubit>()
+                                        .createTable(
+                                          EditTableParams(
+                                            table: createdTable,
+                                            scores: <ScoreModel>[],
+                                          ),
+                                        );
+
+                                    appRouter.go(Routes.home.path);
+                                  }
+                                },
+                                child: Text(l10n.create),
+                              );
+                            },
+                          ),
+                        ),
                       ),
                     ),
                   ],

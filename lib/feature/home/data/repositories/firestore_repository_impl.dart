@@ -4,6 +4,7 @@ import 'package:electronic_student_journal/feature/home/data/datasources/firesto
 import 'package:electronic_student_journal/feature/home/domain/entities/score_entity.dart';
 import 'package:electronic_student_journal/feature/home/domain/entities/scores_table_entity.dart';
 import 'package:electronic_student_journal/feature/home/domain/entities/user_entity.dart';
+import 'package:electronic_student_journal/feature/home/domain/params/edit_table_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/table_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_model_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_params.dart';
@@ -76,6 +77,20 @@ class FirestoreRepositoryImpl implements FirestoreRepository {
   @override
   Future<Either<Failure, void>> deleteTable(TableParams params) async {
     final response = await _firestoreRemoteDataSource.deleteTable(params);
+
+    return response;
+  }
+
+  @override
+  Future<Either<Failure, void>> createTable(EditTableParams params) async {
+    final response = await _firestoreRemoteDataSource.createTable(params);
+
+    return response;
+  }
+
+  @override
+  Future<Either<Failure, void>> updateTable(EditTableParams params) async {
+    final response = await _firestoreRemoteDataSource.updateTable(params);
 
     return response;
   }

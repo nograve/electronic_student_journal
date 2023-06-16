@@ -132,21 +132,18 @@ class FirestoreRemoteDataSourceImpl implements FirestoreRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, void>> createTable(EditTableParams params) {
-    // TODO(nograve): implement createTable
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either<Failure, void>> deleteTable(TableParams params) async {
+  Future<Either<Failure, void>> createTable(EditTableParams params) async {
     try {
-      final snapshot = await _firebaseFirestore
+      final tableReference = await _firebaseFirestore
           .collection('scores_tables')
-          .doc(params.uid)
-          .get();
-      await _firebaseFirestore.runTransaction<Transaction>(
-        (transaction) async => transaction.delete(snapshot.reference),
-      );
+          .add(params.table.toJson());
+      await tableReference.update({'uid': tableReference.id});
+
+      final scoresReference = tableReference.collection('scores');
+      for (final score in params.scores) {
+        await scoresReference.add(score.toJson());
+      }
+
       return const Right(null);
     } catch (e) {
       return Left(SomeFailure(e.toString()));
@@ -154,8 +151,43 @@ class FirestoreRemoteDataSourceImpl implements FirestoreRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, void>> updateTable(EditTableParams params) {
-    // TODO(nograve): implement updateTable
-    throw UnimplementedError();
+  Future<Either<Failure, void>> deleteTable(TableParams params) async {
+    try {
+      final tableReference =
+          _firebaseFirestore.collection('scores_tables').doc(params.uid);
+
+      await _firebaseFirestore.runTransaction<Transaction>(
+        (transaction) async => transaction.delete(tableReference),
+      );
+
+      return const Right(null);
+    } catch (e) {
+      return Left(SomeFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateTable(EditTableParams params) async {
+    try {
+      final tableReference =
+          _firebaseFirestore.collection('scores_tables').doc(params.table.name);
+      await tableReference.set(params.table.toJson());
+
+      final scoresReference = tableReference.collection('scores');
+      final scoresSnapshot = await scoresReference.get();
+      for (final scoreSnapshot in scoresSnapshot.docs) {
+        await _firebaseFirestore.runTransaction<Transaction>(
+          (transaction) async => transaction.delete(scoreSnapshot.reference),
+        );
+      }
+
+      for (final score in params.scores) {
+        await scoresReference.add(score.toJson());
+      }
+
+      return const Right(null);
+    } catch (e) {
+      return Left(SomeFailure(e.toString()));
+    }
   }
 }

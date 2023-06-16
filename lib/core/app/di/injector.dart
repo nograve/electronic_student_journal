@@ -12,6 +12,7 @@ import 'package:electronic_student_journal/feature/home/domain/repositories/fire
 import 'package:electronic_student_journal/feature/home/domain/repositories/locale_repository.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/locale_repository_impl.dart';
 import 'package:electronic_student_journal/feature/home/domain/repositories/register_repository.dart';
+import 'package:electronic_student_journal/feature/home/domain/usecases/create_table_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/delete_table_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/export_table_to_excel_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_locale_usecase.dart';
@@ -24,7 +25,9 @@ import 'package:electronic_student_journal/feature/home/domain/usecases/register
 import 'package:electronic_student_journal/feature/home/domain/usecases/set_locale_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/sign_out_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/update_access_time_usecase.dart';
+import 'package:electronic_student_journal/feature/home/domain/usecases/update_table_usecase.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/blocs/user_changes_bloc.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/create_table_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/delete_table_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/export_to_excel_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_scores_cubit.dart';
@@ -34,6 +37,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/locale_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/register_user_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/sign_out_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/update_table_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/group_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/password_confirmer_hinter.dart';
@@ -123,6 +127,12 @@ void initDependencies() {
     ..registerLazySingleton(
       () => DeleteTableUseCase(firestoreRepository: injector()),
     )
+    ..registerLazySingleton(
+      () => CreateTableUseCase(firestoreRepository: injector()),
+    )
+    ..registerLazySingleton(
+      () => UpdateTableUseCase(firestoreRepository: injector()),
+    )
 
     // Cubits
     ..registerFactory(() => SignInCubit(signInUseCase: injector()))
@@ -144,6 +154,8 @@ void initDependencies() {
       ),
     )
     ..registerFactory(() => DeleteTableCubit(deleteTableUseCase: injector()))
+    ..registerFactory(() => CreateTableCubit(createTableUseCase: injector()))
+    ..registerFactory(() => UpdateTableCubit(updateTableUseCase: injector()))
 
     // BLoCs
     ..registerFactory(

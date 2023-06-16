@@ -3,30 +3,38 @@ import 'package:electronic_student_journal/utils/ext/score_date.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 class AddScoreDateButton extends StatelessWidget {
   const AddScoreDateButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () async {
-        final scoresNamesCubit = context.read<ScoresNamesCubit>();
+    return BlocBuilder<ScoresNamesCubit, ScoresNamesState>(
+      builder: (context, state) => ElevatedButton(
+        onPressed: () async {
+          final scoresNamesCubit = context.read<ScoresNamesCubit>();
 
-        final pickedDate = await showDatePicker(
-          context: context,
-          initialDate: DateTime.now(),
-          firstDate: DateTime(1900),
-          lastDate: DateTime(2101),
-        );
+          final pickedDate = await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(1900),
+            lastDate: DateTime(2101),
+          );
 
-        if (pickedDate != null) {
-          scoresNamesCubit.addScoreName(pickedDate.scoreDateFormat());
-        }
-      },
-      child: Icon(
-        Icons.add,
-        size: 16.r,
+          if (pickedDate != null) {
+            final formattedPickedDate = pickedDate.scoreDateFormat();
+            if (state.scoresNames.contains(formattedPickedDate)) {
+              toast('$formattedPickedDate is already in the list!');
+            } else {
+              scoresNamesCubit.addScoreName(formattedPickedDate);
+            }
+          }
+        },
+        child: Icon(
+          Icons.add,
+          size: 16.r,
+        ),
       ),
     );
   }

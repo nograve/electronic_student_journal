@@ -10,7 +10,7 @@ class ScoreNameField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ScoreNameProvider>(
-      builder: (context, scoreNameProvider, child) => DropdownButton<String>(
+      builder: (_, scoreNameProvider, __) => DropdownButton<String>(
         value: scoreNameProvider.scoreName,
         items: scoresNames
             .map(
