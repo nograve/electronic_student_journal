@@ -17,6 +17,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/role_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/score_name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/scores_table_name_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/show_student_search_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/surname_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/university_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/views/edit_scores_table_view.dart';
@@ -195,9 +196,13 @@ final appRouter = GoRouter(
                               ),
                               child: ChangeNotifierProvider<ScoreNameProvider>(
                                 create: (_) => injector(),
-                                child: EditScoresTableView(
-                                  userRole: state.queryParameters['userRole'],
-                                  table: extra.$2,
+                                child: ChangeNotifierProvider<
+                                    ShowStudentSearchProvider>(
+                                  create: (_) => injector(),
+                                  child: EditScoresTableView(
+                                    userRole: state.queryParameters['userRole'],
+                                    table: extra.$2,
+                                  ),
                                 ),
                               ),
                             ),
@@ -225,7 +230,11 @@ final appRouter = GoRouter(
                       create: (_) => injector(),
                       child: ChangeNotifierProvider<ScoreNameProvider>(
                         create: (_) => injector(),
-                        child: const EditScoresTableView(),
+                        child:
+                            ChangeNotifierProvider<ShowStudentSearchProvider>(
+                          create: (_) => injector(),
+                          child: const EditScoresTableView(),
+                        ),
                       ),
                     ),
                   ),

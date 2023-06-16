@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
                 },
               );
 
-              _logger.w(locale);
+              _logger.i(locale);
 
               return MaterialApp.router(
                 title: 'Electronic student journal',

@@ -8,6 +8,7 @@ import 'package:electronic_student_journal/feature/home/data/models/scores_table
 import 'package:electronic_student_journal/feature/home/data/models/user_model.dart';
 import 'package:electronic_student_journal/feature/home/domain/entities/user_entity.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/edit_table_params.dart';
+import 'package:electronic_student_journal/feature/home/domain/params/find_students_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/table_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_model_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_params.dart';
@@ -186,6 +187,29 @@ class FirestoreRemoteDataSourceImpl implements FirestoreRemoteDataSource {
       }
 
       return const Right(null);
+    } catch (e) {
+      return Left(SomeFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<UserModel>>> findStudents(
+    FindStudentsParams params,
+  ) async {
+    try {
+      final response = await _firebaseFirestore
+          .collection('users')
+          .where('role', isEqualTo: 'student')
+          .where('university', isEqualTo: params.teacherUniversity)
+          .get();
+
+      final studentsSnapshot = response.docs;
+
+      final students = studentsSnapshot
+          .map((studentSnapshot) => UserModel.fromJson(studentSnapshot.data()))
+          .toList();
+
+      return Right(students);
     } catch (e) {
       return Left(SomeFailure(e.toString()));
     }

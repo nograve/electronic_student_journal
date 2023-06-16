@@ -27,12 +27,11 @@ class EditScoresTableView extends StatelessWidget {
         builder: (context, state) {
           return state.maybeWhen(
             userSignsIn: (user) {
+              // TODO(nograve): Move GetUserDataCubit further in the tree
               context.read<GetUserDataCubit>().getUserData(user.uid);
 
-              return BlocBuilder<GetUserDataCubit, GetUserDataState>(
-                builder: (context, state) => EditScoresTableForm(
-                  table: table,
-                ),
+              return EditScoresTableForm(
+                table: table,
               );
             },
             orElse: () => const Center(child: CircularProgressIndicator()),

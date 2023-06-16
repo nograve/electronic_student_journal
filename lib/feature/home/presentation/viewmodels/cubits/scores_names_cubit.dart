@@ -5,8 +5,8 @@ part 'scores_names_state.dart';
 part 'scores_names_cubit.freezed.dart';
 
 class ScoresNamesCubit extends Cubit<ScoresNamesState> {
-  ScoresNamesCubit({required List<String> scoresNames})
-      : super(ScoresNamesState.initial(scoresNames));
+  ScoresNamesCubit({List<String>? scoresNames})
+      : super(ScoresNamesState.initial(scoresNames ?? []));
 
   void addScoreName(String scoreName) {
     final scoresNames = List.of(state.scoresNames)..add(scoreName);

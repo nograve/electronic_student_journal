@@ -5,6 +5,7 @@ import 'package:electronic_student_journal/feature/home/domain/entities/score_en
 import 'package:electronic_student_journal/feature/home/domain/entities/scores_table_entity.dart';
 import 'package:electronic_student_journal/feature/home/domain/entities/user_entity.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/edit_table_params.dart';
+import 'package:electronic_student_journal/feature/home/domain/params/find_students_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/table_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_model_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/user_params.dart';
@@ -93,5 +94,18 @@ class FirestoreRepositoryImpl implements FirestoreRepository {
     final response = await _firestoreRemoteDataSource.updateTable(params);
 
     return response;
+  }
+
+  @override
+  Future<Either<Failure, List<UserEntity>>> findStudents(
+    FindStudentsParams params,
+  ) async {
+    final response = await _firestoreRemoteDataSource.findStudents(params);
+
+    return response.fold(
+      Left.new,
+      (students) =>
+          Right(students.map((student) => student.toEntity()).toList()),
+    );
   }
 }

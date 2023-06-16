@@ -12,6 +12,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/scores_names_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/score_name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/scores_table_name_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/show_student_search_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/add_score_date_button.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/add_student_button.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/score_name_field.dart';
@@ -64,8 +65,8 @@ class EditScoresTableForm extends StatelessWidget {
                                   scoresNames: scoresNames,
                                 ),
                                 SizedBox(
-                                  width: 50.r,
-                                  height: 50.r,
+                                  width: 150.w,
+                                  height: 50.h,
                                   child: const AddScoreDateButton(),
                                 ),
                               ],
@@ -152,14 +153,31 @@ class EditScoresTableForm extends StatelessWidget {
                     Consumer<ScoreNameProvider>(
                       builder: (context, scoreNameProvider, child) {
                         if (scoreNameProvider.scoreName != null) {
-                          return Row(
-                            children: [
-                              SizedBox(
-                                width: 50.r,
-                                height: 50.r,
-                                child: const AddStudentButton(),
-                              ),
-                            ],
+                          return Consumer<ShowStudentSearchProvider>(
+                            builder: (_, showStudentSearchProvider, __) =>
+                                Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 150.w,
+                                  height: 50.h,
+                                  child: const AddStudentButton(),
+                                ),
+                                if (showStudentSearchProvider.showStudentSearch)
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: 250.w,
+                                        height: 50.h,
+                                        child: const TextField(),
+                                      ),
+                                    ],
+                                  )
+                                else
+                                  const SizedBox.shrink(),
+                              ],
+                            ),
                           );
                         } else {
                           return const SizedBox.shrink();

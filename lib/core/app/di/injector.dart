@@ -15,6 +15,7 @@ import 'package:electronic_student_journal/feature/home/domain/repositories/regi
 import 'package:electronic_student_journal/feature/home/domain/usecases/create_table_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/delete_table_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/export_table_to_excel_usecase.dart';
+import 'package:electronic_student_journal/feature/home/domain/usecases/find_students_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_locale_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_scores_tables_list_usecase.dart';
 import 'package:electronic_student_journal/feature/home/domain/usecases/get_scores_usecase.dart';
@@ -30,6 +31,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/create_table_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/delete_table_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/export_to_excel_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/find_students_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_scores_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_scores_tables_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_user_data_cubit.dart';
@@ -46,6 +48,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/role_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/score_name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/scores_table_name_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/show_student_search_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/surname_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/university_provider.dart';
 import 'package:electronic_student_journal/feature/shared/data/datasources/firebase_auth_remote_data_source.dart';
@@ -133,6 +136,9 @@ void initDependencies() {
     ..registerLazySingleton(
       () => UpdateTableUseCase(firestoreRepository: injector()),
     )
+    ..registerLazySingleton(
+      () => FindStudentsUseCase(firestoreRepository: injector()),
+    )
 
     // Cubits
     ..registerFactory(() => SignInCubit(signInUseCase: injector()))
@@ -156,6 +162,7 @@ void initDependencies() {
     ..registerFactory(() => DeleteTableCubit(deleteTableUseCase: injector()))
     ..registerFactory(() => CreateTableCubit(createTableUseCase: injector()))
     ..registerFactory(() => UpdateTableCubit(updateTableUseCase: injector()))
+    ..registerFactory(() => FindStudentsCubit(findStudentsUseCase: injector()))
 
     // BLoCs
     ..registerFactory(
@@ -179,6 +186,7 @@ void initDependencies() {
     ..registerFactory(GroupProvider.new)
     ..registerFactory(ScoresTableNameProvider.new)
     ..registerFactory(ScoreNameProvider.new)
+    ..registerFactory(ShowStudentSearchProvider.new)
 
     // Logger
     ..registerLazySingleton(Logger.new);
