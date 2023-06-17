@@ -13,7 +13,6 @@ class ScoreModel with _$ScoreModel {
     required String studentUid,
     required int score,
     @TimestampConverter() required DateTime date,
-    String? name,
   }) = _ScoreModel;
 
   const ScoreModel._();
@@ -25,6 +24,5 @@ class ScoreModel with _$ScoreModel {
         studentUid: studentUid,
         score: score,
         date: date,
-        name: name,
       );
 }

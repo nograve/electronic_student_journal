@@ -1,10 +1,10 @@
 import 'package:electronic_student_journal/core/app/di/injector.dart';
 import 'package:electronic_student_journal/core/app/router/app_router.dart';
-import 'package:electronic_student_journal/feature/home/data/models/score_model.dart';
 import 'package:electronic_student_journal/feature/home/data/models/scores_table_model.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/edit_table_params.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/create_table_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_user_data_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/scores_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/scores_table_name_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,36 +28,42 @@ class CreateTableButton extends StatelessWidget {
       child: Consumer<ScoresTableNameProvider>(
         builder: (_, scoresTableNameProvider, __) =>
             BlocBuilder<GetUserDataCubit, GetUserDataState>(
-          builder: (context, state) {
+          builder: (context, getUserDataState) {
             return SizedBox(
               width: 150.w,
               height: 50.h,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
+              child: BlocBuilder<ScoresCubit, ScoresState>(
+                builder: (context, scoresState) {
+                  return ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
 
-                    final createdTable = ScoresTableModel(
-                      name: scoresTableNameProvider.tableName!,
-                      createdAt: DateTime.now(),
-                      ownerUid: state.whenOrNull(
-                            success: (userEntity) => userEntity.uid,
-                          ) ??
-                          '',
-                      uid: '',
-                    );
-
-                    context.read<CreateTableCubit>().createTable(
-                          EditTableParams(
-                            table: createdTable,
-                            scores: [],
-                          ),
+                        final createdTable = ScoresTableModel(
+                          name: scoresTableNameProvider.tableName!,
+                          createdAt: DateTime.now(),
+                          ownerUid: getUserDataState.whenOrNull(
+                                success: (userEntity) => userEntity.uid,
+                              ) ??
+                              '',
+                          uid: '',
                         );
 
-                    appRouter.go(Routes.home.path);
-                  }
+                        context.read<CreateTableCubit>().createTable(
+                              EditTableParams(
+                                table: createdTable,
+                                scores: scoresState.scores
+                                    .map((score) => score.toModel())
+                                    .toList(),
+                              ),
+                            );
+
+                        appRouter.go(Routes.home.path);
+                      }
+                    },
+                    child: Text(l10n.create),
+                  );
                 },
-                child: Text(l10n.create),
               ),
             );
           },

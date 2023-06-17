@@ -23,11 +23,10 @@ class AddScoreDateButton extends StatelessWidget {
           );
 
           if (pickedDate != null) {
-            final formattedPickedDate = pickedDate.scoreDateFormat();
-            if (state.scoresNames.contains(formattedPickedDate)) {
-              toast('$formattedPickedDate is already in the list!');
+            if (state.scoresNames.contains(pickedDate)) {
+              toast('${pickedDate.scoreDateFormat()} is already in the list!');
             } else {
-              scoresNamesCubit.addScoreName(formattedPickedDate);
+              scoresNamesCubit.addScoreName(pickedDate);
             }
           }
         },

@@ -29,13 +29,14 @@ class MyApp extends StatelessWidget {
 
               state.whenOrNull(
                 loaded: (loadedLocale) => locale = Locale(loadedLocale),
-                saved: (savedLocale) => locale = Locale(savedLocale),
+                saved: (savedLocale) {
+                  locale = Locale(savedLocale);
+                  _logger.i(locale);
+                },
                 failure: (message) {
                   _logger.w(message);
                 },
               );
-
-              _logger.i(locale);
 
               return MaterialApp.router(
                 title: 'Electronic student journal',

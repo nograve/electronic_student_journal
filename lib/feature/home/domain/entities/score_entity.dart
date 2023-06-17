@@ -1,3 +1,4 @@
+import 'package:electronic_student_journal/feature/home/data/models/score_model.dart';
 import 'package:equatable/equatable.dart';
 
 class ScoreEntity extends Equatable {
@@ -5,19 +6,22 @@ class ScoreEntity extends Equatable {
     required this.studentUid,
     required this.score,
     required this.date,
-    required this.name,
   });
 
   final String studentUid;
   final int score;
   final DateTime date;
-  final String? name;
+
+  ScoreModel toModel() => ScoreModel(
+        studentUid: studentUid,
+        score: score,
+        date: date,
+      );
 
   @override
   List<Object?> get props => [
         studentUid,
         score,
         date,
-        name,
       ];
 }

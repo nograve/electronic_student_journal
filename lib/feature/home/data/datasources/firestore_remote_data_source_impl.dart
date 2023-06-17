@@ -209,8 +209,6 @@ class FirestoreRemoteDataSourceImpl implements FirestoreRemoteDataSource {
 
       final studentsSnapshot = response.docs;
 
-      print(studentsSnapshot);
-
       final students = studentsSnapshot
           .map((studentSnapshot) => UserModel.fromJson(studentSnapshot.data()))
           .where(

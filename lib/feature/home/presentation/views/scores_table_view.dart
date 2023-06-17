@@ -48,8 +48,7 @@ class ScoresTableView extends StatelessWidget {
 
               final scoresTitles = scores
                   .map(
-                    (score) => '${score.name} '
-                        '${score.date.scoreDateFormat()}',
+                    (score) => score.date.scoreDateFormat(),
                   )
                   .toSet()
                   .toList();
