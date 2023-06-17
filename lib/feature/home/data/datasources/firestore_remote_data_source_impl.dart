@@ -197,6 +197,10 @@ class FirestoreRemoteDataSourceImpl implements FirestoreRemoteDataSource {
     FindStudentsParams params,
   ) async {
     try {
+      if (params.studentNameQuery.isEmpty) {
+        return const Right([]);
+      }
+
       final response = await _firebaseFirestore
           .collection('users')
           .where('role', isEqualTo: 'student')
@@ -205,8 +209,15 @@ class FirestoreRemoteDataSourceImpl implements FirestoreRemoteDataSource {
 
       final studentsSnapshot = response.docs;
 
+      print(studentsSnapshot);
+
       final students = studentsSnapshot
           .map((studentSnapshot) => UserModel.fromJson(studentSnapshot.data()))
+          .where(
+            (student) => student.fullName!
+                .toLowerCase()
+                .contains(params.studentNameQuery.toLowerCase()),
+          )
           .toList();
 
       return Right(students);

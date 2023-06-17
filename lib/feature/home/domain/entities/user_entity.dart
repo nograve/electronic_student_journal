@@ -21,6 +21,7 @@ class UserEntity extends Equatable {
     this.patronymic,
     this.university,
     this.group,
+    this.fullName,
   });
 
   final String uid;
@@ -43,6 +44,8 @@ class UserEntity extends Equatable {
 
   final String? group;
 
+  final String? fullName;
+
   UserModel toModel() => UserModel(
         uid: uid,
         email: email,
@@ -56,6 +59,8 @@ class UserEntity extends Equatable {
         group: group,
       );
 
+  String get fullNameWithInitials => '$surname ${name![0]}. ${patronymic![0]}.';
+
   @override
   List<Object?> get props => [
         uid,
@@ -68,5 +73,6 @@ class UserEntity extends Equatable {
         patronymic,
         university,
         group,
+        fullName,
       ];
 }

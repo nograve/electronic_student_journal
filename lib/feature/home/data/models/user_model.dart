@@ -20,6 +20,7 @@ class UserModel with _$UserModel {
     String? patronymic,
     String? university,
     String? group,
+    String? fullName,
   }) = _UserModel;
 
   const UserModel._();
@@ -38,5 +39,6 @@ class UserModel with _$UserModel {
         patronymic: patronymic,
         university: university,
         group: group,
+        fullName: fullName,
       );
 }

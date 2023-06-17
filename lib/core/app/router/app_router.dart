@@ -3,6 +3,7 @@ import 'package:electronic_student_journal/feature/home/domain/entities/scores_t
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/blocs/user_changes_bloc.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/delete_table_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/export_to_excel_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/find_students_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_scores_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_scores_tables_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_user_data_cubit.dart';
@@ -189,19 +190,24 @@ final appRouter = GoRouter(
                           create: (_) => injector(),
                           child: BlocProvider<GetScoresCubit>(
                             create: (_) => injector()..getScores(extra.$2.uid),
-                            child:
-                                ChangeNotifierProvider<ScoresTableNameProvider>(
-                              create: (_) => ScoresTableNameProvider(
-                                tableName: extra.$2.name,
-                              ),
-                              child: ChangeNotifierProvider<ScoreNameProvider>(
-                                create: (_) => injector(),
-                                child: ChangeNotifierProvider<
-                                    ShowStudentSearchProvider>(
+                            child: BlocProvider<FindStudentsCubit>(
+                              create: (context) => injector(),
+                              child: ChangeNotifierProvider<
+                                  ScoresTableNameProvider>(
+                                create: (_) => ScoresTableNameProvider(
+                                  tableName: extra.$2.name,
+                                ),
+                                child:
+                                    ChangeNotifierProvider<ScoreNameProvider>(
                                   create: (_) => injector(),
-                                  child: EditScoresTableView(
-                                    userRole: state.queryParameters['userRole'],
-                                    table: extra.$2,
+                                  child: ChangeNotifierProvider<
+                                      ShowStudentSearchProvider>(
+                                    create: (_) => injector(),
+                                    child: EditScoresTableView(
+                                      userRole:
+                                          state.queryParameters['userRole'],
+                                      table: extra.$2,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -226,14 +232,17 @@ final appRouter = GoRouter(
                   value: extra.$1,
                   child: BlocProvider<GetUserDataCubit>(
                     create: (_) => injector(),
-                    child: ChangeNotifierProvider<ScoresTableNameProvider>(
-                      create: (_) => injector(),
-                      child: ChangeNotifierProvider<ScoreNameProvider>(
+                    child: BlocProvider<FindStudentsCubit>(
+                      create: (context) => injector(),
+                      child: ChangeNotifierProvider<ScoresTableNameProvider>(
                         create: (_) => injector(),
-                        child:
-                            ChangeNotifierProvider<ShowStudentSearchProvider>(
+                        child: ChangeNotifierProvider<ScoreNameProvider>(
                           create: (_) => injector(),
-                          child: const EditScoresTableView(),
+                          child:
+                              ChangeNotifierProvider<ShowStudentSearchProvider>(
+                            create: (_) => injector(),
+                            child: const EditScoresTableView(),
+                          ),
                         ),
                       ),
                     ),

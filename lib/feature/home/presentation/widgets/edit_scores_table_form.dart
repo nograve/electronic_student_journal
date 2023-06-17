@@ -1,20 +1,15 @@
-import 'package:electronic_student_journal/core/app/di/injector.dart';
 import 'package:electronic_student_journal/core/app/router/app_router.dart';
-import 'package:electronic_student_journal/feature/home/data/models/score_model.dart';
-import 'package:electronic_student_journal/feature/home/data/models/scores_table_model.dart';
 import 'package:electronic_student_journal/feature/home/domain/entities/scores_table_entity.dart';
-import 'package:electronic_student_journal/feature/home/domain/params/edit_table_params.dart';
 import 'package:electronic_student_journal/feature/home/domain/params/table_params.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/create_table_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/delete_table_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_scores_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_user_data_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/scores_names_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/score_name_provider.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/scores_table_name_provider.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/show_student_search_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/add_score_date_button.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/add_student_button.dart';
+import 'package:electronic_student_journal/feature/home/presentation/widgets/add_student_form.dart';
+import 'package:electronic_student_journal/feature/home/presentation/widgets/create_table_button.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/score_name_field.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/scores_table_name_field.dart';
 import 'package:flutter/material.dart';
@@ -30,13 +25,13 @@ class EditScoresTableForm extends StatelessWidget {
   });
 
   final ScoresTableEntity? table;
-  static final _formkey = GlobalKey<FormState>();
+  static final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Form(
-      key: _formkey,
+      key: _formKey,
       child: Padding(
         padding: EdgeInsets.all(8.h),
         child: table != null
@@ -127,109 +122,46 @@ class EditScoresTableForm extends StatelessWidget {
                 },
               )
             // Create new table
-            : BlocProvider<ScoresNamesCubit>(
-                create: (context) => ScoresNamesCubit(scoresNames: []),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const ScoresTableNameField(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        BlocBuilder<ScoresNamesCubit, ScoresNamesState>(
-                          builder: (context, state) {
-                            return ScoreNameField(
-                              scoresNames: state.scoresNames,
-                            );
-                          },
-                        ),
-                        SizedBox(
-                          width: 50.r,
-                          height: 50.r,
-                          child: const AddScoreDateButton(),
-                        ),
-                      ],
-                    ),
-                    Consumer<ScoreNameProvider>(
-                      builder: (context, scoreNameProvider, child) {
-                        if (scoreNameProvider.scoreName != null) {
-                          return Consumer<ShowStudentSearchProvider>(
-                            builder: (_, showStudentSearchProvider, __) =>
-                                Column(
+            : BlocBuilder<GetUserDataCubit, GetUserDataState>(
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    success: (userEntity) {
+                      final teacher = userEntity;
+
+                      return BlocProvider<ScoresNamesCubit>(
+                        create: (context) => ScoresNamesCubit(scoresNames: []),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const ScoresTableNameField(),
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SizedBox(
-                                  width: 150.w,
-                                  height: 50.h,
-                                  child: const AddStudentButton(),
+                                BlocBuilder<ScoresNamesCubit, ScoresNamesState>(
+                                  builder: (context, state) {
+                                    return ScoreNameField(
+                                      scoresNames: state.scoresNames,
+                                    );
+                                  },
                                 ),
-                                if (showStudentSearchProvider.showStudentSearch)
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        width: 250.w,
-                                        height: 50.h,
-                                        child: const TextField(),
-                                      ),
-                                    ],
-                                  )
-                                else
-                                  const SizedBox.shrink(),
+                                SizedBox(
+                                  width: 50.r,
+                                  height: 50.r,
+                                  child: const AddScoreDateButton(),
+                                ),
                               ],
                             ),
-                          );
-                        } else {
-                          return const SizedBox.shrink();
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      width: 150.w,
-                      height: 50.h,
-                      child: BlocProvider<CreateTableCubit>(
-                        create: (context) => injector(),
-                        child: Consumer<ScoresTableNameProvider>(
-                          builder: (_, scoresTableNameProvider, __) =>
-                              BlocBuilder<GetUserDataCubit, GetUserDataState>(
-                            builder: (context, state) {
-                              return ElevatedButton(
-                                onPressed: () {
-                                  if (_formkey.currentState!.validate()) {
-                                    _formkey.currentState!.save();
-
-                                    final createdTable = ScoresTableModel(
-                                      name: scoresTableNameProvider.tableName!,
-                                      createdAt: DateTime.now(),
-                                      ownerUid: state.whenOrNull(
-                                            success: (userEntity) =>
-                                                userEntity.uid,
-                                          ) ??
-                                          '',
-                                      uid: '',
-                                    );
-
-                                    context
-                                        .read<CreateTableCubit>()
-                                        .createTable(
-                                          EditTableParams(
-                                            table: createdTable,
-                                            scores: <ScoreModel>[],
-                                          ),
-                                        );
-
-                                    appRouter.go(Routes.home.path);
-                                  }
-                                },
-                                child: Text(l10n.create),
-                              );
-                            },
-                          ),
+                            AddStudentForm(teacher: teacher),
+                            CreateTableButton(formKey: _formKey),
+                          ],
                         ),
-                      ),
+                      );
+                    },
+                    orElse: () => const Center(
+                      child: CircularProgressIndicator(),
                     ),
-                  ],
-                ),
+                  );
+                },
               ),
       ),
     );

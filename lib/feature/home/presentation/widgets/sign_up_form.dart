@@ -191,6 +191,9 @@ class SignUpForm extends StatelessWidget {
                                       patronymic: patronymicProvider.patronymic,
                                       university: universityProvider.university,
                                       group: groupProvider.group,
+                                      fullName: '${surnameProvider.surname} '
+                                          '${nameProvider.name} '
+                                          '${patronymicProvider.patronymic}',
                                     ),
                                     passwordProvider.password!,
                                   );
