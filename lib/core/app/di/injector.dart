@@ -48,6 +48,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/role_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/score_name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/scores_table_name_provider.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/show_confirm_score_button.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/show_student_search_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/surname_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/university_provider.dart';
@@ -187,6 +188,7 @@ void initDependencies() {
     ..registerFactory(ScoresTableNameProvider.new)
     ..registerFactory(ScoreNameProvider.new)
     ..registerFactory(ShowStudentSearchProvider.new)
+    ..registerFactory(ShowConfirmScoreButton.new)
 
     // Logger
     ..registerLazySingleton(Logger.new);

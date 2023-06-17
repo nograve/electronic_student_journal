@@ -20,9 +20,13 @@ class ScoresCubit extends Cubit<ScoresState> {
     emit(_ScoreDeleted(scores));
   }
 
-  void changeScore(ScoreEntity score, int index) {
-    final scores = List.of(state.scores);
-    scores[index] = score;
+  void changeScore({
+    required ScoreEntity initialScore,
+    required ScoreEntity score,
+  }) {
+    final scores = List.of(state.scores)
+      ..remove(initialScore)
+      ..add(score);
 
     emit(_ScoreChanged(scores));
   }

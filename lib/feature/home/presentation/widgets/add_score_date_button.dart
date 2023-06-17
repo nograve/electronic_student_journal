@@ -1,4 +1,7 @@
+import 'package:electronic_student_journal/feature/home/domain/entities/score_entity.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/scores_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/scores_names_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/students_cubit.dart';
 import 'package:electronic_student_journal/utils/ext/score_date.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,29 +14,48 @@ class AddScoreDateButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ScoresNamesCubit, ScoresNamesState>(
-      builder: (context, state) => ElevatedButton(
-        onPressed: () async {
-          final scoresNamesCubit = context.read<ScoresNamesCubit>();
+      builder: (context, scoresNameState) =>
+          BlocBuilder<StudentsCubit, StudentsState>(
+        builder: (context, studentsState) {
+          return ElevatedButton(
+            onPressed: () async {
+              final scoresNamesCubit = context.read<ScoresNamesCubit>();
+              final scoresCubit = context.read<ScoresCubit>();
 
-          final pickedDate = await showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(1900),
-            lastDate: DateTime(2101),
+              final pickedDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(1900),
+                lastDate: DateTime(2101),
+              );
+
+              if (pickedDate != null) {
+                if (!scoresNameState.scoresNames.contains(pickedDate)) {
+                  scoresNamesCubit.addScoreName(pickedDate);
+
+                  final students = studentsState.students;
+                  for (final student in students) {
+                    scoresCubit.addScore(
+                      ScoreEntity(
+                        studentUid: student.uid,
+                        score: -1,
+                        date: pickedDate,
+                      ),
+                    );
+                  }
+                } else {
+                  toast(
+                    '${pickedDate.scoreDateFormat()} is already in the list!',
+                  );
+                }
+              }
+            },
+            child: Icon(
+              Icons.add,
+              size: 16.r,
+            ),
           );
-
-          if (pickedDate != null) {
-            if (state.scoresNames.contains(pickedDate)) {
-              toast('${pickedDate.scoreDateFormat()} is already in the list!');
-            } else {
-              scoresNamesCubit.addScoreName(pickedDate);
-            }
-          }
         },
-        child: Icon(
-          Icons.add,
-          size: 16.r,
-        ),
       ),
     );
   }
