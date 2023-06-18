@@ -57,6 +57,7 @@ class UserEntity extends Equatable {
         patronymic: patronymic,
         university: university,
         group: group,
+        fullName: fullName,
       );
 
   String get fullNameWithInitials => '$surname ${name![0]}. ${patronymic![0]}.';
