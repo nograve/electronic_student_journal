@@ -24,6 +24,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 
 class SignUpForm extends StatelessWidget {
@@ -149,6 +150,8 @@ class SignUpForm extends StatelessWidget {
                   listener: (_, state) {
                     state.whenOrNull(
                       success: () => appRouter.go(Routes.home.path),
+                      failure: (message) =>
+                          showSimpleNotification(Text(message)),
                     );
                   },
                   child: Consumer6<
