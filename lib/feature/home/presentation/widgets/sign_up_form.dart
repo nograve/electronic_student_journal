@@ -144,7 +144,7 @@ class SignUpForm extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 12.h),
+                padding: EdgeInsets.only(top: 32.h),
                 child: BlocListener<RegisterUserCubit, RegisterUserState>(
                   listener: (_, state) {
                     state.whenOrNull(
