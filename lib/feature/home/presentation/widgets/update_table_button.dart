@@ -9,7 +9,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/scores_table_name_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +25,7 @@ class UpdateTableButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context)!;
     return BlocProvider<UpdateTableCubit>(
       create: (context) => injector(),
       child: Consumer<ScoresTableNameProvider>(
@@ -64,7 +64,7 @@ class UpdateTableButton extends StatelessWidget {
                         appRouter.go(Routes.home.path);
                       }
                     },
-                    child: const Text('Update table'),
+                    child: Text(l10n.updateTable),
                   );
                 },
               ),

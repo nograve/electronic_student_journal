@@ -4,6 +4,7 @@ import 'package:electronic_student_journal/feature/home/domain/params/table_para
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/delete_table_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DeleteTableButton extends StatelessWidget {
   const DeleteTableButton({
@@ -15,6 +16,7 @@ class DeleteTableButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return ElevatedButton(
       onPressed: () {
         context.read<DeleteTableCubit>().deleteTable(
@@ -25,7 +27,7 @@ class DeleteTableButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.red,
       ),
-      child: const Text('Remove table'),
+      child: Text(l10n.deleteTable),
     );
   }
 }

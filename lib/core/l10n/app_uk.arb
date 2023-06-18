@@ -51,5 +51,9 @@
   
   "language": "Мова",
   "enLang": "Англійська",
-  "uaLang": "Українська"
+  "uaLang": "Українська",
+
+  "exportToExcel": "Експортувати в Excel",
+  "updateTable": "Оновити таблицю",
+  "deleteTable": "Видалити таблицю"
 }

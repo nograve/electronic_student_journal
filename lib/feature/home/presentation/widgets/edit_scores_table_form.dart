@@ -114,7 +114,7 @@ class EditScoresTableForm extends StatelessWidget {
                                                     top: 24.h,
                                                   ),
                                                   child: SizedBox(
-                                                    width: 150.w,
+                                                    width: 200.w,
                                                     height: 50.h,
                                                     child: UpdateTableButton(
                                                       formKey: _formKey,
@@ -127,7 +127,7 @@ class EditScoresTableForm extends StatelessWidget {
                                                     top: 24.h,
                                                   ),
                                                   child: SizedBox(
-                                                    width: 150.w,
+                                                    width: 200.w,
                                                     height: 50.h,
                                                     child: DeleteTableButton(
                                                       table: table!,
