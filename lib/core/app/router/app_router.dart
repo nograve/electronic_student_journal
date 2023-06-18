@@ -10,6 +10,7 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/get_users_data_cubit_dart_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/register_user_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/sign_out_cubit.dart';
+import 'package:electronic_student_journal/feature/home/presentation/viewmodels/cubits/update_table_cubit.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/group_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/password_confirmer_hinter.dart';
@@ -188,30 +189,34 @@ final appRouter = GoRouter(
                       child: BlocProvider<GetUserDataCubit>(
                         create: (_) =>
                             injector()..getUserData(extra.$2.ownerUid),
-                        child: BlocProvider<DeleteTableCubit>(
+                        child: BlocProvider<UpdateTableCubit>(
                           create: (_) => injector(),
-                          child: BlocProvider<GetScoresCubit>(
-                            create: (_) => injector()..getScores(extra.$2.uid),
-                            child: BlocProvider<FindStudentsCubit>(
-                              create: (context) => injector(),
-                              child: ChangeNotifierProvider<
-                                  ScoresTableNameProvider>(
-                                create: (_) => ScoresTableNameProvider(
-                                  tableName: extra.$2.name,
-                                ),
-                                child:
-                                    ChangeNotifierProvider<ScoreNameProvider>(
-                                  create: (_) => injector(),
-                                  child: ChangeNotifierProvider<
-                                      ShowStudentSearchProvider>(
+                          child: BlocProvider<DeleteTableCubit>(
+                            create: (_) => injector(),
+                            child: BlocProvider<GetScoresCubit>(
+                              create: (_) =>
+                                  injector()..getScores(extra.$2.uid),
+                              child: BlocProvider<FindStudentsCubit>(
+                                create: (context) => injector(),
+                                child: ChangeNotifierProvider<
+                                    ScoresTableNameProvider>(
+                                  create: (_) => ScoresTableNameProvider(
+                                    tableName: extra.$2.name,
+                                  ),
+                                  child:
+                                      ChangeNotifierProvider<ScoreNameProvider>(
                                     create: (_) => injector(),
                                     child: ChangeNotifierProvider<
-                                        ShowConfirmScoreButton>(
+                                        ShowStudentSearchProvider>(
                                       create: (_) => injector(),
-                                      child: EditScoresTableView(
-                                        userRole:
-                                            state.queryParameters['userRole'],
-                                        table: extra.$2,
+                                      child: ChangeNotifierProvider<
+                                          ShowConfirmScoreButton>(
+                                        create: (_) => injector(),
+                                        child: EditScoresTableView(
+                                          userRole:
+                                              state.queryParameters['userRole'],
+                                          table: extra.$2,
+                                        ),
                                       ),
                                     ),
                                   ),

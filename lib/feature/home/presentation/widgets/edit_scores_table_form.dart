@@ -13,9 +13,9 @@ import 'package:electronic_student_journal/feature/home/presentation/widgets/del
 import 'package:electronic_student_journal/feature/home/presentation/widgets/score_name_field.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/scores_list_widget.dart';
 import 'package:electronic_student_journal/feature/home/presentation/widgets/scores_table_name_field.dart';
+import 'package:electronic_student_journal/feature/home/presentation/widgets/update_table_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EditScoresTableForm extends StatelessWidget {
@@ -29,7 +29,6 @@ class EditScoresTableForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     return Form(
       key: _formKey,
       child: Padding(
@@ -117,9 +116,9 @@ class EditScoresTableForm extends StatelessWidget {
                                                   child: SizedBox(
                                                     width: 150.w,
                                                     height: 50.h,
-                                                    child: ElevatedButton(
-                                                      onPressed: () {},
-                                                      child: Text(l10n.create),
+                                                    child: UpdateTableButton(
+                                                      formKey: _formKey,
+                                                      table: table!,
                                                     ),
                                                   ),
                                                 ),

@@ -170,21 +170,24 @@ class FirestoreRemoteDataSourceImpl implements FirestoreRemoteDataSource {
   @override
   Future<Either<Failure, void>> updateTable(EditTableParams params) async {
     try {
-      final tableReference =
-          _firebaseFirestore.collection('scores_tables').doc(params.table.name);
-      await tableReference.set(params.table.toJson());
+      // final tableReference =
+      //     _firebaseFirestore.collection('scores_tables').doc(params.table.name);
+      // await tableReference.set(params.table.toJson());
 
-      final scoresReference = tableReference.collection('scores');
-      final scoresSnapshot = await scoresReference.get();
-      for (final scoreSnapshot in scoresSnapshot.docs) {
-        await _firebaseFirestore.runTransaction<Transaction>(
-          (transaction) async => transaction.delete(scoreSnapshot.reference),
-        );
-      }
+      // final scoresReference = tableReference.collection('scores');
+      // final scoresSnapshot = await scoresReference.get();
+      // for (final scoreSnapshot in scoresSnapshot.docs) {
+      //   await _firebaseFirestore.runTransaction<Transaction>(
+      //     (transaction) async => transaction.delete(scoreSnapshot.reference),
+      //   );
+      // }
 
-      for (final score in params.scores) {
-        await scoresReference.add(score.toJson());
-      }
+      // for (final score in params.scores) {
+      //   await scoresReference.add(score.toJson());
+      // }
+
+      await deleteTable(TableParams(uid: params.table.uid));
+      await createTable(params);
 
       return const Right(null);
     } catch (e) {
