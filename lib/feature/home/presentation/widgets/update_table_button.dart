@@ -64,7 +64,7 @@ class UpdateTableButton extends StatelessWidget {
                         appRouter.go(Routes.home.path);
                       }
                     },
-                    child: Text('Update table'),
+                    child: const Text('Update table'),
                   );
                 },
               ),
