@@ -24,21 +24,7 @@ class EditScoresTableView extends StatelessWidget {
         title: table != null ? Text(table!.name) : Text(l10n.tableTitle),
       ),
       body: SingleChildScrollView(
-        child: BlocBuilder<UserChangesBloc, UserChangesState>(
-          builder: (context, state) {
-            return state.maybeWhen(
-              userSignsIn: (user) {
-                // TODO(nograve): Move GetUserDataCubit further in the tree
-                context.read<GetUserDataCubit>().getUserData(user.uid);
-
-                return EditScoresTableForm(
-                  table: table,
-                );
-              },
-              orElse: () => const Center(child: CircularProgressIndicator()),
-            );
-          },
-        ),
+        child: EditScoresTableForm(table: table),
       ),
     );
   }

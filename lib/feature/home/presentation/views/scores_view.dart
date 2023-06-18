@@ -61,7 +61,7 @@ class ScoresView extends StatelessWidget {
 
                         final scoreTablesButtons = scoreTables.map(
                           (table) => ElevatedButton(
-                            onPressed: () => context.goNamed(
+                            onPressed: () => appRouter.goNamed(
                               Routes.scoresTable.name,
                               extra: (context.read<UserChangesBloc>(), table),
                               queryParameters: {'userRole': userEntity.role},

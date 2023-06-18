@@ -33,6 +33,7 @@ import 'package:electronic_student_journal/feature/sign_in/presentation/viewmode
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/password_provider.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/viewmodels/sign_in_cubit.dart';
 import 'package:electronic_student_journal/feature/sign_in/presentation/views/sign_in_view.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -174,7 +175,6 @@ final appRouter = GoRouter(
                   ),
                 );
               },
-              // Edit scores table
               routes: [
                 GoRoute(
                   path: 'edit',
@@ -186,7 +186,8 @@ final appRouter = GoRouter(
                     return BlocProvider.value(
                       value: extra.$1,
                       child: BlocProvider<GetUserDataCubit>(
-                        create: (_) => injector(),
+                        create: (_) =>
+                            injector()..getUserData(extra.$2.ownerUid),
                         child: BlocProvider<DeleteTableCubit>(
                           create: (_) => injector(),
                           child: BlocProvider<GetScoresCubit>(
@@ -235,26 +236,40 @@ final appRouter = GoRouter(
 
                 return BlocProvider.value(
                   value: extra.$1,
-                  child: BlocProvider<GetUserDataCubit>(
-                    create: (_) => injector(),
-                    child: BlocProvider<FindStudentsCubit>(
-                      create: (context) => injector(),
-                      child: ChangeNotifierProvider<ScoresTableNameProvider>(
-                        create: (_) => injector(),
-                        child: ChangeNotifierProvider<ScoreNameProvider>(
-                          create: (_) => injector(),
-                          child:
-                              ChangeNotifierProvider<ShowStudentSearchProvider>(
-                            create: (_) => injector(),
+                  child: BlocConsumer<UserChangesBloc, UserChangesState>(
+                    listener: (context, state) => state.whenOrNull(
+                      userSingsOut: () => context.go(Routes.signIn.path),
+                    ),
+                    builder: (_, state) {
+                      return state.maybeWhen(
+                        userSignsIn: (teacher) =>
+                            BlocProvider<GetUserDataCubit>(
+                          create: (_) => injector()..getUserData(teacher.uid),
+                          child: BlocProvider<FindStudentsCubit>(
+                            create: (context) => injector(),
                             child:
-                                ChangeNotifierProvider<ShowConfirmScoreButton>(
+                                ChangeNotifierProvider<ScoresTableNameProvider>(
                               create: (_) => injector(),
-                              child: const EditScoresTableView(),
+                              child: ChangeNotifierProvider<ScoreNameProvider>(
+                                create: (_) => injector(),
+                                child: ChangeNotifierProvider<
+                                    ShowStudentSearchProvider>(
+                                  create: (_) => injector(),
+                                  child: ChangeNotifierProvider<
+                                      ShowConfirmScoreButton>(
+                                    create: (_) => injector(),
+                                    child: const EditScoresTableView(),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
+                        orElse: () => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    },
                   ),
                 );
               },
