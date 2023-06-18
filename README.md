@@ -8,7 +8,7 @@ Write the following commands before running the application:
 
 ```sh
 flutter pub get
-flutter pub run build_runner build --delete-conflicting-outputs
+dart pub run build_runner build --delete-conflicting-outputs
 ```
 
 ## Made by student Ihor Zakharov
