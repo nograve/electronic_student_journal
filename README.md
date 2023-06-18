@@ -4,9 +4,10 @@ Electronic student journal written with Flutter.
 
 ## Getting Started
 
-Write the following command before running the application:
+Write the following commands before running the application:
 
 ```sh
+flutter pub get
 flutter pub run build_runner build --delete-conflicting-outputs
 ```
 
