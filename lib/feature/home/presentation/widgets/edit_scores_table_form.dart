@@ -102,14 +102,18 @@ class EditScoresTableForm extends StatelessWidget {
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsets.only(
-                                                      top: 8.h, bottom: 12.h),
+                                                    top: 8.h,
+                                                    bottom: 12.h,
+                                                  ),
                                                   child: AddStudentForm(
-                                                      teacher: teacher),
+                                                    teacher: teacher,
+                                                  ),
                                                 ),
                                                 const ScoresListWidget(),
                                                 Padding(
                                                   padding: EdgeInsets.only(
-                                                      top: 24.h),
+                                                    top: 24.h,
+                                                  ),
                                                   child: SizedBox(
                                                     width: 150.w,
                                                     height: 50.h,
@@ -121,7 +125,8 @@ class EditScoresTableForm extends StatelessWidget {
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsets.only(
-                                                      top: 24.h),
+                                                    top: 24.h,
+                                                  ),
                                                   child: SizedBox(
                                                     width: 150.w,
                                                     height: 50.h,
