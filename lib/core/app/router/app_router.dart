@@ -19,7 +19,6 @@ import 'package:electronic_student_journal/feature/home/presentation/viewmodels/
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/role_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/score_name_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/scores_table_name_provider.dart';
-import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/show_confirm_score_button.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/show_student_search_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/surname_provider.dart';
 import 'package:electronic_student_journal/feature/home/presentation/viewmodels/providers/university_provider.dart';
@@ -209,14 +208,10 @@ final appRouter = GoRouter(
                                     child: ChangeNotifierProvider<
                                         ShowStudentSearchProvider>(
                                       create: (_) => injector(),
-                                      child: ChangeNotifierProvider<
-                                          ShowConfirmScoreButton>(
-                                        create: (_) => injector(),
-                                        child: EditScoresTableView(
-                                          userRole:
-                                              state.queryParameters['userRole'],
-                                          table: extra.$2,
-                                        ),
+                                      child: EditScoresTableView(
+                                        userRole:
+                                            state.queryParameters['userRole'],
+                                        table: extra.$2,
                                       ),
                                     ),
                                   ),
@@ -260,11 +255,7 @@ final appRouter = GoRouter(
                                 child: ChangeNotifierProvider<
                                     ShowStudentSearchProvider>(
                                   create: (_) => injector(),
-                                  child: ChangeNotifierProvider<
-                                      ShowConfirmScoreButton>(
-                                    create: (_) => injector(),
-                                    child: const EditScoresTableView(),
-                                  ),
+                                  child: const EditScoresTableView(),
                                 ),
                               ),
                             ),

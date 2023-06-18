@@ -24,9 +24,8 @@ class ScoresCubit extends Cubit<ScoresState> {
     required ScoreEntity initialScore,
     required ScoreEntity score,
   }) {
-    final scores = List.of(state.scores)
-      ..remove(initialScore)
-      ..add(score);
+    final scores = List.of(state.scores);
+    scores[scores.indexOf(initialScore)] = score;
 
     emit(_ScoreChanged(scores));
   }
