@@ -13,6 +13,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ScoresTableView extends StatelessWidget {
   const ScoresTableView({
@@ -167,16 +168,23 @@ class ScoresTableView extends StatelessWidget {
                           child: SizedBox(
                             height: 50.h,
                             child: ElevatedButton(
-                              onPressed: () => context
-                                  .read<ExportToExcelCubit>()
-                                  .exportToExcel(
+                              onPressed: () async {
+                                final exportToExcelCubit =
+                                    context.read<ExportToExcelCubit>();
+
+                                if (await Permission.manageExternalStorage
+                                    .request()
+                                    .isGranted) {
+                                  await exportToExcelCubit.exportToExcel(
                                     ExportingTableParams(
                                       cols: crossAxisCount,
                                       rows: mainAxisCount,
                                       content: content,
                                       tableName: table.name,
                                     ),
-                                  ),
+                                  );
+                                }
+                              },
                               child: Text(l10n.exportToExcel),
                             ),
                           ),
