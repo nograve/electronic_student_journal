@@ -11,5 +11,5 @@ flutter pub get
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-## Made by student Ihor Zakharov
-Виконано студентом групи 122-19-1 Захаровим Ігорем
+## Made by NTU DP student Ihor Zakharov
+Виконано студентом НТУ ДП групи 122-19-1 Захаровим Ігорем
