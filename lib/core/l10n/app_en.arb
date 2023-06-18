@@ -55,5 +55,6 @@
 
   "exportToExcel": "Export to Excel",
   "updateTable": "Update table",
-  "deleteTable": "Delete table"
+  "deleteTable": "Delete table",
+  "addStudent": "Add student"
 }

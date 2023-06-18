@@ -28,7 +28,7 @@ class AddStudentForm extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: 150.w,
+                  width: 200.w,
                   height: 50.h,
                   child: const AddStudentButton(),
                 ),

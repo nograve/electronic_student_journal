@@ -55,5 +55,6 @@
 
   "exportToExcel": "Експортувати в Excel",
   "updateTable": "Оновити таблицю",
-  "deleteTable": "Видалити таблицю"
+  "deleteTable": "Видалити таблицю",
+  "addStudent": "Додати студента"
 }
